@@ -22,10 +22,15 @@ struct ContentView: View {
                     },
                     label: { Image("dislike_button").renderingMode(.original)
                         .resizable()
+                        .frame(width: 40.0, height: 40.0)
                         .aspectRatio(contentMode: .fit)
+                        .padding(10)
                     }
                 )
-                .frame(width: 50.0, height: 50.0)
+                .background(Color.white)
+                    .clipShape(Circle())
+                .frame(width: 60.0, height: 60.0)
+                .shadow(radius: 7)
                 
                 Spacer()
             
@@ -36,13 +41,22 @@ struct ContentView: View {
                     },
                     label: { Image("like_button").renderingMode(.original)
                         .resizable()
+                        .frame(width: 40.0, height: 40.0)
                         .aspectRatio(contentMode: .fit)
+                        .padding(10)
                     }
                 )
-                .frame(width: 50.0, height: 50.0)
+                .background(Color.white)
+                .clipShape(Circle())
+                .frame(width: 60.0, height: 60.0)
+                .shadow(radius: 7)
                 Spacer()
             }
-        }.padding(.bottom, 50)
+            
+        }
+        .padding(.bottom, 100)
+        .background(Color(red: 240/255, green: 240/255, blue: 240/255))
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
