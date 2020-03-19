@@ -10,7 +10,39 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                
+                // Dislike Button
+                Button(
+                    action: {
+                        // do something
+                    },
+                    label: { Image("dislike_button").renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    }
+                )
+                .frame(width: 50.0, height: 50.0)
+                
+                Spacer()
+            
+                // Like Button
+                Button(
+                    action: {
+                        // do something
+                    },
+                    label: { Image("like_button").renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    }
+                )
+                .frame(width: 50.0, height: 50.0)
+                Spacer()
+            }
+        }.padding(.bottom, 50)
     }
 }
 
