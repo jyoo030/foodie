@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1010C30B242453BA001650AA /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1010C30A242453BA001650AA /* FooterView.swift */; };
 		107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B7242402AF004EB675 /* LikeButtonView.swift */; };
 		107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B924240368004EB675 /* DislikeButtonView.swift */; };
+		10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0BF24240B7100EC42F1 /* CardView.swift */; };
+		10A3E0C32424156B00EC42F1 /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0C22424156B00EC42F1 /* BottomCard.swift */; };
+		10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0C4242446B600EC42F1 /* HeaderView.swift */; };
 		A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78C24201EFC00537227 /* AppDelegate.swift */; };
 		A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78E24201EFC00537227 /* SceneDelegate.swift */; };
 		A8ADC79124201EFC00537227 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC79024201EFC00537227 /* ContentView.swift */; };
@@ -18,8 +22,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1010C30A242453BA001650AA /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		107F16B7242402AF004EB675 /* LikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonView.swift; sourceTree = "<group>"; };
 		107F16B924240368004EB675 /* DislikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DislikeButtonView.swift; sourceTree = "<group>"; };
+		10A3E0BF24240B7100EC42F1 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		10A3E0C22424156B00EC42F1 /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
+		10A3E0C4242446B600EC42F1 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		A8ADC78924201EFC00537227 /* foodie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8ADC78C24201EFC00537227 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8ADC78E24201EFC00537227 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +49,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1010C308242453A2001650AA /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				10A3E0C4242446B600EC42F1 /* HeaderView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		1010C309242453AE001650AA /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				1010C30A242453BA001650AA /* FooterView.swift */,
+			);
+			path = Footer;
+			sourceTree = "<group>";
+		};
 		107F16BB242403BC004EB675 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -48,6 +72,15 @@
 				107F16B924240368004EB675 /* DislikeButtonView.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		10A3E0C12424121800EC42F1 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				10A3E0BF24240B7100EC42F1 /* CardView.swift */,
+				10A3E0C22424156B00EC42F1 /* BottomCard.swift */,
+			);
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		A8ADC78024201EFC00537227 = {
@@ -69,6 +102,9 @@
 		A8ADC78B24201EFC00537227 /* foodie */ = {
 			isa = PBXGroup;
 			children = (
+				1010C309242453AE001650AA /* Footer */,
+				1010C308242453A2001650AA /* Header */,
+				10A3E0C12424121800EC42F1 /* Cards */,
 				107F16BB242403BC004EB675 /* Buttons */,
 				A8ADC78C24201EFC00537227 /* AppDelegate.swift */,
 				A8ADC78E24201EFC00537227 /* SceneDelegate.swift */,
@@ -160,11 +196,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10A3E0C32424156B00EC42F1 /* BottomCard.swift in Sources */,
 				107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */,
 				A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */,
+				1010C30B242453BA001650AA /* FooterView.swift in Sources */,
 				A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */,
 				A8ADC79124201EFC00537227 /* ContentView.swift in Sources */,
+				10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */,
 				107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */,
+				10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
