@@ -10,16 +10,18 @@ import SwiftUI
 
 struct HeaderView: View {
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color(red: 247/255, green: 114/255, blue: 203/255, opacity: 0.7))
-            .frame(width: 550, height: 550)
-            
-            Text("Group Name")
-            .foregroundColor(Color.white)
-            .font(.system(.largeTitle, design: .rounded))
-            .bold()
-                .offset(y:50)
+        GeometryReader { geometry in
+            ZStack {
+                Circle()
+                    .fill(Color(red: 247/255, green: 114/255, blue: 203/255, opacity: 0.7))
+                    .frame(width: geometry.size.width * 1.3)
+                
+                Text("Joftware")
+                .foregroundColor(Color.white)
+                .font(.system(.largeTitle, design: .rounded))
+                .bold()
+                .offset(y:geometry.size.height*0.06)
+            }
         }
     }
 }

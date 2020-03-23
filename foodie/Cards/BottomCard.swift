@@ -10,17 +10,19 @@ import SwiftUI
 
 struct BottomCard: View {
     var body: some View {
-        ZStack {
-            Text("No more cards 😢")
-                .foregroundColor(Color.black)
-                .font(.system(.largeTitle, design: .rounded))
-            
-            Rectangle()
-               .foregroundColor(Color.gray)
-                  .cornerRadius(20)
-                   .opacity(0.4)
-                   .frame(width: 340, height: 340)
-        }.shadow(radius: 7)
+        GeometryReader { geometry in
+            ZStack {
+                Text("No more cards 😢")
+                    .foregroundColor(Color.black)
+                    .font(.system(.largeTitle, design: .rounded))
+                
+                Rectangle()
+                   .foregroundColor(Color.gray)
+                      .cornerRadius(20)
+                       .opacity(0.4)
+                       .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.55)
+            }.shadow(radius: 7)
+        }
     }
 }
 
