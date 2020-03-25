@@ -31,7 +31,6 @@ struct Restaurant: Hashable, CustomStringConvertible {
 }
 
 struct ContentView: View {
-    
     @State var restaurants: [Restaurant] = [
         Restaurant(id: 0, name: "Pizza Hut", imageName: "pizza"),
         Restaurant(id: 1, name: "Taco Bell", imageName: "pizza"),
@@ -46,47 +45,53 @@ struct ContentView: View {
        }
     
     private func getCardOffset(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        return  CGFloat(restaurants.count - 1 - id) * 10 - geometry.size.height*0.12
+        return  CGFloat(restaurants.count - 1 - id) * 10 - geometry.size.height*0.25
     }
     
     private var maxID: Int {
         return self.restaurants.map { $0.id }.max() ?? 0
     }
-    var body: some View {
-        VStack {
-            GeometryReader { geometry in
-                ZStack {
-                    HeaderView()
-                        .offset(y:-geometry.size.height*0.5)
+        
+    @State private var yelpBusinessID: String = ""
 
-                    
-                    BottomCard()
-                        .offset(y: -geometry.size.height*0.05)
-                    
-                    ForEach(self.restaurants, id: \.self) { restaurant in
-                        Group {
-                            if restaurant.id > self.maxID - 4 {
-                                CardView(restaurant: restaurant, onRemove: {
-                                    removedRestaurant in self.restaurants.removeAll { $0.id == removedRestaurant.id }
-                                })
-                                .frame(width: self.getCardWidth(geometry, id: restaurant.id), height: geometry.size.height*0.85)
-                                .offset(x: 0, y: self.getCardOffset(geometry, id: restaurant.id))
-                                .animation(.spring())
-                            }
-                        }
-                    }
-                }.padding(.top, 80)
-                          
-                Spacer()
-            
-                HStack {
-                    DislikeButtonView()
-                    Spacer()
-                    LikeButtonView()
-                }.offset(y:geometry.size.height*0.32)
-                
-                FooterView().offset(y:geometry.size.height*0.9)
-            }
+    var body: some View {
+        NavigationView {
+            VStack {
+                   GeometryReader { geometry in
+                       ZStack {
+                           HeaderView().offset(y:-geometry.size.height*0.7)
+                           
+                           BottomCard()
+                               .offset(y: -geometry.size.height*0.14)
+                           
+                           ForEach(self.restaurants, id: \.self) { restaurant in
+                               Group {
+                                    if restaurant.id > self.maxID - 4 {
+                                        NavigationLink(destination: DetailView(yelpBusinessID: self.$yelpBusinessID))
+                                            {
+                                                CardView(restaurant: restaurant, onRemove: {
+                                                    removedRestaurant in self.restaurants.removeAll { $0.id == removedRestaurant.id }
+                                                })
+                                                .frame(width: self.getCardWidth(geometry, id: restaurant.id), height: geometry.size.height)
+                                                .offset(x: 0, y: self.getCardOffset(geometry, id: restaurant.id))
+                                                .animation(.spring())
+                                        }.buttonStyle(PlainButtonStyle())
+                                   }
+                               }
+                           }
+                       }.padding(.top, 80)
+                                 
+                       Spacer()
+                   
+                       HStack {
+                           DislikeButtonView()
+                           Spacer()
+                           LikeButtonView()
+                       }.offset(y:geometry.size.height*0.32)
+                       
+                       FooterView().offset(y:geometry.size.height*0.9)
+                   }
+               }
         }
         .background(Color(red: 240/255, green: 240/255, blue: 240/255))
     }
