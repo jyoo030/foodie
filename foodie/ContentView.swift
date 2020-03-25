@@ -21,7 +21,6 @@ extension AnyTransition {
     }
 }
 
-
 struct Restaurant: Hashable, CustomStringConvertible {
     var id: Int
     let name: String
@@ -38,13 +37,7 @@ struct ContentView: View {
         Restaurant(id: 1, name: "Taco Bell", imageName: "pizza"),
         Restaurant(id: 2, name: "Jack in the Box", imageName: "pizza"),
         Restaurant(id: 3, name: "Ten Rens", imageName: "pizza"),
-        Restaurant(id: 4, name: "McDonalds", imageName: "pizza"),
-        Restaurant(id: 5, name: "Boiling Point", imageName: "pizza"),
-        Restaurant(id: 6, name: "OMOMO", imageName: "pizza"),
-        Restaurant(id: 7, name: "Dominos", imageName: "pizza"),
-        Restaurant(id: 8, name: "Boiling Crab", imageName: "pizza"),
-        Restaurant(id: 9, name: "Cha2O", imageName: "pizza"),
-        Restaurant(id: 10, name: "Slurpin", imageName: "pizza")
+        Restaurant(id: 4, name: "McDonalds", imageName: "pizza")
     ]
     
     private func getCardWidth(_ geometry: GeometryProxy, id: Int) -> CGFloat {
