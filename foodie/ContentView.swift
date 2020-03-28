@@ -9,28 +9,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var restaurants: [Restaurant] = [
-        Restaurant(id: 0, name: "Pizza Hut", imageName: "pizza"),
-        Restaurant(id: 1, name: "Taco Bell", imageName: "pizza"),
-        Restaurant(id: 2, name: "Jack in the Box", imageName: "pizza"),
-        Restaurant(id: 3, name: "Ten Rens", imageName: "pizza"),
-        Restaurant(id: 4, name: "McDonalds", imageName: "pizza")
-    ]
-    @State  var yelpBusinessID: String = ""        
-
+    @ObservedObject var networkingManager = NetworkingManager()
+    
     var body: some View {
         NavigationView {
             VStack {
                    GeometryReader { geometry in
                        ZStack {
                         HeaderView().offset(y:-geometry.size.height*0.65)
-                           
+                                                   
                         BottomCard()
                             .offset(y: -geometry.size.height*0.054)
                            
-                        CardStackView(restaurants: self.$restaurants, yelpBusinessID: self.$yelpBusinessID)
+                        CardStackView(restaurants: self.$networkingManager.restaurants)
                             .offset(y:-geometry.size.height*0.16)
-                                 
+                                                         
                        Spacer()
                    
                        HStack {

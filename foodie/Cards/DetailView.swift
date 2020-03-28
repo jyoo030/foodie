@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct DetailView: View {
-    @Binding var yelpBusinessID: String
+    @State var yelpBusinessID: String
 
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(alignment: .leading) {
-                    Image("person_1")
+                    Image("pizza")
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
@@ -43,6 +43,6 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(yelpBusinessID: .constant("WavvLdfdP6g8aZTtbBQHTw"))
+        DetailView(yelpBusinessID: "WavvLdfdP6g8aZTtbBQHTw")
     }
 }

@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100893C9242D0F4E006AD9DB /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100893C8242D0F4E006AD9DB /* settings.swift */; };
 		1010C30B242453BA001650AA /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1010C30A242453BA001650AA /* FooterView.swift */; };
 		107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B7242402AF004EB675 /* LikeButtonView.swift */; };
 		107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B924240368004EB675 /* DislikeButtonView.swift */; };
+		108DB460242C259500FFC478 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108DB45F242C259500FFC478 /* NetworkingManager.swift */; };
 		10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0BF24240B7100EC42F1 /* CardView.swift */; };
 		10A3E0C32424156B00EC42F1 /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0C22424156B00EC42F1 /* BottomCard.swift */; };
 		10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0C4242446B600EC42F1 /* HeaderView.swift */; };
 		10C74BCE242AB1D700D050CA /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C74BCD242AB1D700D050CA /* DetailView.swift */; };
 		10CAD1BB242C07AF000FF2E7 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CAD1BA242C07AF000FF2E7 /* CardStackView.swift */; };
-		10CAD1BF242C0DDA000FF2E7 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CAD1BE242C0DDA000FF2E7 /* Restaurant.swift */; };
+		10FBFF27242C20FA008FA69E /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FBFF26242C20FA008FA69E /* Restaurant.swift */; };
 		A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78C24201EFC00537227 /* AppDelegate.swift */; };
 		A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78E24201EFC00537227 /* SceneDelegate.swift */; };
 		A8ADC79124201EFC00537227 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC79024201EFC00537227 /* ContentView.swift */; };
@@ -25,15 +27,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		100893C8242D0F4E006AD9DB /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
 		1010C30A242453BA001650AA /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		107F16B7242402AF004EB675 /* LikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonView.swift; sourceTree = "<group>"; };
 		107F16B924240368004EB675 /* DislikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DislikeButtonView.swift; sourceTree = "<group>"; };
+		108DB45F242C259500FFC478 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		10A3E0BF24240B7100EC42F1 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		10A3E0C22424156B00EC42F1 /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
 		10A3E0C4242446B600EC42F1 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		10C74BCD242AB1D700D050CA /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		10CAD1BA242C07AF000FF2E7 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
-		10CAD1BE242C0DDA000FF2E7 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		10FBFF26242C20FA008FA69E /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		A8ADC78924201EFC00537227 /* foodie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8ADC78C24201EFC00537227 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8ADC78E24201EFC00537227 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		100893C7242D0EE5006AD9DB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				100893C8242D0F4E006AD9DB /* settings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		1010C308242453A2001650AA /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +103,15 @@
 			path = Cards;
 			sourceTree = "<group>";
 		};
+		10FBFF25242C20EB008FA69E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				10FBFF26242C20FA008FA69E /* Restaurant.swift */,
+				108DB45F242C259500FFC478 /* NetworkingManager.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		A8ADC78024201EFC00537227 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +131,8 @@
 		A8ADC78B24201EFC00537227 /* foodie */ = {
 			isa = PBXGroup;
 			children = (
+				100893C7242D0EE5006AD9DB /* Settings */,
+				10FBFF25242C20EB008FA69E /* API */,
 				1010C309242453AE001650AA /* Footer */,
 				1010C308242453A2001650AA /* Header */,
 				10A3E0C12424121800EC42F1 /* Cards */,
@@ -121,7 +144,6 @@
 				A8ADC79724201F0000537227 /* LaunchScreen.storyboard */,
 				A8ADC79A24201F0000537227 /* Info.plist */,
 				A8ADC79424201F0000537227 /* Preview Content */,
-				10CAD1BE242C0DDA000FF2E7 /* Restaurant.swift */,
 			);
 			path = foodie;
 			sourceTree = "<group>";
@@ -207,16 +229,18 @@
 			files = (
 				10A3E0C32424156B00EC42F1 /* BottomCard.swift in Sources */,
 				107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */,
+				10FBFF27242C20FA008FA69E /* Restaurant.swift in Sources */,
 				10CAD1BB242C07AF000FF2E7 /* CardStackView.swift in Sources */,
 				A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */,
 				10C74BCE242AB1D700D050CA /* DetailView.swift in Sources */,
 				1010C30B242453BA001650AA /* FooterView.swift in Sources */,
 				A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */,
 				A8ADC79124201EFC00537227 /* ContentView.swift in Sources */,
-				10CAD1BF242C0DDA000FF2E7 /* Restaurant.swift in Sources */,
 				10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */,
 				107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */,
 				10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */,
+				100893C9242D0F4E006AD9DB /* settings.swift in Sources */,
+				108DB460242C259500FFC478 /* NetworkingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,27 +9,25 @@
 import SwiftUI
 
 struct CardView: View {
+    @Binding var restaurants:[Restaurant]
+    @Binding var restaurant: Restaurant
     @State private var translation: CGSize = .zero
     
-    private var restaurant: Restaurant
-    private var onRemove: (_ restaurant: Restaurant) -> Void
-    
-    private var thresholdPercentage: CGFloat = 0.5
-    
-    init(restaurant: Restaurant, onRemove: @escaping (_ restaurant: Restaurant) -> Void) {
-        self.restaurant = restaurant
-        self.onRemove = onRemove
-    }
+    var thresholdPercentage: CGFloat = 0.5
     
     private func getGesturePercentage(_ geometry: GeometryProxy, from gesture: DragGesture.Value) -> CGFloat {
            gesture.translation.width / geometry.size.width
        }
+    
+    private func remove(restaurant: Restaurant) {
+        restaurants.removeAll(where: { $0.id == restaurant.id })
+    }
 
     var body: some View {
         GeometryReader { geometry in
             
             VStack(spacing:0) {
-                Image(self.restaurant.imageName)
+                Image("chicken")
                 .resizable()
                 .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
                 .scaledToFill()
@@ -61,7 +59,7 @@ struct CardView: View {
                  }
                  .onEnded { value in
                     if abs(self.getGesturePercentage(geometry, from: value)) > self.thresholdPercentage {
-                        self.onRemove(self.restaurant)
+                        self.remove(restaurant: self.restaurant)
                         }
                     else {
                         self.translation = .zero
