@@ -9,19 +9,19 @@
 import SwiftUI
 
 struct CardView: View {
-    @Binding var restaurants:[Restaurant]
-    @Binding var restaurant: Restaurant
+    private var onRemove: (_ Restaurant: Restaurant) -> Void
+    private var restaurant: Restaurant
+    var thresholdPercentage: CGFloat = 0.5
     @State private var translation: CGSize = .zero
     
-    var thresholdPercentage: CGFloat = 0.5
+    init(restaurant: Restaurant, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
+        self.restaurant = restaurant
+        self.onRemove = onRemove
+    }
     
     private func getGesturePercentage(_ geometry: GeometryProxy, from gesture: DragGesture.Value) -> CGFloat {
            gesture.translation.width / geometry.size.width
        }
-    
-    private func remove(restaurant: Restaurant) {
-        restaurants.removeAll(where: { $0.id == restaurant.id })
-    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -59,8 +59,8 @@ struct CardView: View {
                  }
                  .onEnded { value in
                     if abs(self.getGesturePercentage(geometry, from: value)) > self.thresholdPercentage {
-                        self.remove(restaurant: self.restaurant)
-                        }
+                        self.onRemove(self.restaurant)
+                    }
                     else {
                         self.translation = .zero
                     }

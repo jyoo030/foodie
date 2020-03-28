@@ -18,19 +18,21 @@ private func getCardOffset(_ geometry: GeometryProxy, index: Int, length: Int) -
 }
 
 struct CardStackView: View {
-    @Binding var restaurants:[Restaurant]
+    @EnvironmentObject var networkingManager: NetworkingManager
     
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                ForEach(self.restaurants.indices, id: \.self) { index in
+                ForEach(self.networkingManager.restaurants.indices, id: \.self) { index in
                     Group {
-                        if index > self.restaurants.count - 3 {
-                            NavigationLink(destination: DetailView(yelpBusinessID: self.restaurants[index].id))
+                        if index > self.networkingManager.restaurants.count - 3 {
+                            NavigationLink(destination: DetailView(yelpBusinessID: self.networkingManager.restaurants[index].id))
                              {
-                                CardView(restaurants: self.$restaurants, restaurant: self.$restaurants[index])
-                                        .frame(width: getCardWidth(geometry, index: index, length: self.restaurants.count), height: geometry.size.height)
-                                        .offset(x: 0, y: getCardOffset(geometry, index: index, length: self.restaurants.count))
+                                CardView(restaurant: self.networkingManager.restaurants[index], onRemove: { removedUser in
+                                    self.networkingManager.restaurants.removeAll { $0.id == removedUser.id }
+                                })
+                                    .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
+                                    .offset(x: 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
                                      .animation(.spring())
                              }.buttonStyle(PlainButtonStyle())
                         }

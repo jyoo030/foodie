@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var networkingManager = NetworkingManager()
+    @EnvironmentObject var networkingManager: NetworkingManager
     
     var body: some View {
         NavigationView {
@@ -21,7 +21,7 @@ struct ContentView: View {
                         BottomCard()
                             .offset(y: -geometry.size.height*0.054)
                            
-                        CardStackView(restaurants: self.$networkingManager.restaurants)
+                        CardStackView()
                             .offset(y:-geometry.size.height*0.16)
                                                          
                        Spacer()
