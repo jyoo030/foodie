@@ -7,7 +7,7 @@ const client = yelp.client(process.env.YELP_API_KEY);
 
 router.get('/id/:id', function (req, res) {
 	client.business(req.params.id).then(response => {
-		res.json(response.body);
+		res.status(403).json(JSON.parse(response.body));
 	}).catch(e => {
 		console.log(e);
 	});
@@ -24,7 +24,7 @@ router.get('/radius/:radius', function(req, res) {
 	};
 
 	client.search(searchRequest).then(response => {
-		res.json(response.body).status(200);
+		res.status(403).json(JSON.parse(response.body));
 	}).catch(e => {
 		console.log(e);
 	});
