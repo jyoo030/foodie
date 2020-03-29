@@ -8,17 +8,6 @@
 
 import Foundation
 
-struct Location: Decodable {
-    var address1: String = ""
-    var address2: String? = ""
-    var address3: String? = ""
-    var city: String = ""
-    var zip_code: String = ""
-    var country: String = ""
-    var state: String = ""
-    var display_address: [String] = []
-}
-
 struct RestaurantList: Decodable {
     var businesses: [Restaurant]
 }
@@ -35,4 +24,15 @@ struct Restaurant: Decodable, Identifiable {
     var rating: Float = 0.0
     var price: String? = ""
     var location: Location = Location()
+}
+
+struct Location: Decodable {
+    var address1: String = ""
+    var address2: String? = ""
+    var address3: String? = ""
+    var city: String = ""
+    var zip_code: String = ""
+    var country: String = ""
+    var state: String = ""
+    var display_address: [String] = []
 }
