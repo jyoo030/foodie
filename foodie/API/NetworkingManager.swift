@@ -38,15 +38,18 @@ class NetworkingManager : ObservableObject {
     }
     
     func getRestaurantsDetails(yelpID:String) {
-        guard let url = URL(string: "http://localhost:3000/id/" + yelpID) else {return}
+        guard let url = URL(string: "http://localhost:3000/restaurant/id/" + yelpID) else {return}
         
-        URLSession.shared.dataTask(with: url) {(data, _, _) in
-            guard let data = data else {return}
-            
-            let response = try! JSONDecoder().decode(Restaurant.self, from: data)
-            
-            DispatchQueue.main.async {
-                self.restaurantDetails = response
+        URLSession.shared.dataTask(with: url) {(data, resp, err) in
+            do {
+                guard let data = data else {return}
+                let json = try JSONDecoder().decode(Restaurant.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.restaurantDetails = json
+                }
+            } catch {
+                print("caught: \(error)")
             }
         }.resume()
     }
