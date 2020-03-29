@@ -7,6 +7,7 @@
 //
 //
 import SwiftUI
+import KingfisherSwiftUI
 
 struct CardView: View {
     private var onRemove: (_ Restaurant: Restaurant) -> Void
@@ -27,13 +28,12 @@ struct CardView: View {
         GeometryReader { geometry in
             
             VStack(spacing:0) {
-                Image("chicken")
+                KFImage(URL(string: self.restaurant.image_url)!)
                 .resizable()
+                    .aspectRatio(contentMode: .fill)
                 .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
-                .scaledToFill()
-                .clipped()
 
-                VStack {
+                VStack(alignment: .leading) {
                     HStack {
                         Text(self.restaurant.name)
                             .font(.system(size: geometry.size.width * 0.06))
@@ -46,18 +46,19 @@ struct CardView: View {
                         .foregroundColor(.gray)
                     }
                     
-                    HStack{
+                    HStack {
                         RatingView(rating: Float(self.restaurant.rating))
                         
                         Spacer()
 
-                        Text(String(self.restaurant.rating) + "/5")
-                            .font(.headline)
-                            .foregroundColor(.gray)
+                        Text(String(self.restaurant.review_count) + " Reviews")
+                        .font(.headline)
+                        .foregroundColor(.gray)
                     }
+                    Spacer()
                 }
                 .padding(.horizontal)
-                .padding(.top, 10)
+                .padding(.top, geometry.size.height * 0.02)
                 .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.2)
                 .background(Color.white)
             }
