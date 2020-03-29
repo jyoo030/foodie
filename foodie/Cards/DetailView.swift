@@ -9,8 +9,13 @@
 import SwiftUI
 
 struct DetailView: View {
-    @State var yelpBusinessID: String
-
+    @EnvironmentObject var networkingManager: NetworkingManager
+    var yelpBusinessID: String
+    
+    init(yelpBusinessID: String) {
+        self.yelpBusinessID = yelpBusinessID
+    }
+        
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -23,13 +28,15 @@ struct DetailView: View {
                     
                     HStack {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Debra Weber, 28")
+                            Text(self.networkingManager.restaurantDetails.name)
                                 .font(.title)
                                 .bold()
-                            Text("Judge")
-                                .font(.subheadline)
-                                .bold()
-                            Text("13 Mutual Friends")
+                            ForEach(self.networkingManager.restaurantDetails.location.display_address, id: \.self) { address in
+                                Text(address)
+                                    .font(.subheadline)
+                                    .bold()
+                            }
+                            Text(self.networkingManager.restaurantDetails.price ?? "N/A")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
