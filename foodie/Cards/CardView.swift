@@ -32,19 +32,20 @@ struct CardView: View {
                 .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
                 .scaledToFill()
                 .clipped()
-                
-                ZStack {
-                    Rectangle()
-                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.1)
-                        .foregroundColor(Color.white)
 
-                    VStack{
+                VStack {
+                    HStack{
                         Text(self.restaurant.name)
-                        .foregroundColor(Color.black)
-                        .font(.system(.largeTitle, design: .rounded))
-                        .multilineTextAlignment(.leading)
+                            .font(.title)
+                            .bold()
+                        Spacer()
                     }
+                    Spacer()
                 }
+                .padding(.horizontal)
+                .padding(.top, 10)
+                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.2)
+                .background(Color.white)
             }
             .cornerRadius(20)
             .padding(.horizontal, 20)
