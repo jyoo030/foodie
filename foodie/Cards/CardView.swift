@@ -34,13 +34,27 @@ struct CardView: View {
                 .clipped()
 
                 VStack {
-                    HStack{
+                    HStack {
                         Text(self.restaurant.name)
-                            .font(.title)
+                            .font(.system(size: geometry.size.width * 0.06))
                             .bold()
+                        
                         Spacer()
+
+                        Text(self.restaurant.price ?? "")
+                        .font(.headline)
+                        .foregroundColor(.gray)
                     }
-                    Spacer()
+                    
+                    HStack{
+                        RatingView(rating: Float(self.restaurant.rating))
+                        
+                        Spacer()
+
+                        Text(String(self.restaurant.rating) + "/5")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
