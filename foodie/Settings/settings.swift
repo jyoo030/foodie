@@ -14,7 +14,7 @@ class Settings : ObservableObject {
     
     init()
     {
-        location = "san francisco, ca"
-        radius = 1000
+        location = "900 University Ave, Riverside, CA"
+        radius = 2000
     }
 }
