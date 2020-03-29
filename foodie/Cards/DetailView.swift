@@ -50,6 +50,6 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(yelpBusinessID: "WavvLdfdP6g8aZTtbBQHTw")
+        DetailView(yelpBusinessID: "E8RJkjfdcwgtyoPMjQ_Olg")
     }
 }
