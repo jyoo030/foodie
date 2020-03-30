@@ -24,6 +24,7 @@ extension Collection {
 }
 
 struct CardStackView: View {
+    private var numCards = 2
     @EnvironmentObject var networkingManager: NetworkingManager
     
     var body: some View {
@@ -31,13 +32,18 @@ struct CardStackView: View {
             ZStack{
                 ForEach(self.networkingManager.restaurants.enumeratedArray(), id: \.element.id) { index, item in
                     Group {
-                        if index > self.networkingManager.restaurants.count - 3 {
-                            NavigationLink(destination: DetailView(yelpBusinessID: item.id)
-                                .onAppear(perform: {self.networkingManager.getRestaurantsDetails(yelpID: item.id)}))
+                        if index > (self.networkingManager.restaurants.count - 1) - self.numCards {
+                            NavigationLink(destination: DetailView(restaurant: item))
                              {
-                                CardView(restaurant: item, onRemove: { removedUser in
-                                    self.networkingManager.restaurants.removeAll { $0.id == removedUser.id }
+                                CardView(restaurant: item, onRemove: { restaurant in
+                                    self.networkingManager.restaurants.removeAll { $0.id == restaurant.id }
+                                    self.networkingManager.restaurantDetails.removeAll {$0.id == restaurant.id}
                                 })
+                                    .onAppear(perform: {
+                                        if(self.networkingManager.restaurantDetails.count < self.numCards) {
+                                            self.networkingManager.getRestaurantsDetails(yelpID: item.id)
+                                        }
+                                    })
                                     .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
                                     .offset(x: 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
                                      .animation(.spring())

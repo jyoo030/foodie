@@ -13,7 +13,7 @@ import Combine
 class NetworkingManager : ObservableObject {
     @ObservedObject var settings:Settings = Settings()
     @Published var restaurants:[Restaurant] = []
-    @Published var restaurantDetails = Restaurant()
+    @Published var restaurantDetails:[Restaurant] = []
     
     init() {
         getRestaurantsByRadius(radius: settings.radius, location: settings.location)
@@ -46,7 +46,7 @@ class NetworkingManager : ObservableObject {
                 let json = try JSONDecoder().decode(Restaurant.self, from: data)
                 
                 DispatchQueue.main.async {
-                    self.restaurantDetails = json
+                    self.restaurantDetails.append(json)
                 }
             } catch {
                 print("caught: \(error)")

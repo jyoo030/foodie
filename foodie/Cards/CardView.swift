@@ -26,7 +26,6 @@ struct CardView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            
             VStack(spacing:0) {
                 KFImage(URL(string: self.restaurant.image_url)!)
                 .resizable()

@@ -7,20 +7,21 @@
 //
 
 import SwiftUI
+import KingfisherSwiftUI
 
 struct DetailView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
-    var yelpBusinessID: String
+    var restaurant: Restaurant
     
-    init(yelpBusinessID: String) {
-        self.yelpBusinessID = yelpBusinessID
+    init(restaurant: Restaurant) {
+        self.restaurant = restaurant
     }
         
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(alignment: .leading) {
-                    Image("pizza")
+                    KFImage(URL(string: self.restaurant.image_url)!)
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
@@ -28,15 +29,15 @@ struct DetailView: View {
                     
                     HStack {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text(self.networkingManager.restaurantDetails.name)
+                            Text(self.restaurant.name)
                                 .font(.title)
                                 .bold()
-                            ForEach(self.networkingManager.restaurantDetails.location.display_address, id: \.self) { address in
+                            ForEach(self.networkingManager.restaurantDetails[0].location.display_address, id: \.self) { address in
                                 Text(address)
                                     .font(.subheadline)
                                     .bold()
                             }
-                            Text(self.networkingManager.restaurantDetails.price ?? "N/A")
+                            Text(self.networkingManager.restaurantDetails[0].price ?? "N/A")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
@@ -45,11 +46,5 @@ struct DetailView: View {
                 }
             }
         }
-    }
-}
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(yelpBusinessID: "E8RJkjfdcwgtyoPMjQ_Olg")
     }
 }
