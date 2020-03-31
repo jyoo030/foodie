@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 struct RestaurantList: Decodable {
     var businesses: [Restaurant]
@@ -24,6 +25,7 @@ struct Restaurant: Decodable, Identifiable {
     var rating: Float = 0.0
     var price: String? = ""
     var location: Location = Location()
+    var coordinates: [String: CLLocationDegrees] = [:]
 }
 
 struct Location: Decodable {
