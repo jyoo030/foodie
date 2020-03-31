@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MapKit
 import KingfisherSwiftUI
 
 struct DetailView: View {
@@ -43,6 +44,9 @@ struct DetailView: View {
                         }
                         Spacer()
                     }.padding(.horizontal)
+
+                    MapView(centerCoordinate: CLLocationCoordinate2D(latitude: self.restaurant.coordinates["latitude"]!, longitude: self.restaurant.coordinates["longitude"]!), restaurantName: self.restaurant.name)
+                        .frame(height: geometry.size.height * 0.4)
                 }
             }
         }
