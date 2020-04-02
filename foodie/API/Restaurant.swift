@@ -26,6 +26,7 @@ struct Restaurant: Decodable, Identifiable {
     var price: String? = ""
     var location: Location = Location()
     var coordinates: [String: CLLocationDegrees] = [:]
+    var photos: [String]?
 }
 
 struct Location: Decodable {

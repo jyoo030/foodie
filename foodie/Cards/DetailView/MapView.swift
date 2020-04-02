@@ -16,7 +16,7 @@ struct MapView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
-        mapView.region = MKCoordinateRegion(center: centerCoordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mapView.region = MKCoordinateRegion(center: centerCoordinate, latitudinalMeters: 700, longitudinalMeters: 700)
         mapView.delegate = context.coordinator
         
         let annotation = MKPointAnnotation()
@@ -42,21 +42,5 @@ struct MapView: UIViewRepresentable {
         init(_ parent: MapView) {
             self.parent = parent
         }
-    }
-}
-
-extension MKPointAnnotation {
-    static var example: MKPointAnnotation {
-        let annotation = MKPointAnnotation()
-        annotation.title = "London"
-        annotation.subtitle = "Home to the 2012 Summer Olympics."
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
-        return annotation
-    }
-}
-
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView(centerCoordinate: MKPointAnnotation.example.coordinate, restaurantName: "Test")
     }
 }
