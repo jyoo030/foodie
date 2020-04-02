@@ -33,8 +33,6 @@ struct ReviewView: View {
                                     .frame(width: 70, height: 70)
                                 .scaledToFill()
                             }
-                            
-
                         } else {
                             Button(action: {
                                 guard let url = URL(string: review.user.profile_url) else { return }
@@ -52,14 +50,18 @@ struct ReviewView: View {
                         Spacer()
                     }
                     
-                    
-                    VStack(spacing: 0) {
-                        HStack{
-                            Spacer()
-                            RatingView(rating: review.rating).padding(.bottom, 10)
-                        }
+                    Button(action: {
+                          guard let url = URL(string: review.url) else { return }
+                          UIApplication.shared.open(url)
+                      }) {
+                          VStack(spacing: 0) {
+                              HStack{
+                                  Spacer()
+                                  RatingView(rating: review.rating).padding(.bottom, 10)
+                              }
 
-                        Text(review.text).font(.subheadline)
+                              Text(review.text).font(.subheadline)
+                          }
                     }
                     
                 }.padding(.horizontal)
