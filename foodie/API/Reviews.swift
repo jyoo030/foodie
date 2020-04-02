@@ -18,6 +18,7 @@ struct Review: Decodable, Identifiable {
     var user: User = User()
     var text: String = ""
     var url: String = ""
+    var time_created: String = ""
 }
 
 struct User: Decodable {

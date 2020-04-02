@@ -8,6 +8,7 @@
 
 import SwiftUI
 import KingfisherSwiftUI
+import Foundation
 
 struct ReviewView: View {
     var reviews: [Review]
@@ -59,15 +60,19 @@ struct ReviewView: View {
                         Text(review.text).font(.subheadline)
                         
                         HStack {
+                            Text(review.time_created.components(separatedBy: " ")[0])
+                                .font(.caption)
+                            .foregroundColor(.gray)
+                            
                             Spacer()
                             
                             Button(action: {
                                   guard let url = URL(string: review.url) else { return }
                                   UIApplication.shared.open(url)
                               }) {
-                                Text("Read more...").font(.caption)
+                                Text("Read More...").font(.caption)
                             }
-                        }
+                        }.padding(.top, 3)
                     }
                     
                     
