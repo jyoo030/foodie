@@ -19,22 +19,36 @@ struct ReviewView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             ForEach(reviews, id: \.id) {review in
-                HStack {
-                    if(review.user.image_url == nil) {
-                        Image("chicken")
-                        .resizable()
-                            .frame(width: 70, height: 70)
-                        .scaledToFill()
+                HStack(spacing: 10) {
+                    VStack {
+                        Spacer()
+                        if(review.user.image_url == nil) {
+                            Image("chicken")
+                            .resizable()
+                                .frame(width: 70, height: 70)
+                            .scaledToFill()
 
-                    } else {
-                        KFImage(URL(string: review.user.image_url!))
-                        .resizable()
-                            .frame(width: 70, height: 70)
-                        .scaledToFill()
-
+                        } else {
+                            KFImage(URL(string: review.user.image_url!))
+                            .resizable()
+                                .frame(width: 70, height: 70)
+                            .scaledToFill()
+                        }
+                        
+                        Text(review.user.name).font(.caption)
+                        Spacer()
                     }
                     
-                    Text(review.text).font(.subheadline)
+                    
+                    VStack(spacing: 0) {
+                        HStack{
+                            Spacer()
+                            RatingView(rating: review.rating).padding(.bottom, 10)
+                        }
+
+                        Text(review.text).font(.subheadline)
+                    }
+                    
                 }.padding(.horizontal)
             }
         }
