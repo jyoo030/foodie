@@ -33,17 +33,16 @@ struct CardStackView: View {
                 ForEach(self.networkingManager.restaurants.enumeratedArray(), id: \.element.id) { index, item in
                     Group {
                         if index > (self.networkingManager.restaurants.count - 1) - self.numCards {
-                            NavigationLink(destination: DetailView(restaurant: item))
+                            NavigationLink(destination: DetailView(restaurant: item)
+                                .onAppear(perform: {
+                                    self.networkingManager.getRestaurantsDetails(yelpID: item.id)
+                                    self.networkingManager.getRestaurantReviews(yelpID: item.id)
+                                }))
                              {
                                 CardView(restaurant: item, onRemove: { restaurant in
                                     self.networkingManager.restaurants.removeAll { $0.id == restaurant.id }
-                                    self.networkingManager.restaurantDetails.removeAll {$0.id == restaurant.id}
+                                    self.networkingManager.restaurantDetails = RestaurantDetail()
                                 })
-                                    .onAppear(perform: {
-                                        if(self.networkingManager.restaurantDetails.count < self.numCards) {
-                                            self.networkingManager.getRestaurantsDetails(yelpID: item.id)
-                                        }
-                                    })
                                     .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
                                     .offset(x: 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
                                      .animation(.spring())

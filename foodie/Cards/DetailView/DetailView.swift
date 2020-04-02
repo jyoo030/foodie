@@ -24,15 +24,19 @@ struct DetailView: View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
-                    PagingView(index: self.$index.animation(), maxIndex: self.networkingManager.restaurantDetails[0].photos!.count - 1) {
-                        ForEach(self.networkingManager.restaurantDetails[0].photos!, id: \.self) { imageUrl in
-                            KFImage(URL(string: imageUrl)!)
-                                .resizable()
-                                .scaledToFill()
+                    if(self.networkingManager.restaurantDetails.photos.isEmpty) {
+                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                         .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
+                    } else {
+                        PagingView(index: self.$index.animation(), maxIndex: self.networkingManager.restaurantDetails.photos.count - 1) {
+                            ForEach(self.networkingManager.restaurantDetails.photos, id: \.self) { imageUrl in
+                                KFImage(URL(string: imageUrl)!)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
                         }
+                            .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
                     }
-                        
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
                     
                     VStack(alignment: .leading, spacing: geometry.size.height * 0.03) {
                         HStack {
@@ -59,7 +63,7 @@ struct DetailView: View {
                         
                         HStack {
                             Spacer()
-                        ForEach(self.networkingManager.restaurantDetails[0].location.display_address, id: \.self) { address in
+                        ForEach(self.networkingManager.restaurantDetails.location.display_address, id: \.self) { address in
                                 Text(address)
                                     .font(.subheadline)
                                     .bold()
@@ -67,6 +71,7 @@ struct DetailView: View {
                             
                             Spacer()
                         }
+                        
                     }.padding(.horizontal)
                     
                     MapView(centerCoordinate: CLLocationCoordinate2D(latitude: self.restaurant.coordinates["latitude"]!, longitude: self.restaurant.coordinates["longitude"]!), restaurantName: self.restaurant.name)
