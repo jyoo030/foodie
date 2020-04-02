@@ -50,19 +50,27 @@ struct ReviewView: View {
                         Spacer()
                     }
                     
-                    Button(action: {
-                          guard let url = URL(string: review.url) else { return }
-                          UIApplication.shared.open(url)
-                      }) {
-                          VStack(spacing: 0) {
-                              HStack{
-                                  Spacer()
-                                  RatingView(rating: review.rating).padding(.bottom, 10)
-                              }
+                    VStack(spacing: 0) {
+                        HStack{
+                            Spacer()
+                            RatingView(rating: review.rating).padding(.bottom, 10)
+                        }
 
-                              Text(review.text).font(.subheadline)
-                          }
+                        Text(review.text).font(.subheadline)
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                  guard let url = URL(string: review.url) else { return }
+                                  UIApplication.shared.open(url)
+                              }) {
+                                Text("Read more...").font(.caption)
+                            }
+                        }
                     }
+                    
+                    
                     
                 }.padding(.horizontal)
             }
