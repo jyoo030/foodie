@@ -26,7 +26,12 @@ struct Restaurant: Decodable, Identifiable {
     var price: String? = ""
     var location: Location = Location()
     var coordinates: [String: CLLocationDegrees] = [:]
-    var photos: [String]?
+}
+
+struct RestaurantDetail: Decodable, Identifiable {
+    var id: String = ""
+    var photos: [String] = []
+    var location: Location = Location()
 }
 
 struct Location: Decodable {
@@ -39,3 +44,4 @@ struct Location: Decodable {
     var state: String = ""
     var display_address: [String] = []
 }
+
