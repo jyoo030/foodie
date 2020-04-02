@@ -66,7 +66,22 @@ struct DetailView: View {
                         ForEach(self.networkingManager.restaurantDetails.location.display_address, id: \.self) { address in
                                 Text(address)
                                     .font(.subheadline)
-                                    .bold()
+                                .bold()
+                            }
+                            
+                            Spacer()
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                let tel = "tel://"
+                                let formattedString = tel + self.networkingManager.restaurantDetails.display_phone
+                                guard let url = URL(string: formattedString) else { return }
+                                UIApplication.shared.open(url)
+                               }) {
+                                Text(self.networkingManager.restaurantDetails.display_phone)
                             }
                             
                             Spacer()

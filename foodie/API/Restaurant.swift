@@ -31,6 +31,7 @@ struct Restaurant: Decodable, Identifiable {
 struct RestaurantDetail: Decodable, Identifiable {
     var id: String = ""
     var photos: [String] = []
+    var display_phone: String = ""
     var location: Location = Location()
 }
 
