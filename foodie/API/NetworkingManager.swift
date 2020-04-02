@@ -13,7 +13,8 @@ import Combine
 class NetworkingManager : ObservableObject {
     @ObservedObject var settings:Settings = Settings()
     @Published var restaurants:[Restaurant] = []
-    @Published var restaurantDetails:[Restaurant] = []
+    @Published var restaurantDetails:RestaurantDetail = RestaurantDetail()
+    @Published var reviews:[Review] = []
     
     init() {
         getRestaurantsByRadius(radius: settings.radius, location: settings.location)
@@ -43,10 +44,27 @@ class NetworkingManager : ObservableObject {
         URLSession.shared.dataTask(with: url) {(data, resp, err) in
             do {
                 guard let data = data else {return}
-                let json = try JSONDecoder().decode(Restaurant.self, from: data)
+                let json = try JSONDecoder().decode(RestaurantDetail.self, from: data)
                 
                 DispatchQueue.main.async {
-                    self.restaurantDetails.append(json)
+                    self.restaurantDetails = json
+                }
+            } catch {
+                print("caught: \(error)")
+            }
+        }.resume()
+    }
+    
+    func getRestaurantReviews(yelpID: String) {
+        guard let url = URL(string: "http://localhost:3000/restaurant/reviews/" + yelpID) else {return}
+        
+        URLSession.shared.dataTask(with: url) {(data, resp, err) in
+            do {
+                guard let data = data else {return}
+                let json = try JSONDecoder().decode(Reviews.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.reviews = json.reviews
                 }
             } catch {
                 print("caught: \(error)")
