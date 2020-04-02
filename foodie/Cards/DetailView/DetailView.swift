@@ -74,9 +74,31 @@ struct DetailView: View {
                         
                     }.padding(.horizontal)
                     
+                    if(self.networkingManager.reviews.isEmpty)
+                    {
+                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                    } else {
+                        ReviewView(reviews: self.networkingManager.reviews)
+                    }
+                    
                     MapView(centerCoordinate: CLLocationCoordinate2D(latitude: self.restaurant.coordinates["latitude"]!, longitude: self.restaurant.coordinates["longitude"]!), restaurantName: self.restaurant.name)
                     .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
                     
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            guard let url = URL(string: self.restaurant.url) else { return }
+                            UIApplication.shared.open(url)
+                        }) {
+                            Image("yelpLogo").renderingMode(.original)
+                            .resizable()
+                                .frame(width: geometry.size.width * 0.15, height: geometry.size.height * 0.10)
+                            .scaledToFit()
+                        }
+                        
+                        Spacer()
+                    }
                 }
             }
         }

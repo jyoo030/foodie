@@ -11,6 +11,7 @@
 		100893C9242D0F4E006AD9DB /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100893C8242D0F4E006AD9DB /* settings.swift */; };
 		1010C30B242453BA001650AA /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1010C30A242453BA001650AA /* FooterView.swift */; };
 		102763D524365A2900413A48 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D424365A2900413A48 /* ActivityIndicator.swift */; };
+		102763D82436626300413A48 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D72436626300413A48 /* ReviewView.swift */; };
 		1048F63A243591CC00BB1018 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048F639243591CC00BB1018 /* Reviews.swift */; };
 		107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B7242402AF004EB675 /* LikeButtonView.swift */; };
 		107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B924240368004EB675 /* DislikeButtonView.swift */; };
@@ -38,6 +39,7 @@
 		100893C8242D0F4E006AD9DB /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
 		1010C30A242453BA001650AA /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		102763D424365A2900413A48 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		102763D72436626300413A48 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		1048F639243591CC00BB1018 /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		107F16B7242402AF004EB675 /* LikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonView.swift; sourceTree = "<group>"; };
 		107F16B924240368004EB675 /* DislikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DislikeButtonView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				10C74BCD242AB1D700D050CA /* DetailView.swift */,
 				109823C82432CEA80069615D /* MapView.swift */,
+				102763D72436626300413A48 /* ReviewView.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				102763D82436626300413A48 /* ReviewView.swift in Sources */,
 				10A3E0C32424156B00EC42F1 /* BottomCard.swift in Sources */,
 				109823C92432CEA80069615D /* MapView.swift in Sources */,
 				102763D524365A2900413A48 /* ActivityIndicator.swift in Sources */,

@@ -12,7 +12,7 @@ struct Reviews: Decodable {
     var reviews: [Review]
 }
 
-struct Review: Decodable {
+struct Review: Decodable, Identifiable {
     var id: String = ""
     var rating: Float = 0.0
     var user: User = User()
