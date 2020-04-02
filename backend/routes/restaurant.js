@@ -30,5 +30,13 @@ router.get('/radius/:radius', function(req, res) {
 	});
 });
 
+router.get('/reviews/:id', function (req, res) {
+	client.reviews(req.params.id).then(response => {
+		res.status(403).send(response.body);
+	}).catch(e => {
+		console.log(e);
+	});
+})
+
 //export this router to use in our index.js
 module.exports = router;
