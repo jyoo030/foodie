@@ -23,16 +23,29 @@ struct ReviewView: View {
                     VStack {
                         Spacer()
                         if(review.user.image_url == nil) {
-                            Image("chicken")
-                            .resizable()
-                                .frame(width: 70, height: 70)
-                            .scaledToFill()
+                            Button(action: {
+                                guard let url = URL(string: review.user.profile_url) else { return }
+                                UIApplication.shared.open(url)
+                            }) {
+                                Image("chicken")
+                                    .renderingMode(.original)
+                                .resizable()
+                                    .frame(width: 70, height: 70)
+                                .scaledToFill()
+                            }
+                            
 
                         } else {
-                            KFImage(URL(string: review.user.image_url!))
-                            .resizable()
-                                .frame(width: 70, height: 70)
-                            .scaledToFill()
+                            Button(action: {
+                                guard let url = URL(string: review.user.profile_url) else { return }
+                                UIApplication.shared.open(url)
+                            }) {
+                                KFImage(URL(string: review.user.image_url!))
+                                    .renderingMode(.original)
+                                .resizable()
+                                    .frame(width: 70, height: 70)
+                                .scaledToFill()
+                            }
                         }
                         
                         Text(review.user.name).font(.caption)
