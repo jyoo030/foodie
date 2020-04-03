@@ -24,8 +24,10 @@ extension Collection {
 }
 
 struct CardStackView: View {
-    private var numCards = 2
+    var numCards = 2
     @EnvironmentObject var networkingManager: NetworkingManager
+    @Binding var toggle: likeOrDislike
+    @Binding var pos: CGFloat
     
     var body: some View {
         GeometryReader { geometry in
@@ -39,12 +41,15 @@ struct CardStackView: View {
                                     self.networkingManager.getRestaurantReviews(yelpID: item.id)
                                 }))
                              {
-                                CardView(restaurant: item, onRemove: { restaurant in
-                                    self.networkingManager.onRemoveCard(restaurant: restaurant)
-                                })
-                                    .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
-                                    .offset(x: 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
-                                     .animation(.spring())
+                                if !(index == self.networkingManager.restaurants.count-1 && self.toggle != .none) {
+                                    CardView(restaurant: item, onRemove: { restaurant in
+                                        self.networkingManager.onRemoveCard(restaurant: restaurant)
+                                    })
+                                        .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
+                                        .offset(x:0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
+                                        .animation(.spring())
+                                        .transition(.move(edge: self.toggle == .like ? .trailing : .leading))
+                                }
                              }
                                 .buttonStyle(PlainButtonStyle())
                         }

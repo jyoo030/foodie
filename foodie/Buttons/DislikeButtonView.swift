@@ -10,12 +10,22 @@ import SwiftUI
 
 struct DislikeButtonView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
+    @Binding var toggle: likeOrDislike
+    @Binding var pos: CGFloat
 
     var body: some View {
         GeometryReader { geometry in
             Button(
                 action: {
-                    self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
+                  withAnimation(.easeIn(duration: 1)){
+                      self.toggle = .dislike
+                      self.pos = -100
+                  }
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                      self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
+                      self.toggle = .none
+                      self.pos = 0
+                  }
                 },
                 label: { Image("dislike_button").renderingMode(.original)
                     .resizable()
@@ -32,8 +42,8 @@ struct DislikeButtonView: View {
     }
 }
 
-struct DislikeButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        DislikeButtonView()
-    }
-}
+//struct DislikeButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DislikeButtonView()
+//    }
+//}

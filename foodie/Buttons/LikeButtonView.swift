@@ -11,12 +11,20 @@ import SwiftUI
 
 struct LikeButtonView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
+    @Binding var toggle: likeOrDislike
+    @Binding var pos: CGFloat
 
     var body: some View {
         GeometryReader { geometry in
             Button(
               action: {
+                withAnimation{
+                    self.toggle = .like
+                    self.pos = 100
+                }
+                self.pos = 0
                 self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
+                self.toggle = .none
               },
               label: { Image("like_button").renderingMode(.original)
                   .resizable()
@@ -34,8 +42,8 @@ struct LikeButtonView: View {
     }
 }
 
-struct LikeButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        LikeButtonView()
-    }
-}
+//struct LikeButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LikeButtonView()
+//    }
+//}
