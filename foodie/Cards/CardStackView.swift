@@ -40,15 +40,13 @@ struct CardStackView: View {
                                 }))
                              {
                                 CardView(restaurant: item, onRemove: { restaurant in
-                                    self.networkingManager.restaurants.removeAll { $0.id == restaurant.id }
-                                    self.networkingManager.restaurantDetails = RestaurantDetail()
-                                    self.networkingManager.reviews = []
+                                    self.networkingManager.onRemoveCard(restaurant: restaurant)
                                 })
                                     .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
                                     .offset(x: 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
                                      .animation(.spring())
                              }
-                            .buttonStyle(PlainButtonStyle())
+                                .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }

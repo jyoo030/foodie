@@ -9,11 +9,14 @@
 import SwiftUI
 
 struct DislikeButtonView: View {
+    @EnvironmentObject var networkingManager: NetworkingManager
+    var cards: CardStackView
 
     var body: some View {
         GeometryReader { geometry in
             Button(
                 action: {
+                    self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
                 },
                 label: { Image("dislike_button").renderingMode(.original)
                     .resizable()

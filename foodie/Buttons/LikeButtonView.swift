@@ -4,17 +4,19 @@
 //
 //  Created by Justin Yoo on 3/16/20.
 //  Copyright © 2020 Joftware. All rights reserved.
-//
+// ? is optional and can be null
+// ! unwraps
 
 import SwiftUI
 
 struct LikeButtonView: View {
+    @EnvironmentObject var networkingManager: NetworkingManager
 
     var body: some View {
         GeometryReader { geometry in
             Button(
               action: {
-                    
+                self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
               },
               label: { Image("like_button").renderingMode(.original)
                   .resizable()

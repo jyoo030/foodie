@@ -16,6 +16,9 @@ struct CardView: View {
     @State private var translation: CGSize = .zero
     @State private var status: yumOrNah = .none
     
+    @EnvironmentObject var networkingManager: NetworkingManager
+
+    
     private enum yumOrNah: Int {
         case yum, nah, none
     }
