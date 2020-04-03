@@ -10,7 +10,6 @@ import SwiftUI
 
 struct DislikeButtonView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
-    var cards: CardStackView
 
     var body: some View {
         GeometryReader { geometry in
