@@ -33,6 +33,17 @@ struct RestaurantDetail: Decodable, Identifiable {
     var photos: [String] = []
     var display_phone: String = ""
     var location: Location = Location()
+    var hours: [Hours]? = []
+}
+
+struct Hours: Decodable {
+    var open: [Hour] = []
+}
+
+struct Hour: Decodable, Hashable {
+    var start: String = ""
+    var end: String = ""
+    var day: Int = 0
 }
 
 struct Location: Decodable {
