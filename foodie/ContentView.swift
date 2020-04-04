@@ -8,14 +8,9 @@
 
 import SwiftUI
 
-enum likeOrDislike: Int {
-     case none, like, dislike
-}
-
 struct ContentView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
-    @State var toggle: likeOrDislike = .none
-    @State var pos: CGFloat = 0
+    @State var toggle: CGFloat = 0
     
     var body: some View {
         NavigationView {
@@ -27,15 +22,15 @@ struct ContentView: View {
                         BottomCard()
                             .offset(y: -geometry.size.height*0.054)
                            
-                        CardStackView(toggle: self.$toggle, pos: self.$pos)
+                        CardStackView(toggle: self.$toggle)
                             .offset(y:-geometry.size.height*0.16)
                                                          
                        Spacer()
                    
                        HStack {
-                        DislikeButtonView(toggle: self.$toggle, pos: self.$pos)
+                        DislikeButtonView(toggle: self.$toggle)
                            Spacer()
-                        LikeButtonView(toggle: self.$toggle, pos: self.$pos)
+                        LikeButtonView(toggle: self.$toggle)
                        }.offset(y:geometry.size.height*0.32)
                        
                        FooterView().offset(y:geometry.size.height*0.9)

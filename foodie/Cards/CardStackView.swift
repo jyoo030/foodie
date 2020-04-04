@@ -26,8 +26,7 @@ extension Collection {
 struct CardStackView: View {
     var numCards = 2
     @EnvironmentObject var networkingManager: NetworkingManager
-    @Binding var toggle: likeOrDislike
-    @Binding var pos: CGFloat
+    @Binding var toggle: CGFloat
     
     var body: some View {
         GeometryReader { geometry in
@@ -41,15 +40,12 @@ struct CardStackView: View {
                                     self.networkingManager.getRestaurantReviews(yelpID: item.id)
                                 }))
                              {
-                                if !(index == self.networkingManager.restaurants.count-1 && self.toggle != .none) {
-                                    CardView(restaurant: item, onRemove: { restaurant in
-                                        self.networkingManager.onRemoveCard(restaurant: restaurant)
-                                    })
-                                        .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
-                                        .offset(x:0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
-                                        .animation(.spring())
-                                        .transition(.move(edge: self.toggle == .like ? .trailing : .leading))
-                                }
+                                CardView(restaurant: item, onRemove: { restaurant in
+                                    self.networkingManager.onRemoveCard(restaurant: restaurant)
+                                })
+                                    .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
+                                    .offset(x: index == self.networkingManager.restaurants.count - 1 ? self.toggle : 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
+                                    .animation(.spring())
                              }
                                 .buttonStyle(PlainButtonStyle())
                         }
