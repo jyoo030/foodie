@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
+    @State var toggle: CGFloat = 0
     
     var body: some View {
         NavigationView {
@@ -21,15 +22,15 @@ struct ContentView: View {
                         BottomCard()
                             .offset(y: -geometry.size.height*0.054)
                            
-                        CardStackView()
+                        CardStackView(toggle: self.$toggle)
                             .offset(y:-geometry.size.height*0.16)
                                                          
                        Spacer()
                    
                        HStack {
-                           DislikeButtonView()
+                        DislikeButtonView(toggle: self.$toggle)
                            Spacer()
-                           LikeButtonView()
+                        LikeButtonView(toggle: self.$toggle)
                        }.offset(y:geometry.size.height*0.32)
                        
                        FooterView().offset(y:geometry.size.height*0.9)

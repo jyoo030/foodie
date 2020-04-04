@@ -4,17 +4,27 @@
 //
 //  Created by Justin Yoo on 3/16/20.
 //  Copyright © 2020 Joftware. All rights reserved.
-//
+// ? is optional and can be null
+// ! unwraps
 
 import SwiftUI
 
 struct LikeButtonView: View {
+    @EnvironmentObject var networkingManager: NetworkingManager
+    @Binding var toggle: CGFloat
 
     var body: some View {
         GeometryReader { geometry in
             Button(
               action: {
-                    
+                withAnimation(.easeOut(duration: 0.15)) {
+                    self.toggle = 500
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self.toggle = 0
+                    self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
+                }
               },
               label: { Image("like_button").renderingMode(.original)
                   .resizable()
@@ -32,8 +42,8 @@ struct LikeButtonView: View {
     }
 }
 
-struct LikeButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        LikeButtonView()
-    }
-}
+//struct LikeButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LikeButtonView()
+//    }
+//}

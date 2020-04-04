@@ -9,16 +9,18 @@
 import SwiftUI
 import KingfisherSwiftUI
 
+enum yumOrNah: Int {
+    case yum, nah, none
+}
+
 struct CardView: View {
     private var onRemove: (_ Restaurant: Restaurant) -> Void
     private var restaurant: Restaurant
     var thresholdPercentage: CGFloat = 0.3
     @State private var translation: CGSize = .zero
-    @State private var status: yumOrNah = .none
+    @State var status: yumOrNah = .none
     
-    private enum yumOrNah: Int {
-        case yum, nah, none
-    }
+    @EnvironmentObject var networkingManager: NetworkingManager
     
     init(restaurant: Restaurant, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
         self.restaurant = restaurant

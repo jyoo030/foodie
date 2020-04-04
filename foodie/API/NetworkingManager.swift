@@ -71,4 +71,10 @@ class NetworkingManager : ObservableObject {
             }
         }.resume()
     }
+    
+    func onRemoveCard(restaurant: Restaurant) {
+        self.restaurants.removeAll { $0.id == restaurant.id }
+        self.restaurantDetails = RestaurantDetail()
+        self.reviews = []
+    }
 }
