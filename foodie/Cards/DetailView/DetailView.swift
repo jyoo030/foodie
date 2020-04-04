@@ -23,6 +23,7 @@ struct DetailView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
+                // Image Slider
                 VStack(alignment: .leading) {
                     if(self.networkingManager.restaurantDetails.photos.isEmpty) {
                         ActivityIndicator(isAnimating: .constant(true), style: .large)
@@ -39,6 +40,7 @@ struct DetailView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: geometry.size.height * 0.03) {
+                        //Card Title & Ratings
                         HStack {
                             Text(self.restaurant.name)
                                 .font(.system(size: geometry.size.width * 0.06))
@@ -61,44 +63,30 @@ struct DetailView: View {
                             .foregroundColor(.gray)
                         }
                         
-                        HStack {
-                            Spacer()
-                        ForEach(self.networkingManager.restaurantDetails.location.display_address, id: \.self) { address in
-                                Text(address)
-                                    .font(.subheadline)
-                                .bold()
-                            }
-                            
-                            Spacer()
-                        }
-                        
-                        HStack {
-                            Spacer()
-                            
-                            Button(action: {
-                                let tel = "tel://"
-                                let formattedString = tel + self.networkingManager.restaurantDetails.display_phone
-                                guard let url = URL(string: formattedString) else { return }
-                                UIApplication.shared.open(url)
-                               }) {
-                                Text(self.networkingManager.restaurantDetails.display_phone)
-                            }
-                            
-                            Spacer()
-                        }
+                        //Restaurant Info
+                        RestaurantInfoView()
                         
                     }.padding(.horizontal)
                     
+                    // Reviews
                     if(self.networkingManager.reviews.isEmpty)
                     {
-                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                        HStack {
+                            Spacer()
+                            
+                            ActivityIndicator(isAnimating: .constant(true), style: .large)
+
+                            Spacer()
+                        }
                     } else {
                         ReviewView(reviews: self.networkingManager.reviews)
                     }
                     
+                    // Map
                     MapView(centerCoordinate: CLLocationCoordinate2D(latitude: self.restaurant.coordinates["latitude"]!, longitude: self.restaurant.coordinates["longitude"]!), restaurantName: self.restaurant.name)
                     .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
                     
+                    // Yelp Logo
                     HStack {
                         Spacer()
                         
