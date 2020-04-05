@@ -53,7 +53,11 @@ struct PagingView<Content>: View where Content: View {
             }
             .clipped()
 
-            PageControl(index: $index, maxIndex: maxIndex)
+            HStack {
+                Spacer()
+                PageControl(index: $index, maxIndex: maxIndex)
+                Spacer()
+            }
         }
     }
 
