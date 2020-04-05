@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var networkingManager: NetworkingManager
     @State var toggle: CGFloat = 0
     @State var degree: Double = 0
     
