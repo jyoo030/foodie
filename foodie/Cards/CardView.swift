@@ -19,14 +19,14 @@ struct CardView: View {
     var thresholdPercentage: CGFloat = 0.3
     var index: Int
     @State private var translation: CGSize = .zero
-    @Binding var status: yumOrNah
-    
+    @ObservedObject var swipeVar: SwipeVar
+
     @EnvironmentObject var networkingManager: NetworkingManager
     
-    init(restaurant: Restaurant, index: Int, status: Binding<yumOrNah>, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
+    init(restaurant: Restaurant, index: Int, swipeVar: SwipeVar, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
         self.restaurant = restaurant
+        self.swipeVar = swipeVar
         self.index = index
-        self._status = status
         self.onRemove = onRemove
     }
     
@@ -37,16 +37,16 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing:0) {
-                ZStack(alignment: self.status == .yum ? .topLeading : .topTrailing) {
+                ZStack(alignment: self.swipeVar.status == .yum ? .topLeading : .topTrailing) {
                     KFImage(URL(string: self.restaurant.image_url)!)
                     .resizable()
                         .aspectRatio(contentMode: .fill)
                     .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
                     
                     if self.networkingManager.isLastCard(index: self.index) {
-                        if self.status == .yum {
+                        if self.swipeVar.status == .yum {
                             YummyView()
-                        }  else if self.status == .nah {
+                        }  else if self.swipeVar.status == .nah {
                             NahView()
                         }
                     }
@@ -92,17 +92,17 @@ struct CardView: View {
                  .onChanged { value in
                      self.translation = value.translation
                     if (self.getGesturePercentage(geometry, from: value)) >= self.thresholdPercentage {
-                        self.status = .yum
+                        self.swipeVar.status = .yum
                     } else if (self.getGesturePercentage(geometry, from: value)) <= -self.thresholdPercentage {
-                        self.status = .nah
+                        self.swipeVar.status = .nah
                     } else {
-                        self.status = .none
+                        self.swipeVar.status = .none
                     }
                     
                  }
                  .onEnded { value in
                     if abs(self.getGesturePercentage(geometry, from: value)) > self.thresholdPercentage {
-                        self.status = .none
+                        self.swipeVar.status = .none
                         self.onRemove(self.restaurant)
                     }
                     else {

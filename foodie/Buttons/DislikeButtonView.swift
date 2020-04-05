@@ -10,27 +10,25 @@ import SwiftUI
 
 struct DislikeButtonView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
-    @Binding var toggle: CGFloat
-    @Binding var degree: Double
-    @Binding var status: yumOrNah
+    @ObservedObject var swipeVar: SwipeVar = SwipeVar()
 
     var body: some View {
         GeometryReader { geometry in
             Button(
                 action: {
-                    self.status = .nah
+                    self.swipeVar.status = .nah
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                         withAnimation(Animation.easeOut(duration: 0.15)) {
-                            self.degree = -10
-                            self.toggle = -500
+                            self.swipeVar.degree = -10
+                            self.swipeVar.toggle = -500
                         }
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.degree = 0
-                        self.toggle = 0
-                        self.status = .none
+                        self.swipeVar.degree = 0
+                        self.swipeVar.toggle = 0
+                        self.swipeVar.status = .none
                         self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
                     }
                 },

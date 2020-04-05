@@ -26,9 +26,7 @@ extension Collection {
 struct CardStackView: View {
     var numCards = 2
     @EnvironmentObject var networkingManager: NetworkingManager
-    @Binding var toggle: CGFloat
-    @Binding var degree: Double
-    @Binding var status: yumOrNah
+    @ObservedObject var swipeVar: SwipeVar
     
     var body: some View {
         GeometryReader { geometry in
@@ -42,13 +40,13 @@ struct CardStackView: View {
                                     self.networkingManager.getRestaurantReviews(yelpID: item.id)
                                 }))
                              {
-                                CardView(restaurant: item, index: index, status: self.$status, onRemove: { restaurant in
+                                CardView(restaurant: item, index: index, swipeVar: self.swipeVar, onRemove: { restaurant in
                                     self.networkingManager.onRemoveCard(restaurant: restaurant)
                                 })
                                     .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
-                                    .offset(x: self.networkingManager.isLastCard(index: index) ? self.toggle : 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
+                                    .offset(x: self.networkingManager.isLastCard(index: index) ? self.swipeVar.toggle : 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
                                     .animation(.spring())
-                                    .rotationEffect(.degrees(self.networkingManager.isLastCard(index: index) ? self.degree : 0))
+                                    .rotationEffect(.degrees(self.networkingManager.isLastCard(index: index) ? self.swipeVar.degree : 0))
                              }
                                 .buttonStyle(PlainButtonStyle())
                         }
