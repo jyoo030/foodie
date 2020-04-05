@@ -36,6 +36,7 @@ struct PagingView<Content>: View where Content: View {
                 }
                 .content.offset(x: self.offset(in: geometry), y: 0)
                 .frame(width: geometry.size.width, alignment: .leading)
+                    .onTapGesture { }
                 .gesture(
                     DragGesture().onChanged { value in
                         self.dragging = true
