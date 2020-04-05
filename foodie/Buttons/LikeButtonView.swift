@@ -19,7 +19,7 @@ struct LikeButtonView: View {
             Button(
               action: {
                 withAnimation(.easeOut(duration: 0.15)) {
-                    self.degree = 15
+                    self.degree = 10
                     self.toggle = 500
                 }
                 
