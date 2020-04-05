@@ -10,7 +10,16 @@ import SwiftUI
 
 struct NahView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("NAH FAM")
+            .font(.headline)
+            .padding()
+            .cornerRadius(10)
+            .foregroundColor(Color.blue)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.blue, lineWidth: 3.0)
+        ).padding(.top, 45)
+            .rotationEffect(Angle.degrees(45))
     }
 }
 

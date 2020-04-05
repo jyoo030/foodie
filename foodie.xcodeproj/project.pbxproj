@@ -13,6 +13,8 @@
 		102763D524365A2900413A48 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D424365A2900413A48 /* ActivityIndicator.swift */; };
 		102763D82436626300413A48 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D72436626300413A48 /* ReviewView.swift */; };
 		102763DA2436B29B00413A48 /* RestaurantInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D92436B29B00413A48 /* RestaurantInfoView.swift */; };
+		1039CF9D243998FC004D42C0 /* YummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1039CF9C243998FC004D42C0 /* YummyView.swift */; };
+		1039CF9F24399919004D42C0 /* NahView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1039CF9E24399919004D42C0 /* NahView.swift */; };
 		1048F63A243591CC00BB1018 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048F639243591CC00BB1018 /* Reviews.swift */; };
 		107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B7242402AF004EB675 /* LikeButtonView.swift */; };
 		107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B924240368004EB675 /* DislikeButtonView.swift */; };
@@ -42,6 +44,8 @@
 		102763D424365A2900413A48 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		102763D72436626300413A48 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		102763D92436B29B00413A48 /* RestaurantInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoView.swift; sourceTree = "<group>"; };
+		1039CF9C243998FC004D42C0 /* YummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YummyView.swift; sourceTree = "<group>"; };
+		1039CF9E24399919004D42C0 /* NahView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NahView.swift; sourceTree = "<group>"; };
 		1048F639243591CC00BB1018 /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		107F16B7242402AF004EB675 /* LikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonView.swift; sourceTree = "<group>"; };
 		107F16B924240368004EB675 /* DislikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DislikeButtonView.swift; sourceTree = "<group>"; };
@@ -101,6 +105,15 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
+		1039CF9B243998DB004D42C0 /* YummyOrNah */ = {
+			isa = PBXGroup;
+			children = (
+				1039CF9C243998FC004D42C0 /* YummyView.swift */,
+				1039CF9E24399919004D42C0 /* NahView.swift */,
+			);
+			path = YummyOrNah;
+			sourceTree = "<group>";
+		};
 		107F16BB242403BC004EB675 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +137,7 @@
 		10A3E0C12424121800EC42F1 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
+				1039CF9B243998DB004D42C0 /* YummyOrNah */,
 				109823C52432CE6F0069615D /* DetailView */,
 				10A3E0BF24240B7100EC42F1 /* CardView.swift */,
 				10A3E0C22424156B00EC42F1 /* BottomCard.swift */,
@@ -283,6 +297,8 @@
 				10060849243558CC00025804 /* PagingView.swift in Sources */,
 				A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */,
 				A8ADC79124201EFC00537227 /* ContentView.swift in Sources */,
+				1039CF9F24399919004D42C0 /* NahView.swift in Sources */,
+				1039CF9D243998FC004D42C0 /* YummyView.swift in Sources */,
 				10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */,
 				107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */,
 				10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */,

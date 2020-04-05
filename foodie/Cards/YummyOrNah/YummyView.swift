@@ -10,7 +10,16 @@ import SwiftUI
 
 struct YummyView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("YUMMY")
+            .font(.headline)
+        .padding()
+        .cornerRadius(10)
+            .foregroundColor(Color.orange)
+        .overlay(
+        RoundedRectangle(cornerRadius: 10)
+            .stroke(Color.orange, lineWidth: 3.0))
+            .padding(24)
+            .rotationEffect(Angle.degrees(-45))
     }
 }
 

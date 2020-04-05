@@ -41,27 +41,9 @@ struct CardView: View {
                     .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
                     
                     if self.status == .yum {
-                        Text("YUMMY")
-                            .font(.headline)
-                        .padding()
-                        .cornerRadius(10)
-                            .foregroundColor(Color.orange)
-                        .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.orange, lineWidth: 3.0))
-                            .padding(24)
-                            .rotationEffect(Angle.degrees(-45))
+                        YummyView()
                     }  else if self.status == .nah {
-                       Text("NAH FAM")
-                           .font(.headline)
-                           .padding()
-                           .cornerRadius(10)
-                           .foregroundColor(Color.blue)
-                           .overlay(
-                               RoundedRectangle(cornerRadius: 10)
-                                   .stroke(Color.blue, lineWidth: 3.0)
-                       ).padding(.top, 45)
-                           .rotationEffect(Angle.degrees(45))
+                        NahView()
                     }
                 }
 
