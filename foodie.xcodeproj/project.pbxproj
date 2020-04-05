@@ -114,6 +114,14 @@
 			path = YummyOrNah;
 			sourceTree = "<group>";
 		};
+		1039CFA024399A46004D42C0 /* ImageSlider */ = {
+			isa = PBXGroup;
+			children = (
+				10060848243558CC00025804 /* PagingView.swift */,
+			);
+			path = ImageSlider;
+			sourceTree = "<group>";
+		};
 		107F16BB242403BC004EB675 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +134,7 @@
 		109823C52432CE6F0069615D /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				1039CFA024399A46004D42C0 /* ImageSlider */,
 				10C74BCD242AB1D700D050CA /* DetailView.swift */,
 				109823C82432CEA80069615D /* MapView.swift */,
 				102763D72436626300413A48 /* ReviewView.swift */,
@@ -143,7 +152,6 @@
 				10A3E0C22424156B00EC42F1 /* BottomCard.swift */,
 				10CAD1BA242C07AF000FF2E7 /* CardStackView.swift */,
 				10B2CA47243079FF0073A94F /* RatingView.swift */,
-				10060848243558CC00025804 /* PagingView.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
