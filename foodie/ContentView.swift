@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State var toggle: CGFloat = 0
     @State var degree: Double = 0
+    @State var status: yumOrNah = .none
     
     var body: some View {
         NavigationView {
@@ -22,15 +23,15 @@ struct ContentView: View {
                         BottomCard()
                             .offset(y: -geometry.size.height*0.054)
                            
-                        CardStackView(toggle: self.$toggle, degree: self.$degree)
+                        CardStackView(toggle: self.$toggle, degree: self.$degree, status: self.$status)
                             .offset(y:-geometry.size.height*0.16)
                                                          
                        Spacer()
                    
                        HStack {
-                        DislikeButtonView(toggle: self.$toggle, degree: self.$degree)
+                        DislikeButtonView(toggle: self.$toggle, degree: self.$degree, status: self.$status)
                            Spacer()
-                        LikeButtonView(toggle: self.$toggle, degree: self.$degree)
+                        LikeButtonView(toggle: self.$toggle, degree: self.$degree, status: self.$status)
                        }.offset(y:geometry.size.height*0.32)
                        
                        FooterView().offset(y:geometry.size.height*0.9)

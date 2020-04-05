@@ -11,13 +11,14 @@ import SwiftUI
 struct YummyView: View {
     var body: some View {
         Text("YUMMY")
+        .bold()
             .font(.headline)
         .padding()
         .cornerRadius(10)
-            .foregroundColor(Color.orange)
+            .foregroundColor(Color.green)
         .overlay(
         RoundedRectangle(cornerRadius: 10)
-            .stroke(Color.orange, lineWidth: 3.0))
+            .stroke(Color.green, lineWidth: 4.5))
             .padding(24)
             .rotationEffect(Angle.degrees(-45))
     }

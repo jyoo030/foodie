@@ -17,13 +17,16 @@ struct CardView: View {
     private var onRemove: (_ Restaurant: Restaurant) -> Void
     private var restaurant: Restaurant
     var thresholdPercentage: CGFloat = 0.3
+    var index: Int
     @State private var translation: CGSize = .zero
-    @State var status: yumOrNah = .none
+    @Binding var status: yumOrNah
     
     @EnvironmentObject var networkingManager: NetworkingManager
     
-    init(restaurant: Restaurant, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
+    init(restaurant: Restaurant, index: Int, status: Binding<yumOrNah>, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
         self.restaurant = restaurant
+        self.index = index
+        self._status = status
         self.onRemove = onRemove
     }
     
@@ -40,10 +43,12 @@ struct CardView: View {
                         .aspectRatio(contentMode: .fill)
                     .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
                     
-                    if self.status == .yum {
-                        YummyView()
-                    }  else if self.status == .nah {
-                        NahView()
+                    if self.networkingManager.isLastCard(index: self.index) {
+                        if self.status == .yum {
+                            YummyView()
+                        }  else if self.status == .nah {
+                            NahView()
+                        }
                     }
                 }
 
@@ -97,6 +102,7 @@ struct CardView: View {
                  }
                  .onEnded { value in
                     if abs(self.getGesturePercentage(geometry, from: value)) > self.thresholdPercentage {
+                        self.status = .none
                         self.onRemove(self.restaurant)
                     }
                     else {

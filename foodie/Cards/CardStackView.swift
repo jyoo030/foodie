@@ -28,10 +28,7 @@ struct CardStackView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
     @Binding var toggle: CGFloat
     @Binding var degree: Double
-    
-    func isLastCard(index: Int) -> Bool {
-        return (index == self.networkingManager.restaurants.count - 1)
-    }
+    @Binding var status: yumOrNah
     
     var body: some View {
         GeometryReader { geometry in
@@ -45,13 +42,13 @@ struct CardStackView: View {
                                     self.networkingManager.getRestaurantReviews(yelpID: item.id)
                                 }))
                              {
-                                CardView(restaurant: item, onRemove: { restaurant in
+                                CardView(restaurant: item, index: index, status: self.$status, onRemove: { restaurant in
                                     self.networkingManager.onRemoveCard(restaurant: restaurant)
                                 })
                                     .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
-                                    .offset(x: self.isLastCard(index: index) ? self.toggle : 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
+                                    .offset(x: self.networkingManager.isLastCard(index: index) ? self.toggle : 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
                                     .animation(.spring())
-                                    .rotationEffect(.degrees(self.isLastCard(index: index) ? self.degree : 0))
+                                    .rotationEffect(.degrees(self.networkingManager.isLastCard(index: index) ? self.degree : 0))
                              }
                                 .buttonStyle(PlainButtonStyle())
                         }

@@ -77,4 +77,8 @@ class NetworkingManager : ObservableObject {
         self.restaurantDetails = RestaurantDetail()
         self.reviews = []
     }
+    
+    func isLastCard(index: Int) -> Bool {
+        return index == self.restaurants.count - 1
+    }
 }

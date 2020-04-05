@@ -13,19 +13,25 @@ struct LikeButtonView: View {
     @EnvironmentObject var networkingManager: NetworkingManager
     @Binding var toggle: CGFloat
     @Binding var degree: Double
+    @Binding var status: yumOrNah
 
     var body: some View {
         GeometryReader { geometry in
             Button(
               action: {
-                withAnimation(.easeOut(duration: 0.15)) {
-                    self.degree = 10
-                    self.toggle = 500
-                }
+                self.status = .yum
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    withAnimation(Animation.easeOut(duration: 0.15)) {
+                        self.degree = 10
+                        self.toggle = 500
+                    }
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.degree = 0
                     self.toggle = 0
+                    self.status = .none
                     self.networkingManager.onRemoveCard( restaurant: self.networkingManager.restaurants.last!)
                 }
               },
