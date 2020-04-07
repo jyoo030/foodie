@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const Group = require("../models/group");
+
 const UserSchema = mongoose.Schema({
 	email: {
 		type: String,
@@ -16,7 +18,11 @@ const UserSchema = mongoose.Schema({
 	friends: {
 		type: Array,
 		default: [String]
-	}
+	},
+	groups: [{ 
+		type: mongoose.Schema.Types.ObjectId, 
+		ref: 'Group'
+	}]
 });
 
 module.exports = mongoose.model('User', UserSchema);

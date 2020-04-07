@@ -40,7 +40,8 @@ router.post('/register', (req, res) => {
 			name,
 			email,
 			password,
-			friends: []
+			friends: [],
+			groups: []
 		})
 
 		bcrypt.genSalt(10, (err, salt) => {
