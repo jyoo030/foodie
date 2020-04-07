@@ -2,11 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 
-require('dotenv').config()
-
 // User Model
 const User = require("../models/user");
-
 
 router.post('/register', (req, res) => {
 	let errors = []
@@ -75,6 +72,15 @@ router.post('/login', (req, res) => {
 			return res.status(400).json({msg: "Incorrect credentials"})
 		})
 	});
+})
+
+router.get('/:id', (req, res) => {
+	const id = req.params.id
+	User.findById(id).select('-password').then(user => {
+		if(!user) return res.status(400).json({msg: "No user by the id: " + id});
+
+		res.status(200).json(user);
+	})
 })
 
 module.exports = router;
