@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 mongoose
     .connect(
         process.env.DB_CONNECTION_STRING,
-        { useNewUrlParser: true, useUnifiedTopology: true },
+        { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false },
         () => console.log("connected to DB!")
     )
     .catch(err => console.log(err));
@@ -22,7 +22,8 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/restaurant', require('./routes/restaurant'));
-app.use("/user", require("./routes/user"));
+app.use('/user', require('./routes/user'));
+app.use('/group', require('./routes/group'));
 
 
 app.listen(port, () => console.log(`foodieAPI listening on port ${port}!`));
