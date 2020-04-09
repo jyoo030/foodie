@@ -55,5 +55,14 @@ router.post('/user/add', (req, res) => {
 	})
 })
 
+router.get('/id/:id', (req, res) => {
+	const id = req.params.id;
+	Group.findById(id).then(group => {
+		if(!group) return rest.status(400).json({msg: "No group by the id: " + id})
+
+		res.status(200).json(group);
+	})
+})
+
 module.exports = router;
 
