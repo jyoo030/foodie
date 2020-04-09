@@ -30,7 +30,7 @@ router.get('/radius/:radius', function(req, res) {
 	});
 });
 
-router.get('/reviews/:id', function (req, res) {
+router.get('/review/id/:id', function (req, res) {
 	client.reviews(req.params.id).then(response => {
 		res.status(403).send(response.body);
 	}).catch(e => {

@@ -56,7 +56,7 @@ class NetworkingManager : ObservableObject {
     }
     
     func getRestaurantReviews(yelpID: String) {
-        guard let url = URL(string: "http://localhost:3000/restaurant/reviews/" + yelpID) else {return}
+        guard let url = URL(string: "http://localhost:3000/restaurant/review/id/" + yelpID) else {return}
         
         URLSession.shared.dataTask(with: url) {(data, resp, err) in
             do {
