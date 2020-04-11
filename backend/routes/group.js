@@ -30,6 +30,28 @@ router.post('/create', (req, res) => {
 		.catch(err => console.log(err));
 })
 
+router.post('/remove', (req, res) => {
+	const {groupId} = req.body || {}
+	if (!groupId) {
+		return res.status(400).json({msg: "Missing group"})
+	}
+
+	Group.findById(groupId).then(group => {
+		if(!group) return res.status(400).json({msg: "No group by the id: " + groupId})
+		users = User.find({groups: groupId})
+
+		User.updateMany(users, {"$pull": {"groups": groupId}}, (err, raw) => {
+			if (err) throw err
+		})
+	})
+
+	Group.findByIdAndDelete(groupI, (err, raw) => {
+		if (err) throw err;
+	})
+	return res.status(200).json({msg: "Group Removed"})
+
+})
+
 router.post('/user/add', (req, res) => {
 	const {groupId, userId} = req.body || {}
 	if (!groupId || !userId) {
