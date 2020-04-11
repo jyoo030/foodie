@@ -55,6 +55,31 @@ router.post('/user/add', (req, res) => {
 	})
 })
 
+router.post('/user/remove', (req, res) => {
+	const {groupId, userId} = req.body || {}
+	if (!groupId || !userId) {
+		return res.status(400).json({msg: "Missing fields"});
+	}
+
+	Group.findById(groupId).then(group => {
+		if(group.users.includes(userId)) {
+			group.updateOne({ "$pull": {"users": userId} }, {new: true}, (err, raw) => {
+				if (err) throw err;
+			})
+
+			User.findByIdAndUpdate(userId, { "$pull": {"groups": groupId} }, {new: true},
+				(err, raw) => {
+					if (err) throw err;
+				}
+			);
+		}
+		else {
+			return res.status(400).json({msg: "User is not in this group!"})
+		}
+		return res.status(200).json({msg: "User Removed"})
+	})
+})
+
 router.get('/id/:id', (req, res) => {
 	const id = req.params.id;
 	Group.findById(id).then(group => {
