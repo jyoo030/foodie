@@ -55,11 +55,13 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-	const {email, password} = req.body || {}
+	var {email, password} = req.body || {}
 
 	if(!email || !password) {
-		return res.status(201).json({msg: "Missing fields"})
+		return res.status(400).json({msg: "Missing fields"})
 	}
+
+	email = email.toLowerCase()
 
 	User.findOne({email: email}).then(user => {
 		if(!user) return res.status(400).json({msg: "Incorrect credentials"})
@@ -67,7 +69,7 @@ router.post('/login', (req, res) => {
 		bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
 			if(err) throw err;
 
-			if(isMatch) return res.status(400).json({msg: "Login successful"})
+			if(isMatch) return res.status(200).json({msg: "Login successful"})
 
 			return res.status(400).json({msg: "Incorrect credentials"})
 		})
