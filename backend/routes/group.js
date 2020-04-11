@@ -37,6 +37,8 @@ router.post('/user/add', (req, res) => {
 	}
 
 	Group.findById(groupId).then(group => {
+		if(!group) return res.status(400).json({msg: "No group by the id: " + groupId})
+
 		if(group.users.includes(userId)) {
 			return res.status(400).json({msg: "User already in the group"})
 		}
@@ -62,13 +64,14 @@ router.post('/user/remove', (req, res) => {
 	}
 
 	Group.findById(groupId).then(group => {
+		if(!group) return res.status(400).json({msg: "No group by the id: " + groupId})
+
 		if(group.users.includes(userId)) {
 			group.updateOne({ "$pull": {"users": userId} }, {new: true}, (err, raw) => {
 				if (err) throw err;
 			})
 
-			User.findByIdAndUpdate(userId, { "$pull": {"groups": groupId} }, {new: true},
-				(err, raw) => {
+			User.findByIdAndUpdate(userId, { "$pull": {"groups": groupId} }, {new: true},(err, raw) => {
 					if (err) throw err;
 				}
 			);
@@ -83,7 +86,7 @@ router.post('/user/remove', (req, res) => {
 router.get('/id/:id', (req, res) => {
 	const id = req.params.id;
 	Group.findById(id).then(group => {
-		if(!group) return rest.status(400).json({msg: "No group by the id: " + id})
+		if(!group) return res.status(400).json({msg: "No group by the id: " + id})
 
 		res.status(200).json(group);
 	})
