@@ -30,6 +30,28 @@ router.post('/create', (req, res) => {
 		.catch(err => console.log(err));
 })
 
+router.post('/remove', (req, res) => {
+	const {groupId} = req.body || {}
+	if (!groupId) {
+		return res.status(400).json({msg: "Missing group"})
+	}
+
+	Group.findById(groupId).then(group => {
+		if(!group) return res.status(400).json({msg: "No group by the id: " + groupId})
+		users = User.find({groups: groupId})
+
+		User.updateMany(users, {"$pull": {"groups": groupId}}, (err, raw) => {
+			if (err) throw err
+		})
+	})
+
+	Group.findByIdAndDelete(groupI, (err, raw) => {
+		if (err) throw err;
+	})
+	return res.status(200).json({msg: "Group Removed"})
+
+})
+
 router.post('/user/add', (req, res) => {
 	const {groupId, userId} = req.body || {}
 	if (!groupId || !userId) {
@@ -37,6 +59,8 @@ router.post('/user/add', (req, res) => {
 	}
 
 	Group.findById(groupId).then(group => {
+		if(!group) return res.status(400).json({msg: "No group by the id: " + groupId})
+
 		if(group.users.includes(userId)) {
 			return res.status(400).json({msg: "User already in the group"})
 		}
@@ -55,10 +79,36 @@ router.post('/user/add', (req, res) => {
 	})
 })
 
+router.post('/user/remove', (req, res) => {
+	const {groupId, userId} = req.body || {}
+	if (!groupId || !userId) {
+		return res.status(400).json({msg: "Missing fields"});
+	}
+
+	Group.findById(groupId).then(group => {
+		if(!group) return res.status(400).json({msg: "No group by the id: " + groupId})
+
+		if(group.users.includes(userId)) {
+			group.updateOne({ "$pull": {"users": userId} }, {new: true}, (err, raw) => {
+				if (err) throw err;
+			})
+
+			User.findByIdAndUpdate(userId, { "$pull": {"groups": groupId} }, {new: true},(err, raw) => {
+					if (err) throw err;
+				}
+			);
+		}
+		else {
+			return res.status(400).json({msg: "User is not in this group!"})
+		}
+		return res.status(200).json({msg: "User Removed"})
+	})
+})
+
 router.get('/id/:id', (req, res) => {
 	const id = req.params.id;
 	Group.findById(id).then(group => {
-		if(!group) return rest.status(400).json({msg: "No group by the id: " + id})
+		if(!group) return res.status(400).json({msg: "No group by the id: " + id})
 
 		res.status(200).json(group);
 	})

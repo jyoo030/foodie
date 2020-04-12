@@ -54,6 +54,66 @@ router.post('/register', (req, res) => {
 	})
 })
 
+router.post('/friend/add', (req, res) => {
+	const {userId, friendId} = req.body || {}
+
+	if (!userId || !friendId) {
+		return res.status(201).json({msg: "Missing fields"})
+	}
+
+	User.findById(userId).then(user => {
+		if(!user) return res.status(400).json({msg: "No user by the id: " + userId})
+
+		if (user.friends.includes(friendId)) {
+			return res.status(400).json({msg: "User is already a friend"})
+		}
+		else {
+			user.updateOne({ "$push": {"friends": friendId } }, {new: true},
+			(err, raw) => {
+				if (err) return res.status(400).json({msg: err});
+			}
+		);	
+
+			User.findByIdAndUpdate(friendId, { "$push": {"friends": userId } }, {new: true},
+				(err, raw) => {
+					if (err) return res.status(400).json({msg: err});
+				}
+			);	
+		}
+		return res.status(200).json({msg: 'Added a friend!'})
+	})
+})
+
+router.post('/friend/remove', (req, res) => {
+	const {userId, friendId} = req.body || {}
+
+	if (!userId || !friendId) {
+		return res.status(201).json({msg: "Missing fields"})
+	}
+
+	User.findById(userId).then(user => {
+		if(!user) return res.status(400).json({msg: "No user by the id: " + userId})
+
+		if (!user.friends.includes(friendId)) {
+			return res.status(400).json({msg: "Friend does not exist"})
+		}
+		else {
+			user.updateOne({ "$pull": {"friends": friendId } }, {new: true},
+			(err, raw) => {
+				if (err) throw err;
+			}
+		);	
+
+			User.findByIdAndUpdate(friendId, { "$pull": {"friends": userId } }, {new: true},
+				(err, raw) => {
+					if (err) throw err;
+				}
+			);	
+		}
+		return res.status(200).json({msg: 'Removed a friend'})
+	})
+})
+
 router.post('/login', (req, res) => {
 	var {email, password} = req.body || {}
 
