@@ -9,34 +9,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @ObservedObject var swipeVar = SwipeVar()
     
     var body: some View {
         NavigationView {
-            VStack {
-                   GeometryReader { geometry in
-                       ZStack {
-                        HeaderView().offset(y:-geometry.size.height*0.65)
-                                                   
-                        BottomCard()
-                            .offset(y: -geometry.size.height*0.054)
-                           
-                        CardStackView(swipeVar: self.swipeVar)
-                            .offset(y:-geometry.size.height*0.16)
-                                                         
-                       Spacer()
-                   
-                       HStack {
-                        DislikeButtonView(swipeVar: self.swipeVar)
+            if !self.userDefaultsManager.userId.isEmpty {
+                VStack {
+                       GeometryReader { geometry in
+                           ZStack {
+                            HeaderView().offset(y:-geometry.size.height*0.65)
+                                                       
+                            BottomCard()
+                                .offset(y: -geometry.size.height*0.054)
+                               
+                            CardStackView(swipeVar: self.swipeVar)
+                                .offset(y:-geometry.size.height*0.16)
+                                                             
                            Spacer()
-                        LikeButtonView(swipeVar: self.swipeVar)
-                       }.offset(y:geometry.size.height*0.32)
                        
-                       FooterView().offset(y:geometry.size.height*0.9)
+                           HStack {
+                            DislikeButtonView(swipeVar: self.swipeVar)
+                               Spacer()
+                            LikeButtonView(swipeVar: self.swipeVar)
+                           }.offset(y:geometry.size.height*0.32)
+                           
+                           FooterView().offset(y:geometry.size.height*0.9)
+                       }
                    }
-               }
+                }
+                .background(Color(red: 240/255, green: 240/255, blue: 240/255))
+            } else {
+                LoginView()
             }
-            .background(Color(red: 240/255, green: 240/255, blue: 240/255))
         }
     }
 }

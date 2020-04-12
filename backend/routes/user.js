@@ -10,23 +10,23 @@ router.post('/register', (req, res) => {
 	const {name, email, password, password2} = req.body || {}
 
 	if (!name || !email || !password || !password2) {
-		errors.push({msg: "Please enter all fields"});
+		return res.status(400).json({errors: ["Please enter all fields"]});
 	}
 
 	if (email.indexOf("@") == -1 || email.slice(-4) != ".com") {
-		errors.push({msg: "Incorrect email address"})
+		errors.push("Incorrect email address")
 	}
 
 	if (password !== password2) {
-		errors.push({msg: "Passwords do not match"});
+		errors.push("Passwords do not match");
 	}
 
 	if (password.length < 6) {
-		errors.push({msg: "Password should be at least 6 characters"});
+		errors.push("Password should be at least 6 characters");
 	}
 
 	if (errors.length > 0) {
-		return res.status(400).json(errors);
+		return res.status(400).json({errors: errors});
 	}
 
 	// Check for exisiting user
@@ -46,7 +46,7 @@ router.post('/register', (req, res) => {
 			if (err) throw err;
 			newUser.password = hash;
 			    newUser.save().then(user => {
-				    return res.status(201).json({msg: 'Registered'});
+				    return res.status(201).json({msg: 'Registered', userId: user.id});
 			    })
 				    .catch(err => console.log(err));
 		    });
@@ -58,20 +58,20 @@ router.post('/login', (req, res) => {
 	var {email, password} = req.body || {}
 
 	if(!email || !password) {
-		return res.status(400).json({msg: "Missing fields"})
+		return res.status(400).json({errors: ["Missing fields"]})
 	}
 
 	email = email.toLowerCase()
 
 	User.findOne({email: email}).then(user => {
-		if(!user) return res.status(400).json({msg: "Incorrect credentials"})
+		if(!user) return res.status(400).json({errors: ["Incorrect credentials"]})
 
 		bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
 			if(err) throw err;
 
-			if(isMatch) return res.status(200).json({msg: "Login successful"})
+			if(isMatch) return res.status(200).json({userId: user.id})
 
-			return res.status(400).json({msg: "Incorrect credentials"})
+			return res.status(400).json({errors: ["Incorrect credentials"]})
 		})
 	});
 })
