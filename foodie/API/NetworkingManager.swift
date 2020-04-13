@@ -11,13 +11,14 @@ import SwiftUI
 import Combine
 
 class NetworkingManager : ObservableObject {
-    @ObservedObject var settings:Settings = Settings()
+    @ObservedObject var userDefaultsManager: UserDefaultsManager
     @Published var restaurants:[Restaurant] = []
     @Published var restaurantDetails:RestaurantDetail = RestaurantDetail()
     @Published var reviews:[Review] = []
     
-    init() {
-        getRestaurantsByRadius(radius: settings.radius, location: settings.location)
+    init(userDefaultsManager: UserDefaultsManager) {
+        self.userDefaultsManager = userDefaultsManager
+        getRestaurantsByRadius(radius: userDefaultsManager.settings.radius, location: userDefaultsManager.settings.location)
     }
     
     func getRestaurantsByRadius(radius: Int, location: String) {

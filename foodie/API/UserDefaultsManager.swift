@@ -14,4 +14,8 @@ class UserDefaultsManager : ObservableObject {
     @Published var userId: String = UserDefaults.standard.string(forKey: "userId") ?? "" {
         didSet { UserDefaults.standard.set(self.userId, forKey: "userId") }
     }
+    
+    @Published var settings: Settings = (UserDefaults.standard.object(forKey: "settings") ?? Settings()) as! Settings {
+        didSet { UserDefaults.standard.set(self.settings, forKey: "settings") }
+    }
 }

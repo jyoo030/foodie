@@ -12,8 +12,8 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var networkingManager = NetworkingManager()
     var userDefaultsManager = UserDefaultsManager()
+    lazy var networkingManager = NetworkingManager(userDefaultsManager: userDefaultsManager)
     lazy var loginManager = LoginManager(userDefaultsManager: userDefaultsManager)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
