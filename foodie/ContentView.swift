@@ -33,9 +33,13 @@ struct ContentView: View {
                                Spacer()
                             LikeButtonView(swipeVar: self.swipeVar)
                            }.offset(y:geometry.size.height*0.32)
-                           
-                           FooterView().offset(y:geometry.size.height*0.9)
                        }
+                        
+                        VStack {
+                            Spacer()
+                            FooterView()
+                        }
+                        
                    }
                 }
                 .background(Color(red: 240/255, green: 240/255, blue: 240/255))
