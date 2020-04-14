@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var userManager: UserManager
     @ObservedObject var swipeVar = SwipeVar()
     
     var body: some View {
@@ -42,6 +43,9 @@ struct ContentView: View {
                         
                    }
                 }
+                .onAppear(perform: {
+                    self.userManager.getUser(id: self.userDefaultsManager.userId)
+                })
                 .background(Color(red: 240/255, green: 240/255, blue: 240/255))
             } else {
                 LoginView()
