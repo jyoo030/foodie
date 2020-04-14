@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var userDefaultsManager = UserDefaultsManager()
     lazy var networkingManager = NetworkingManager(userDefaultsManager: userDefaultsManager)
     lazy var loginManager = LoginManager(userDefaultsManager: userDefaultsManager)
+    lazy var userManager = UserManager(userDefaultsManager: userDefaultsManager)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -26,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(networkingManager)
             .environmentObject(userDefaultsManager)
             .environmentObject(loginManager)
+            .environmentObject(userManager)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
