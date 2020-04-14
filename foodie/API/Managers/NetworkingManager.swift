@@ -22,7 +22,7 @@ class NetworkingManager : ObservableObject {
     }
     
     func getRestaurantsByRadius(radius: Int, location: String) {
-        let apiUrl = ("http://localhost:3000/restaurant/radius/" + String(radius) + "?location=" + location).replacingOccurrences(of: " ", with: "%20")
+        let apiUrl = ( UrlConstants.baseUrl + "/restaurant/radius/" + String(radius) + "?location=" + location).replacingOccurrences(of: " ", with: "%20")
         guard let url = URL(string: apiUrl) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, resp, err) in
@@ -40,7 +40,7 @@ class NetworkingManager : ObservableObject {
     }
     
     func getRestaurantsDetails(yelpID:String) {
-        guard let url = URL(string: "http://localhost:3000/restaurant/id/" + yelpID) else {return}
+        guard let url = URL(string: UrlConstants.baseUrl + "/restaurant/id/" + yelpID) else {return}
         
         URLSession.shared.dataTask(with: url) {(data, resp, err) in
             do {
@@ -57,7 +57,7 @@ class NetworkingManager : ObservableObject {
     }
     
     func getRestaurantReviews(yelpID: String) {
-        guard let url = URL(string: "http://localhost:3000/restaurant/review/id/" + yelpID) else {return}
+        guard let url = URL(string: UrlConstants.baseUrl + "/restaurant/review/id/" + yelpID) else {return}
         
         URLSession.shared.dataTask(with: url) {(data, resp, err) in
             do {

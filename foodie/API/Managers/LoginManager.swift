@@ -20,7 +20,7 @@ class LoginManager : ObservableObject {
     }
     
     func login(email: String, password: String) {
-        let apiUrl = ("http://localhost:3000/user/login")
+        let apiUrl = (UrlConstants.baseUrl + "/user/login")
         guard let url = URL(string: apiUrl) else {return}
         let body = ["email" : email, "password" : password]
         var request = URLRequest(url: url)
@@ -58,7 +58,7 @@ class LoginManager : ObservableObject {
     }
     
     func register(name: String, email: String, password: String, password2: String) {
-        let apiUrl = ("http://localhost:3000/user/register")
+        let apiUrl = (UrlConstants.baseUrl + "/user/register")
         guard let url = URL(string: apiUrl) else {return}
         let body = ["name": name, "email" : email, "password" : password, "password2": password2]
         var request = URLRequest(url: url)

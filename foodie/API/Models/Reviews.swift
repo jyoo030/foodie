@@ -15,13 +15,13 @@ struct Reviews: Decodable {
 struct Review: Decodable, Identifiable {
     var id: String = ""
     var rating: Float = 0.0
-    var user: User = User()
+    var user: ReviewUser = ReviewUser()
     var text: String = ""
     var url: String = ""
     var time_created: String = ""
 }
 
-struct User: Decodable {
+struct ReviewUser: Decodable {
     var id: String = ""
     var profile_url: String = ""
     var image_url: String? = ""
