@@ -29,8 +29,8 @@ struct CardStackView: View {
     @ObservedObject var swipeVar: SwipeVar
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack{
+        ZStack{
+            GeometryReader { geometry in
                 ForEach(self.networkingManager.restaurants.enumeratedArray(), id: \.element.id) { index, item in
                     Group {
                         if index > (self.networkingManager.restaurants.count - 1) - self.numCards {
@@ -43,7 +43,7 @@ struct CardStackView: View {
                                 CardView(restaurant: item, index: index, swipeVar: self.swipeVar, onRemove: { restaurant in
                                     self.networkingManager.onRemoveCard(restaurant: restaurant)
                                 })
-                                    .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count), height: geometry.size.height)
+                                    .frame(width: getCardWidth(geometry, index: index, length: self.networkingManager.restaurants.count))
                                     .offset(x: self.networkingManager.isLastCard(index: index) ? self.swipeVar.toggle : 0, y: getCardOffset(geometry, index: index, length: self.networkingManager.restaurants.count))
                                     .animation(.spring())
                                     .rotationEffect(.degrees(self.networkingManager.isLastCard(index: index) ? self.swipeVar.degree : 0))

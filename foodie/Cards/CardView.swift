@@ -41,7 +41,7 @@ struct CardView: View {
                     KFImage(URL(string: self.restaurant.image_url)!)
                     .resizable()
                         .aspectRatio(contentMode: .fill)
-                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
+                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.52)
                     
                     if self.networkingManager.isLastCard(index: self.index) {
                         if self.swipeVar.status == .yum {
@@ -78,7 +78,7 @@ struct CardView: View {
                 }
                 .padding(.horizontal)
                 .padding(.top, geometry.size.height * 0.02)
-                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.2)
+                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.13)
                 .background(Color.white)
             }
             .cornerRadius(20)
@@ -87,6 +87,7 @@ struct CardView: View {
             .animation(.interactiveSpring())
             .offset(x: self.translation.width, y: self.translation.height)
             .rotationEffect(.degrees(Double(self.translation.width / geometry.size.width) * 25), anchor: .bottom)
+                .contentShape(Rectangle())
             .gesture(
                  DragGesture()
                  .onChanged { value in

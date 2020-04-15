@@ -19,13 +19,13 @@ struct ContentView: View {
                 VStack {
                        GeometryReader { geometry in
                            ZStack {
-                            HeaderView().offset(y:-geometry.size.height*0.65)
+                            HeaderView().offset(y:-geometry.size.height*0.53)
                                                        
                             BottomCard()
                                 .offset(y: -geometry.size.height*0.054)
                                
                             CardStackView(swipeVar: self.swipeVar)
-                                .offset(y:-geometry.size.height*0.16)
+                                .offset(y:-geometry.size.height*0.1)
                                                              
                            Spacer()
                        
@@ -39,18 +39,20 @@ struct ContentView: View {
                         VStack {
                             Spacer()
                             FooterView()
-                        }
+                        }.padding(.bottom, 40)
                         
                    }
                 }
-                .onAppear(perform: {
-                    self.userManager.getUser(id: self.userDefaultsManager.userId)
-                })
                 .background(Color(red: 240/255, green: 240/255, blue: 240/255))
+                .onAppear(perform: {
+                    if self.userDefaultsManager.name.isEmpty {
+                        self.userManager.getUser(id: self.userDefaultsManager.userId)
+                    }
+                })
             } else {
                 LoginView()
             }
-        }
+        }.edgesIgnoringSafeArea(.top)
     }
 }
     
