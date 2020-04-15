@@ -16,10 +16,7 @@ struct HeaderView: View {
                     .fill(Color(red: 247/255, green: 114/255, blue: 203/255, opacity: 0.7))
                     .frame(width: geometry.size.width * 1.3)
                 
-                Text("Joftware")
-                .foregroundColor(Color.white)
-                .font(.system(.largeTitle, design: .rounded))
-                .bold()
+                GroupView()
                 .offset(y:geometry.size.height*0.06)
             }
         }
