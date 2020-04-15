@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -16,7 +18,38 @@ struct HeaderView: View {
                     .fill(Color(red: 247/255, green: 114/255, blue: 203/255, opacity: 0.7))
                     .frame(width: geometry.size.width * 1.3)
                 
-                GroupView()
+                 HStack {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "person.3").renderingMode(.original)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geometry.size.width*0.11, height: geometry.size.width*0.11)
+                            .colorInvert()
+                    }
+                    
+                    Spacer()
+                    
+                    Text(self.userDefaultsManager.groups.isEmpty ? "No Groups :(" : self.userDefaultsManager.groups[0].name)
+                       .foregroundColor(Color.white)
+                       .font(.system(.largeTitle, design: .rounded))
+                       .bold()
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "plus.circle").renderingMode(.original)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geometry.size.width*0.08, height: geometry.size.width*0.08)
+                        .colorInvert()
+                    }
+                 }
+                    .padding(.horizontal, 20)
+                 .frame(width: geometry.size.width)
                 .offset(y:geometry.size.height*0.06)
             }
         }
