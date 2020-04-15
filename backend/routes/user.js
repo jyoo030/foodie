@@ -54,6 +54,21 @@ router.post('/register', (req, res) => {
 	})
 })
 
+router.post('/remove', (req, res) => {
+	const {userId} = req.body || {}
+
+	if (!userId) { return res.status(201).json({msg: "Missing fields"})}
+
+	User.findById(userId).then(user => {
+		if(!user) return res.status(400).json({msg: "No user by the id: " + userId})
+		
+		user.updateOne({ "$set": {isDeleted: true}}, {new: true}, (err, raw) => {
+			if (err) throw err
+			return res.status(200).json({msg: "User deleted"})
+		})
+	})
+})
+
 router.post('/friend/add', (req, res) => {
 	const {userId, friendId} = req.body || {}
 

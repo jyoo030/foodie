@@ -19,6 +19,11 @@ const UserSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'User'
 	}],
+	isDeleted: {
+		type: Boolean,
+		required: true,
+		default: false
+	},
 	groups: [{ 
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'Group'
