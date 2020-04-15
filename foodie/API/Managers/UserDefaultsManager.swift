@@ -27,7 +27,7 @@ class UserDefaultsManager : ObservableObject {
         didSet { UserDefaults.standard.set(self.email, forKey: "email") }
     }
     
-    @Published var groups: [GroupModel] = try! JSONDecoder().decode([GroupModel].self, from: (UserDefaults.standard.object(forKey: "groups") ?? []) as! Data) {
+    @Published var groups: [GroupModel] = try! JSONDecoder().decode([GroupModel].self, from: (UserDefaults.standard.object(forKey: "groups") ?? JSONEncoder().encode([GroupModel()])) as! Data) {
         didSet {
             let encoded = try? JSONEncoder().encode(self.groups)
             UserDefaults.standard.set(encoded, forKey: "groups")

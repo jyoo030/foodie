@@ -13,11 +13,13 @@ struct User: Decodable, Encodable {
     var name: String = ""
     var email: String = ""
     var groups: [GroupModel]? = []
+    var friends: [User]? = []
     
     private enum CodingKeys: String, CodingKey{
         case id = "_id"
         case name = "name"
         case email = "email"
         case groups = "groups"
+        case friends = "friends"
     }
 }
