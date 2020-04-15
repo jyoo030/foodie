@@ -142,7 +142,7 @@ router.get('/id/:id', (req, res) => {
    		.populate('friends')
 		.populate({
 		 	path: 'groups',
-			populate: { path: 'users', select: '-groups' }
+			populate: { path: 'users', select: '-groups -friends -password'}
 		 })
 		.select('-password')
 		.then(user => {
