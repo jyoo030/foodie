@@ -138,7 +138,14 @@ router.post('/login', (req, res) => {
 
 router.get('/id/:id', (req, res) => {
 	const id = req.params.id
-	User.findById(id).select('-password').then(user => {
+	User.findById(id)
+   		.populate('friends')
+		.populate({
+		 	path: 'groups',
+			populate: { path: 'users', select: '-groups' }
+		 })
+		.select('-password')
+		.then(user => {
 		if(!user) return res.status(400).json({msg: "No user by the id: " + id});
 
 		res.status(200).json(user);
