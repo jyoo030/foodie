@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  Group.swift
 //  foodie
 //
 //  Created by Jae Hyun on 4/13/20.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct User: Decodable, Encodable {
+struct GroupModel: Decodable, Encodable {
     var id: String = ""
     var name: String = ""
-    var email: String = ""
-    var groups: [GroupModel]? = []
+    var users: [User] = []
+    var likes: [String:String] = [:]
     
     private enum CodingKeys: String, CodingKey{
         case id = "_id"
         case name = "name"
-        case email = "email"
-        case groups = "groups"
+        case users = "users"
+        case likes = "likes"
     }
 }

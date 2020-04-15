@@ -26,15 +26,16 @@ class UserManager : ObservableObject {
             do {
                 guard let data = data else {return}
                 let json = try JSONDecoder().decode(User.self, from: data)
+                
+                print("User: \(json)")
                                 
                 DispatchQueue.main.async {
                     self.userDefaultsManager.name = json.name
                     self.userDefaultsManager.email = json.email
-                    self.userDefaultsManager.groups = json.groups
-                    self.userDefaultsManager.friends = json.friends
+                    self.userDefaultsManager.groups = json.groups!
                 }
             } catch {
-                print("caught: \(error)")
+                print("caught in UserManager: \(error)")
             }
         }.resume()
     }

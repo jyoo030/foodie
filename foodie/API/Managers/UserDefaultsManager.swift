@@ -27,8 +27,11 @@ class UserDefaultsManager : ObservableObject {
         didSet { UserDefaults.standard.set(self.email, forKey: "email") }
     }
     
-    @Published var groups: [String] = (UserDefaults.standard.array(forKey: "groups") ?? []) as! [String] {
-        didSet { UserDefaults.standard.set(self.groups, forKey: "groups") }
+    @Published var groups: [GroupModel] = try! JSONDecoder().decode([GroupModel].self, from: (UserDefaults.standard.object(forKey: "groups") ?? []) as! Data) {
+        didSet {
+            let encoded = try? JSONEncoder().encode(self.groups)
+            UserDefaults.standard.set(encoded, forKey: "groups")
+        }
     }
     
     @Published var friends: [String] = (UserDefaults.standard.array(forKey: "friends") ?? []) as! [String] {
