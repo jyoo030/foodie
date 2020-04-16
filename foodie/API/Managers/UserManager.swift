@@ -13,7 +13,6 @@ import Combine
 class UserManager : ObservableObject {
     @ObservedObject var userDefaultsManager: UserDefaultsManager
     @Published var errors: [String] = []
-    @Published var success: Bool = false
     
     init(userDefaultsManager: UserDefaultsManager) {
         self.userDefaultsManager = userDefaultsManager
