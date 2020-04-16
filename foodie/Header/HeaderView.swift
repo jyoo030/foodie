@@ -19,15 +19,14 @@ struct HeaderView: View {
                     .frame(width: geometry.size.width * 1.3)
                 
                  HStack {
-                    Button(action: {
-                        
-                    }) {
+                    NavigationLink(destination: GroupView()) {
                         Image(systemName: "person.3").renderingMode(.original)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width*0.11, height: geometry.size.width*0.11)
-                            .colorInvert()
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geometry.size.width*0.11, height: geometry.size.width*0.11)
+                        .colorInvert()
                     }
+
                     
                     Spacer()
                     
@@ -38,9 +37,7 @@ struct HeaderView: View {
                     
                     Spacer()
                     
-                    Button(action: {
-                        
-                    }) {
+                    NavigationLink(destination: AddGroupView()) {
                         Image(systemName: "plus.circle").renderingMode(.original)
                             .resizable()
                             .aspectRatio(contentMode: .fit)

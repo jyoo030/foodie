@@ -36,6 +36,8 @@
 		10CA786B2447ACA10003D37B /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA78612447ACA10003D37B /* Restaurant.swift */; };
 		10CAD1BB242C07AF000FF2E7 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CAD1BA242C07AF000FF2E7 /* CardStackView.swift */; };
 		10DBC7652447AE54007C67C2 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7642447AE54007C67C2 /* ActivityIndicator.swift */; };
+		10DBC7672447BA68007C67C2 /* AddGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7662447BA68007C67C2 /* AddGroupView.swift */; };
+		10DBC7692447D0F3007C67C2 /* GroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7682447D0F3007C67C2 /* GroupManager.swift */; };
 		10F1659E2431645D007D65BD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 10F1659D2431645D007D65BD /* Kingfisher */; };
 		10F165A02431645D007D65BD /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 10F1659F2431645D007D65BD /* KingfisherSwiftUI */; };
 		10F240F2243A553C00879145 /* ButtonSwipeVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F240F1243A553C00879145 /* ButtonSwipeVariables.swift */; };
@@ -78,6 +80,8 @@
 		10CA78612447ACA10003D37B /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		10CAD1BA242C07AF000FF2E7 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		10DBC7642447AE54007C67C2 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		10DBC7662447BA68007C67C2 /* AddGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupView.swift; sourceTree = "<group>"; };
+		10DBC7682447D0F3007C67C2 /* GroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManager.swift; sourceTree = "<group>"; };
 		10F240F1243A553C00879145 /* ButtonSwipeVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSwipeVariables.swift; sourceTree = "<group>"; };
 		A889DB1D2447AEF6005FEC36 /* GroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
 		A8ADC78924201EFC00537227 /* foodie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodie.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +120,7 @@
 			children = (
 				A889DB1D2447AEF6005FEC36 /* GroupView.swift */,
 				10A3E0C4242446B600EC42F1 /* HeaderView.swift */,
+				10DBC7662447BA68007C67C2 /* AddGroupView.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				10CA78592447ACA10003D37B /* UserDefaultsManager.swift */,
 				10CA785A2447ACA10003D37B /* LoginManager.swift */,
 				10CA785B2447ACA10003D37B /* NetworkingManager.swift */,
+				10DBC7682447D0F3007C67C2 /* GroupManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -349,6 +355,7 @@
 				10CA78692447ACA10003D37B /* User.swift in Sources */,
 				10CA78632447ACA10003D37B /* UserManager.swift in Sources */,
 				10CAD1BB242C07AF000FF2E7 /* CardStackView.swift in Sources */,
+				10DBC7672447BA68007C67C2 /* AddGroupView.swift in Sources */,
 				A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */,
 				10F240F2243A553C00879145 /* ButtonSwipeVariables.swift in Sources */,
 				10CA78622447ACA10003D37B /* ApiUrlConstants.swift in Sources */,
@@ -366,6 +373,7 @@
 				A8ADC79124201EFC00537227 /* ContentView.swift in Sources */,
 				1039CF9F24399919004D42C0 /* NahView.swift in Sources */,
 				1039CF9D243998FC004D42C0 /* YummyView.swift in Sources */,
+				10DBC7692447D0F3007C67C2 /* GroupManager.swift in Sources */,
 				10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */,
 				107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */,
 				10CA78682447ACA10003D37B /* Reviews.swift in Sources */,

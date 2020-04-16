@@ -13,13 +13,10 @@ struct GroupView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text(userDefaultsManager.groups.isEmpty ? "No Groups :(" : userDefaultsManager.groups[0].name)
-                    .foregroundColor(Color.white)
-                    .font(.system(.largeTitle, design: .rounded))
-                    .bold()               
+            List(self.userDefaultsManager.groups) { group in
+                Text(group.name)
             }
-        }
+        }.navigationBarTitle(Text("Groups"))
     }
 }
 

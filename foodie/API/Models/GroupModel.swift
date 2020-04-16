@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GroupModel: Decodable, Encodable {
+struct GroupModel: Decodable, Encodable, Identifiable {
     var id: String = ""
     var name: String = ""
     var users: [User] = []

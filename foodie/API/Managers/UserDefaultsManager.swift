@@ -46,4 +46,9 @@ class UserDefaultsManager : ObservableObject {
     @Published var settings: Settings = (UserDefaults.standard.object(forKey: "settings") ?? Settings()) as! Settings {
         didSet { UserDefaults.standard.set(self.settings, forKey: "settings") }
     }
+    
+    func getIdFromName(name: String) -> String {
+        let friend = self.friends.filter{ $0.name.lowercased() == name.lowercased() }.first
+        return friend == nil ? "" : friend!.id
+    }
 }
