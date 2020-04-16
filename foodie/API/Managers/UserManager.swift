@@ -33,6 +33,7 @@ class UserManager : ObservableObject {
                     self.userDefaultsManager.email = json.email
                     self.userDefaultsManager.groups = json.groups!
                     self.userDefaultsManager.friends = json.friends!
+                    self.userDefaultsManager.currentGroup = json.currentGroup!
                 }
             } catch {
                 print("caught in UserManager: \(error)")

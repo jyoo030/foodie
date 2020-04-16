@@ -11,12 +11,10 @@ import SwiftUI
 import Combine
 
 class GroupManager : ObservableObject {
-    @ObservedObject var userDefaultsManager: UserDefaultsManager
     @ObservedObject var userManager: UserManager
     @Published var errors: [String] = []
     
-    init(userDefaultsManager: UserDefaultsManager, userManager: UserManager) {
-        self.userDefaultsManager = userDefaultsManager
+    init(userManager: UserManager) {
         self.userManager = userManager
     }
     
@@ -36,6 +34,8 @@ class GroupManager : ObservableObject {
             do {
                 guard let data = data else {return}
                 let json = try JSONDecoder().decode(Response.self, from: data)
+                
+                print(json)
                                                 
                 DispatchQueue.main.async {
                     if let httpResponse = resp as? HTTPURLResponse{

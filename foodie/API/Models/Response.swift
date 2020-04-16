@@ -11,4 +11,5 @@ import Foundation
 struct Response: Decodable {
     var errors: [String]?
     var userId: String?
+    var groupId: String?
 }

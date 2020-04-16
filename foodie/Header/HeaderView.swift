@@ -11,6 +11,11 @@ import SwiftUI
 struct HeaderView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     
+    func getSelectedGroup() -> String {
+        let selectedGroup = self.userDefaultsManager.groups.first(where: {$0.id == self.userDefaultsManager.currentGroup})
+        return selectedGroup == nil ? "No Groups" : selectedGroup!.name
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -30,10 +35,11 @@ struct HeaderView: View {
                     
                     Spacer()
                     
-                    Text(self.userDefaultsManager.groups.isEmpty ? "No Groups :(" : self.userDefaultsManager.groups[0].name)
-                       .foregroundColor(Color.white)
-                       .font(.system(.largeTitle, design: .rounded))
-                       .bold()
+                    Text(self.getSelectedGroup())
+                        .foregroundColor(Color.white)
+                        .font(.system(.largeTitle, design: .rounded))
+                        .bold()
+
                     
                     Spacer()
                     

@@ -17,6 +17,20 @@ struct AddGroupView: View {
     @State private var radius: String = "2000"
     @State private var nameError: String = ""
 
+    func parseFriends() -> [String:String] {
+        let friendsArray: [String] = self.friends.components(separatedBy: ", ")
+        var friendsIdDict: [String:String] = [:]
+        for friendName in friendsArray {
+            let friendId = self.userDefaultsManager.getIdFromName(name: friendName)
+            if friendId == "" {
+                self.nameError = friendName
+            } else {
+                friendsIdDict[friendName] = friendId
+            }
+        }
+        return friendsIdDict
+    }
+    
     var body: some View {
         HStack {
             Spacer()
@@ -29,31 +43,20 @@ struct AddGroupView: View {
                 TextField("Location", text: $location)
                 TextField("Radius", text: $radius)
                 Button(action: {
-                    let friendsArray: [String] = self.friends.components(separatedBy: ", ")
-                    var friendsIdArray: [String:String] = [:]
-                    for friendName in friendsArray {
-                        let friendId = self.userDefaultsManager.getIdFromName(name: friendName)
-                        if friendId == "" {
-                            self.nameError = friendName
-                        } else {
-                            friendsIdArray[friendName] = friendId
-                        }
-                    }
-                    
-                    print(friendsArray)
-                    print(friendsIdArray)
+                    let friendIdDict = self.parseFriends()
                     
                     if self.nameError.isEmpty {
                         var users = [self.userDefaultsManager.userId]
                         
-                        for (_,item) in friendsIdArray {
+                        for (_,item) in friendIdDict {
                             users.append(item)
                         }
                         
                         self.groupManager.createGroup(
                             name: self.groupName,
                             users: users,
-                            admins: [self.userDefaultsManager.userId], createdBy: self.userDefaultsManager.userId)
+                            admins: [self.userDefaultsManager.userId], createdBy: self.userDefaultsManager.userId
+                        )
                     }
                 }) {
                     Text("Create")

@@ -11,8 +11,6 @@ router.post('/create', (req, res) => {
 		return res.status(400).json({msg: "Missing group name or list of users"})
 	}
 
-	console.log(req.body)
-
 	if (admins.length == 0) {
 		return res.status(400).json({msg: "Must appoint an admin"})
 	}
@@ -26,13 +24,13 @@ router.post('/create', (req, res) => {
 	newGroup.save().then(group => {
 		// Update User's current groups
 		for (var i = 0; i < users.length; i++) {
-			User.findByIdAndUpdate(users[i], { "$push": { "groups": group.id } }, {new: true},
+			User.findByIdAndUpdate(users[i], { "$push": { "groups": group.id }, "$set": { "currentGroup": group.id }}, {new: true},
 				(err, raw) => {
 					if (err) throw err;
 				}
 			);
 		}
-		return res.status(200).json({msg: "New Group created"});
+		return res.status(200).json({groupId: group.id, msg: "New Group created"});
 	})
 		.catch(err => console.log(err));
 })

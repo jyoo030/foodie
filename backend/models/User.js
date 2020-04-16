@@ -27,7 +27,11 @@ const UserSchema = mongoose.Schema({
 	groups: [{ 
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'Group'
-	}]
+	}],
+	currentGroup: {
+		type: String,
+		default: ""
+	}
 });
 
 module.exports = mongoose.model('User', UserSchema);

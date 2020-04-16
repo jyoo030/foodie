@@ -14,6 +14,7 @@ struct User: Decodable, Encodable, Identifiable {
     var email: String = ""
     var groups: [GroupModel]? = []
     var friends: [User]? = []
+    var currentGroup: String? = ""
     
     private enum CodingKeys: String, CodingKey{
         case id = "_id"
@@ -21,5 +22,6 @@ struct User: Decodable, Encodable, Identifiable {
         case email = "email"
         case groups = "groups"
         case friends = "friends"
+        case currentGroup = "currentGroup"
     }
 }
