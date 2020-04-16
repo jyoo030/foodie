@@ -154,7 +154,7 @@ router.post('/login', (req, res) => {
 router.get('/id/:id', (req, res) => {
 	const id = req.params.id
 	User.findById(id)
-   		.populate('friends')
+		.populate({path: 'friends', select: '-groups -friends -password'})
 		.populate({
 		 	path: 'groups',
 			populate: { path: 'users', select: '-groups -friends -password'}
