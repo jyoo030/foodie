@@ -6,14 +6,21 @@ const Group = require("../models/group");
 const User = require("../models/user");
 
 router.post('/create', (req, res) => {
-	const {name, users} = req.body || {}
-	if (!name || !users) {
+	const {name, users, admins} = req.body || {}
+	if (!name || !users || !admins) {
 		return res.status(400).json({msg: "Missing group name or list of users"})
+	}
+
+	console.log(req.body)
+
+	if (admins.length == 0) {
+		return res.status(400).json({msg: "Must appoint an admin"})
 	}
 
 	const newGroup = Group({
 		name,
-		users
+		users,
+		admins
 	})
 
 	newGroup.save().then(group => {
