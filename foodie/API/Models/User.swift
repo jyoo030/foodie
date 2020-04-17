@@ -12,9 +12,9 @@ struct User: Decodable, Encodable, Identifiable {
     var id: String = ""
     var name: String = ""
     var email: String = ""
-    var groups: [GroupModel]? = []
-    var friends: [User]? = []
-    var currentGroup: String? = ""
+    var groups: [GroupModel]?
+    var friends: [User]?
+    var currentGroup: PopulatedGroupModel?
     
     private enum CodingKeys: String, CodingKey{
         case id = "_id"

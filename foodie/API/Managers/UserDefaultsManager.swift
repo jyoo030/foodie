@@ -15,8 +15,12 @@ class UserDefaultsManager : ObservableObject {
         didSet { UserDefaults.standard.set(self.userId, forKey: "userId") }
     }
     
-    @Published var currentGroup: String = UserDefaults.standard.string(forKey: "currentGroup") ?? "" {
-        didSet { UserDefaults.standard.set(self.currentGroup, forKey: "currentGroup") }
+    @Published var currentGroup: PopulatedGroupModel = try! JSONDecoder().decode(PopulatedGroupModel.self,
+        from: (UserDefaults.standard.object(forKey: "currentGroup") ?? JSONEncoder().encode(PopulatedGroupModel())) as! Data) {
+        didSet {
+            let encoded = try? JSONEncoder().encode(self.currentGroup)
+            UserDefaults.standard.set(encoded, forKey: "currentGroup")
+        }
     }
     
     @Published var name: String = UserDefaults.standard.string(forKey: "name") ?? "" {
@@ -41,10 +45,6 @@ class UserDefaultsManager : ObservableObject {
             let encoded = try? JSONEncoder().encode(self.friends)
             UserDefaults.standard.set(encoded, forKey: "friends")
         }
-    }
-
-    @Published var settings: Settings = (UserDefaults.standard.object(forKey: "settings") ?? Settings()) as! Settings {
-        didSet { UserDefaults.standard.set(self.settings, forKey: "settings") }
     }
     
     func getIdFromName(name: String) -> String {

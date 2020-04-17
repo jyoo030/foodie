@@ -12,6 +12,7 @@
 		1010C30B242453BA001650AA /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1010C30A242453BA001650AA /* FooterView.swift */; };
 		102763D82436626300413A48 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D72436626300413A48 /* ReviewView.swift */; };
 		102763DA2436B29B00413A48 /* RestaurantInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D92436B29B00413A48 /* RestaurantInfoView.swift */; };
+		102B842C24495F06007DFA67 /* RestaurantManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B842B24495F06007DFA67 /* RestaurantManager.swift */; };
 		1039CF9D243998FC004D42C0 /* YummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1039CF9C243998FC004D42C0 /* YummyView.swift */; };
 		1039CF9F24399919004D42C0 /* NahView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1039CF9E24399919004D42C0 /* NahView.swift */; };
 		106E435524416B0800C31FA0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E435424416B0800C31FA0 /* LoginView.swift */; };
@@ -28,7 +29,6 @@
 		10CA78632447ACA10003D37B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA78582447ACA10003D37B /* UserManager.swift */; };
 		10CA78642447ACA10003D37B /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA78592447ACA10003D37B /* UserDefaultsManager.swift */; };
 		10CA78652447ACA10003D37B /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA785A2447ACA10003D37B /* LoginManager.swift */; };
-		10CA78662447ACA10003D37B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA785B2447ACA10003D37B /* NetworkingManager.swift */; };
 		10CA78672447ACA10003D37B /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA785D2447ACA10003D37B /* GroupModel.swift */; };
 		10CA78682447ACA10003D37B /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA785E2447ACA10003D37B /* Reviews.swift */; };
 		10CA78692447ACA10003D37B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA785F2447ACA10003D37B /* User.swift */; };
@@ -56,6 +56,7 @@
 		1010C30A242453BA001650AA /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		102763D72436626300413A48 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		102763D92436B29B00413A48 /* RestaurantInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoView.swift; sourceTree = "<group>"; };
+		102B842B24495F06007DFA67 /* RestaurantManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantManager.swift; sourceTree = "<group>"; };
 		1039CF9C243998FC004D42C0 /* YummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YummyView.swift; sourceTree = "<group>"; };
 		1039CF9E24399919004D42C0 /* NahView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NahView.swift; sourceTree = "<group>"; };
 		106E435424416B0800C31FA0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		10CA78582447ACA10003D37B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		10CA78592447ACA10003D37B /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		10CA785A2447ACA10003D37B /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
-		10CA785B2447ACA10003D37B /* NetworkingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		10CA785D2447ACA10003D37B /* GroupModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
 		10CA785E2447ACA10003D37B /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		10CA785F2447ACA10003D37B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -201,8 +201,8 @@
 				10CA78582447ACA10003D37B /* UserManager.swift */,
 				10CA78592447ACA10003D37B /* UserDefaultsManager.swift */,
 				10CA785A2447ACA10003D37B /* LoginManager.swift */,
-				10CA785B2447ACA10003D37B /* NetworkingManager.swift */,
 				10DBC7682447D0F3007C67C2 /* GroupManager.swift */,
+				102B842B24495F06007DFA67 /* RestaurantManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -377,8 +377,8 @@
 				10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */,
 				107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */,
 				10CA78682447ACA10003D37B /* Reviews.swift in Sources */,
-				10CA78662447ACA10003D37B /* NetworkingManager.swift in Sources */,
 				10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */,
+				102B842C24495F06007DFA67 /* RestaurantManager.swift in Sources */,
 				100893C9242D0F4E006AD9DB /* settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

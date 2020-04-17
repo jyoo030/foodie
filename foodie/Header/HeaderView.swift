@@ -11,9 +11,9 @@ import SwiftUI
 struct HeaderView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     
-    func getSelectedGroup() -> String {
-        let selectedGroup = self.userDefaultsManager.groups.first(where: {$0.id == self.userDefaultsManager.currentGroup})
-        return selectedGroup == nil ? "No Groups" : selectedGroup!.name
+    func getCurrentGroup() -> String {
+        let currentGroup = self.userDefaultsManager.groups.first(where: {$0.id == self.userDefaultsManager.currentGroup.id})
+        return currentGroup == nil ? "No Groups" : currentGroup!.name
     }
     
     var body: some View {
@@ -35,7 +35,7 @@ struct HeaderView: View {
                     
                     Spacer()
                     
-                    Text(self.getSelectedGroup())
+                    Text(self.getCurrentGroup())
                         .foregroundColor(Color.white)
                         .font(.system(.largeTitle, design: .rounded))
                         .bold()

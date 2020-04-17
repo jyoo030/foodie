@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     lazy var restaurantManager = RestaurantManager(userDefaultsManager: userDefaultsManager)
     lazy var loginManager = LoginManager(userDefaultsManager: userDefaultsManager)
     lazy var userManager = UserManager(userDefaultsManager: userDefaultsManager, restaurantManager: restaurantManager)
-    lazy var groupManager = GroupManager(userManager: userManager, userDefaultsManager: userDefaultsManager)
+    lazy var groupManager = GroupManager(userManager: userManager)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.

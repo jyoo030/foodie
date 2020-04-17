@@ -18,10 +18,20 @@ class GroupManager : ObservableObject {
         self.userManager = userManager
     }
     
-    func createGroup(name: String, users: [String], admins: [String], createdBy: String) {
+    func createGroup(name: String,
+                     users: [String],
+                     admins: [String],
+                     location: String,
+                     radius: Int,
+                     createdBy: String) {
         let apiUrl = (UrlConstants.baseUrl + "/group/create/")
         guard let url = URL(string: apiUrl) else {return}
-        let body = ["name" : name, "users" : users, "admins" : admins] as [String : Any]
+        let body = ["name" : name,
+                    "users" : users,
+                    "admins" : admins,
+                    "location" : location,
+                    "radius": radius
+            ] as [String : Any]
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")

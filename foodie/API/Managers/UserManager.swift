@@ -12,10 +12,12 @@ import Combine
 
 class UserManager : ObservableObject {
     @ObservedObject var userDefaultsManager: UserDefaultsManager
+    @ObservedObject var restaurantManager: RestaurantManager
     @Published var errors: [String] = []
     
-    init(userDefaultsManager: UserDefaultsManager) {
+    init(userDefaultsManager: UserDefaultsManager, restaurantManager: RestaurantManager) {
         self.userDefaultsManager = userDefaultsManager
+        self.restaurantManager = restaurantManager
     }
     
     func getUser(id: String) {
@@ -25,15 +27,16 @@ class UserManager : ObservableObject {
             do {
                 guard let data = data else {return}
                 let json = try JSONDecoder().decode(User.self, from: data)
-                
-                print("User: \(json)")
-                                
+                                                
                 DispatchQueue.main.async {
                     self.userDefaultsManager.name = json.name
                     self.userDefaultsManager.email = json.email
                     self.userDefaultsManager.groups = json.groups!
                     self.userDefaultsManager.friends = json.friends!
-                    self.userDefaultsManager.currentGroup = json.currentGroup!
+                    if (json.currentGroup != nil) {
+                        self.userDefaultsManager.currentGroup = json.currentGroup!
+                        self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location)
+                    }
                 }
             } catch {
                 print("caught in UserManager: \(error)")

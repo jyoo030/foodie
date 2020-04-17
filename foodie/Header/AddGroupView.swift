@@ -55,7 +55,10 @@ struct AddGroupView: View {
                         self.groupManager.createGroup(
                             name: self.groupName,
                             users: users,
-                            admins: [self.userDefaultsManager.userId], createdBy: self.userDefaultsManager.userId
+                            admins: [self.userDefaultsManager.userId],
+                            location: self.location,
+                            radius: Int(self.radius)!,
+                            createdBy: self.userDefaultsManager.userId
                         )
                     }
                 }) {
