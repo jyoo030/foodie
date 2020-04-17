@@ -6,7 +6,7 @@ const Group = require("../models/group");
 const User = require("../models/user");
 
 router.post('/create', (req, res) => {
-	const {name, users, admins} = req.body || {}
+	const {name, users, admins, location, radius} = req.body || {}
 	if (!name || !users || !admins) {
 		return res.status(400).json({msg: "Missing group name or list of users"})
 	}
@@ -15,16 +15,21 @@ router.post('/create', (req, res) => {
 		return res.status(400).json({msg: "Must appoint an admin"})
 	}
 
-	const newGroup = Group({
+	var newGroup = Group({
 		name,
 		users,
 		admins
 	})
 
+	if (location && radius) {
+		newGroup.location = location
+		newGroup.radius = radius
+	}
+
 	newGroup.save().then(group => {
 		// Update User's current groups
 		for (var i = 0; i < users.length; i++) {
-			User.findByIdAndUpdate(users[i], { "$push": { "groups": group.id }, "$set": { "currentGroup": group.id }}, {new: true},
+			User.findByIdAndUpdate(users[i], { "$push": { "groups": group.id }, "$set": { "currentGroup": group }}, {new: true},
 				(err, raw) => {
 					if (err) throw err;
 				}

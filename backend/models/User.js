@@ -29,8 +29,8 @@ const UserSchema = mongoose.Schema({
 		ref: 'Group'
 	}],
 	currentGroup: {
-		type: String,
-		default: ""
+		type: mongoose.Schema.Types.ObjectId, 
+		ref: 'Group'
 	}
 });
 
