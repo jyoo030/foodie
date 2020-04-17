@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RestaurantInfoView: View {
-    @EnvironmentObject var networkingManager: NetworkingManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
     @State var formattedHours = []
     private var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
@@ -34,7 +34,7 @@ struct RestaurantInfoView: View {
         Group {
             HStack {
                 Spacer()
-            ForEach(self.networkingManager.restaurantDetails.location.display_address, id: \.self) { address in
+            ForEach(self.restaurantManager.restaurantDetails.location.display_address, id: \.self) { address in
                     Text(address)
                         .font(.subheadline)
                     .bold()
@@ -48,19 +48,19 @@ struct RestaurantInfoView: View {
                 
                 Button(action: {
                     let tel = "tel://"
-                    let formattedString = tel + self.networkingManager.restaurantDetails.display_phone
+                    let formattedString = tel + self.restaurantManager.restaurantDetails.display_phone
                     guard let url = URL(string: formattedString) else { return }
                     UIApplication.shared.open(url)
                    }) {
-                    Text(self.networkingManager.restaurantDetails.display_phone)
+                    Text(self.restaurantManager.restaurantDetails.display_phone)
                 }
                 
                 Spacer()
             }
             
             VStack {
-                if(!self.networkingManager.restaurantDetails.id.isEmpty && self.networkingManager.restaurantDetails.hours != nil) {
-                    ForEach(self.networkingManager.restaurantDetails.hours![0].open, id: \.self) { hour in
+                if(!self.restaurantManager.restaurantDetails.id.isEmpty && self.restaurantManager.restaurantDetails.hours != nil) {
+                    ForEach(self.restaurantManager.restaurantDetails.hours![0].open, id: \.self) { hour in
                         HStack {
                             Text(self.days[hour.day])
                             Spacer()

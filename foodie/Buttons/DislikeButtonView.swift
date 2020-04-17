@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DislikeButtonView: View {
-    @EnvironmentObject var networkingManager: NetworkingManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
     @ObservedObject var swipeVar: SwipeVar = SwipeVar()
 
     var body: some View {
@@ -29,7 +29,7 @@ struct DislikeButtonView: View {
                         self.swipeVar.degree = 0
                         self.swipeVar.toggle = 0
                         self.swipeVar.status = .none
-                        self.networkingManager.onRemoveCard(restaurant: self.networkingManager.restaurants.last!)
+                        self.restaurantManager.onRemoveCard(restaurant: self.restaurantManager.restaurants.last!)
                     }
                 },
                 label: { Image("dislike_button").renderingMode(.original)

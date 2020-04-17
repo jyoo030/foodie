@@ -21,7 +21,7 @@ struct CardView: View {
     @State private var translation: CGSize = .zero
     @ObservedObject var swipeVar: SwipeVar
 
-    @EnvironmentObject var networkingManager: NetworkingManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
     
     init(restaurant: Restaurant, index: Int, swipeVar: SwipeVar, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
         self.restaurant = restaurant
@@ -43,7 +43,7 @@ struct CardView: View {
                         .aspectRatio(contentMode: .fill)
                     .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.52)
                     
-                    if self.networkingManager.isLastCard(index: self.index) {
+                    if self.restaurantManager.isLastCard(index: self.index) {
                         if self.swipeVar.status == .yum {
                             YummyView()
                         }  else if self.swipeVar.status == .nah {

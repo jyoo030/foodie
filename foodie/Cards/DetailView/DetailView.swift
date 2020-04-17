@@ -11,7 +11,7 @@ import MapKit
 import KingfisherSwiftUI
 
 struct DetailView: View {
-    @EnvironmentObject var networkingManager: NetworkingManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
     @State var index = 0
     
     var restaurant: Restaurant
@@ -25,12 +25,12 @@ struct DetailView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 // Image Slider
                 VStack(alignment: .leading) {
-                    if(self.networkingManager.restaurantDetails.photos.isEmpty) {
+                    if(self.restaurantManager.restaurantDetails.photos.isEmpty) {
                         ActivityIndicator(isAnimating: .constant(true), style: .large)
                          .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
                     } else {
-                        PagingView(index: self.$index.animation(), maxIndex: self.networkingManager.restaurantDetails.photos.count - 1) {
-                            ForEach(self.networkingManager.restaurantDetails.photos, id: \.self) { imageUrl in
+                        PagingView(index: self.$index.animation(), maxIndex: self.restaurantManager.restaurantDetails.photos.count - 1) {
+                            ForEach(self.restaurantManager.restaurantDetails.photos, id: \.self) { imageUrl in
                                 KFImage(URL(string: imageUrl)!)
                                     .resizable()
                                     .scaledToFill()
@@ -69,7 +69,7 @@ struct DetailView: View {
                     }.padding(.horizontal)
                     
                     // Reviews
-                    if(self.networkingManager.reviews.isEmpty)
+                    if(self.restaurantManager.reviews.isEmpty)
                     {
                         HStack {
                             Spacer()
@@ -79,7 +79,7 @@ struct DetailView: View {
                             Spacer()
                         }
                     } else {
-                        ReviewView(reviews: self.networkingManager.reviews)
+                        ReviewView(reviews: self.restaurantManager.reviews)
                     }
                     
                     // Map

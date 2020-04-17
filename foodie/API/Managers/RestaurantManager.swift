@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class NetworkingManager : ObservableObject {
+class RestaurantManager : ObservableObject {
     @ObservedObject var userDefaultsManager: UserDefaultsManager
     @Published var restaurants:[Restaurant] = []
     @Published var restaurantDetails:RestaurantDetail = RestaurantDetail()
@@ -18,7 +18,7 @@ class NetworkingManager : ObservableObject {
     
     init(userDefaultsManager: UserDefaultsManager) {
         self.userDefaultsManager = userDefaultsManager
-        getRestaurantsByRadius(radius: userDefaultsManager.settings.radius, location: userDefaultsManager.settings.location)
+        getRestaurantsByRadius(radius: userDefaultsManager.currentGroup.radius, location: userDefaultsManager.currentGroup.location)
     }
     
     func getRestaurantsByRadius(radius: Int, location: String) {

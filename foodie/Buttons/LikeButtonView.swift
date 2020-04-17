@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct LikeButtonView: View {
-    @EnvironmentObject var networkingManager: NetworkingManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
     @ObservedObject var swipeVar: SwipeVar = SwipeVar()
 
     var body: some View {
@@ -30,7 +30,7 @@ struct LikeButtonView: View {
                     self.swipeVar.degree = 0
                     self.swipeVar.toggle = 0
                     self.swipeVar.status = .none
-                    self.networkingManager.onRemoveCard( restaurant: self.networkingManager.restaurants.last!)
+                    self.restaurantManager.onRemoveCard( restaurant: self.restaurantManager.restaurants.last!)
                 }
               },
               label: { Image("like_button").renderingMode(.original)
