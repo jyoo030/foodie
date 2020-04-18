@@ -24,7 +24,7 @@ struct HeaderView: View {
                     .frame(width: geometry.size.width * 1.3)
                 
                  HStack {
-                    NavigationLink(destination: GroupView()) {
+                    NavigationLink(destination: GroupAndFriendView()) {
                         Image(systemName: "person.3").renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
