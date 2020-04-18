@@ -13,8 +13,24 @@ struct GroupAndFriendView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text(currentView)
-                .font(.title)
+            HStack {
+                Spacer()
+                
+                Text(currentView)
+                    .font(.title)
+                
+                Spacer()
+                
+                Button(action: {
+                    if self.currentView == "Groups" {
+                        
+                    } else if self.currentView == "Friends" {
+                        
+                    }
+                }) {
+                    Image(systemName: "plus.circle")
+                }
+            }.padding(.horizontal, 15)
             
             if currentView == "Groups" {
                 GroupsView()
