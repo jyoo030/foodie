@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		10060849243558CC00025804 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10060848243558CC00025804 /* PagingView.swift */; };
-		100893C9242D0F4E006AD9DB /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100893C8242D0F4E006AD9DB /* settings.swift */; };
 		1010C30B242453BA001650AA /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1010C30A242453BA001650AA /* FooterView.swift */; };
 		102763D82436626300413A48 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D72436626300413A48 /* ReviewView.swift */; };
 		102763DA2436B29B00413A48 /* RestaurantInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D92436B29B00413A48 /* RestaurantInfoView.swift */; };
@@ -54,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		10060848243558CC00025804 /* PagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
-		100893C8242D0F4E006AD9DB /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
 		1010C30A242453BA001650AA /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		102763D72436626300413A48 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		102763D92436B29B00413A48 /* RestaurantInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoView.swift; sourceTree = "<group>"; };
@@ -111,14 +109,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		100893C7242D0EE5006AD9DB /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				100893C8242D0F4E006AD9DB /* settings.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
 		1010C308242453A2001650AA /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,7 +243,6 @@
 			isa = PBXGroup;
 			children = (
 				10CA78552447ACA10003D37B /* API */,
-				100893C7242D0EE5006AD9DB /* Settings */,
 				1010C309242453AE001650AA /* Footer */,
 				1010C308242453A2001650AA /* Header */,
 				10A3E0C12424121800EC42F1 /* Cards */,
@@ -394,7 +383,6 @@
 				10CA78682447ACA10003D37B /* Reviews.swift in Sources */,
 				10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */,
 				102B842C24495F06007DFA67 /* RestaurantManager.swift in Sources */,
-				100893C9242D0F4E006AD9DB /* settings.swift in Sources */,
 				10E12463244AB94900EF6F92 /* FriendsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
