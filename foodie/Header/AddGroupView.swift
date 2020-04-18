@@ -16,6 +16,7 @@ struct AddGroupView: View {
     @State private var location: String = "riverside, ca"
     @State private var radius: String = "2000"
     @State private var nameError: String = ""
+    @Binding var addGroupToggle: Bool
 
     func parseFriends() -> [String:String] {
         let friendsArray: [String] = self.friends.components(separatedBy: ", ")
@@ -32,40 +33,55 @@ struct AddGroupView: View {
     }
     
     var body: some View {
-        HStack {
-            Spacer()
+        GeometryReader { g in
             VStack {
-                if !nameError.isEmpty {
-                    Text("\(self.nameError) is not on your friends list")
-                }
-                TextField("Group Name", text: $groupName)
-                TextField("Add Friends", text: $friends)
-                TextField("Location", text: $location)
-                TextField("Radius", text: $radius)
-                Button(action: {
-                    let friendIdDict = self.parseFriends()
-                    
-                    if self.nameError.isEmpty {
-                        var users = [self.userDefaultsManager.userId]
-                        
-                        for (_,item) in friendIdDict {
-                            users.append(item)
+                HStack {
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            self.addGroupToggle.toggle()
                         }
-                        
-                        self.groupManager.createGroup(
-                            name: self.groupName,
-                            users: users,
-                            admins: [self.userDefaultsManager.userId],
-                            location: self.location,
-                            radius: Int(self.radius)!,
-                            createdBy: self.userDefaultsManager.userId
-                        )
+                    }) {
+                        Text("cancel")
                     }
-                }) {
-                    Text("Create")
                 }
+                Spacer()
+                VStack {
+                    if !self.nameError.isEmpty {
+                        Text("\(self.nameError) is not on your friends list")
+                    }
+                    TextField("Group Name", text: self.$groupName)
+                    TextField("Add Friends", text: self.$friends)
+                    TextField("Location", text: self.$location)
+                    TextField("Radius", text: self.$radius)
+                    Button(action: {
+                        let friendIdDict = self.parseFriends()
+                        
+                        if self.nameError.isEmpty {
+                            var users = [self.userDefaultsManager.userId]
+                            
+                            for (_,item) in friendIdDict {
+                                users.append(item)
+                            }
+                            
+                            self.groupManager.createGroup(
+                                name: self.groupName,
+                                users: users,
+                                admins: [self.userDefaultsManager.userId],
+                                location: self.location,
+                                radius: Int(self.radius)!,
+                                createdBy: self.userDefaultsManager.userId
+                            )
+                        }
+                    }) {
+                        Text("Create")
+                    }
+                }
+                Spacer()
             }
-            Spacer()
+            .edgesIgnoringSafeArea(.bottom)
+            .frame(width: g.size.width, height: g.size.height * 0.85, alignment: .bottom)
+            .background(Color.white)
+
         }
     }
 

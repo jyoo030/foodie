@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HeaderView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @Binding var addGroupToggle: Bool
     
     func getCurrentGroup() -> String {
         let currentGroup = self.userDefaultsManager.groups.first(where: {$0.id == self.userDefaultsManager.currentGroup.id})
@@ -43,7 +44,11 @@ struct HeaderView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: AddGroupView()) {
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            self.addGroupToggle.toggle()
+                        }
+                    }) {
                         Image(systemName: "plus.circle").renderingMode(.original)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -59,8 +64,3 @@ struct HeaderView: View {
     }
 }
 
-struct HeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeaderView()
-    }
-}
