@@ -50,8 +50,8 @@ struct ContentView: View {
                         .zIndex(0)
                         .background(self.addGroupToggle ? Color.gray : Color(red: 240/255, green: 240/255, blue: 240/255))
                         .cornerRadius(self.addGroupToggle ? 30 : 0)
-                        .scaleEffect(x: self.addGroupToggle ? 0.95 : 1, y: self.addGroupToggle ? 0.95 : 1, anchor: .center)
-                        .frame(height: self.addGroupToggle ? g.size.height * 0.87 : g.size.height)
+                        .scaleEffect(x: self.addGroupToggle ? 0.9 : 1, y: self.addGroupToggle ? 0.9 : 1, anchor: UnitPoint(x: 0.5, y: 0.3))
+                        .frame(height: self.addGroupToggle ? g.size.height * 0.9 : g.size.height)
                         .onAppear(perform: {
                             if self.userDefaultsManager.name.isEmpty {
                                 self.userManager.getUser(id: self.userDefaultsManager.userId)
