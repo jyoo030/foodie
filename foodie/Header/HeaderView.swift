@@ -46,7 +46,7 @@ struct HeaderView: View {
                     
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            self.addGroupToggle.toggle()
+                            self.addGroupToggle = true
                         }
                     }) {
                         Image(systemName: "plus.circle").renderingMode(.original)
