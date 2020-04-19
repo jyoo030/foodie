@@ -41,7 +41,7 @@ struct CardView: View {
                     KFImage(URL(string: self.restaurant.image_url)!)
                     .resizable()
                         .aspectRatio(contentMode: .fill)
-                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.52)
+                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.5)
                     
                     if self.restaurantManager.isLastCard(index: self.index) {
                         if self.swipeVar.status == .yum {
@@ -55,7 +55,7 @@ struct CardView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text(self.restaurant.name)
-                            .font(.system(size: geometry.size.width * 0.06))
+                            .font(.system(size: geometry.size.width * 0.058))
                             .bold()
                         
                         Spacer()

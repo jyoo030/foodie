@@ -33,7 +33,6 @@ struct AddGroupView: View {
     }
     
     var body: some View {
-        GeometryReader { g in
             VStack {
                 HStack {
                     Button(action: {
@@ -78,11 +77,9 @@ struct AddGroupView: View {
                 }
                 Spacer()
             }
-            .edgesIgnoringSafeArea(.bottom)
-            .frame(width: g.size.width, height: g.size.height * 0.85, alignment: .bottom)
             .background(Color.white)
-
-        }
+            .padding(.top, 100)
+            .frame(alignment: .bottom)
     }
 
 }
