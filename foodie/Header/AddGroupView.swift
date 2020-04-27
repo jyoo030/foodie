@@ -16,6 +16,11 @@ struct AddGroupView: View {
     @State private var location: String = ""
     @State private var mileRadius: Float = 5
     @State private var nameError: String = ""
+    
+    @State private var selectedFriends: [String] = []
+    @State private var previousSearchText: String = ""
+    @State private var currentSearchText: String = ""
+
     @Binding var addGroupToggle: Bool
 
     func parseFriends() -> [String:String] {
@@ -30,6 +35,19 @@ struct AddGroupView: View {
             }
         }
         return friendsIdDict
+    }
+    
+    func getSearchText() {
+        self.previousSearchText = ""
+        
+        for name in selectedFriends {
+            if self.previousSearchText.isEmpty {
+                self.previousSearchText = "\(name), "
+            } else {
+                self.previousSearchText += "\(name), "
+            }
+        }
+        print(self.previousSearchText)
     }
     
     var body: some View {
@@ -105,17 +123,46 @@ struct AddGroupView: View {
                     }
                     
                     Slider(value: self.$mileRadius, in: 1...25, step: 0.1)
+                                        
+                    TextField("search", text: $previousSearchText)
+                        .foregroundColor(.primary)
+                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                        .foregroundColor(.secondary)
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(10.0)
                     
-                    TextField("Add Friends", text: self.$friends)
-                        .multilineTextAlignment(.center)
+                    
+                    List(self.userDefaultsManager.friends) { friend in
+                        Button(action: {
+                            if self.selectedFriends.contains(friend.name) {
+                                self.selectedFriends.remove(at: self.selectedFriends.firstIndex(of: friend.name)!)
+                            } else {
+                                self.selectedFriends.append(friend.name)
+                            }
+                            
+                            self.getSearchText()
 
-                    ScrollView {
-                        ForEach(self.userDefaultsManager.friends) { friend in
-                            Text(friend.name)
+                        }) {
+                            HStack {
+                                Image("chicken")
+                                    .resizable()
+                                    .frame(width:40, height:40)
+                                    .cornerRadius(40)
+                                 
+                                Text(friend.name).padding(.leading, 10)
+                                
+                                Spacer()
+                                
+                                if self.selectedFriends.contains(friend.name) {
+                                    Image(systemName: "checkmark.circle")
+                                } else {
+                                    Image(systemName: "ellipsis")
+                                }
+                            }
                         }
                     }
                     
-                }.padding(.horizontal, 20)
+                }.padding(.horizontal, 10)
             }
             Spacer()
         }
