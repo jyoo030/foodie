@@ -7,7 +7,7 @@ const User = require("../models/user");
 
 router.post('/register', (req, res) => {
 	let errors = []
-	const {name, email, password, password2} = req.body || {}
+	var {name, email, password, password2} = req.body || {}
 
 	if (!name || !email || !password || !password2) {
 		return res.status(400).json({errors: ["Please enter all fields"]});
@@ -28,6 +28,8 @@ router.post('/register', (req, res) => {
 	if (errors.length > 0) {
 		return res.status(400).json({errors: errors});
 	}
+
+	email = email.toLowerCase()
 
 	// Check for exisiting user
 	User.findOne({ email }).then(user => {
