@@ -9,10 +9,15 @@
 import SwiftUI
 
 struct GroupAndFriendView: View {
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var groupManager: GroupManager
+    
     @State var currentView = "Groups"
+    @State var addToggle = false
     
     var body: some View {
         VStack(spacing: 0) {
+            
             HStack {
                 Spacer()
                 
@@ -22,11 +27,7 @@ struct GroupAndFriendView: View {
                 Spacer()
                 
                 Button(action: {
-                    if self.currentView == "Groups" {
-                        
-                    } else if self.currentView == "Friends" {
-                        
-                    }
+                    self.addToggle.toggle()
                 }) {
                     Image(systemName: "plus.circle")
                 }
@@ -63,6 +64,14 @@ struct GroupAndFriendView: View {
 
                 Spacer()
             }.padding(.vertical, 20)
+        }.sheet(isPresented: $addToggle) {
+            if self.currentView == "Groups" {
+                AddGroupView(addGroupToggle: self.$addToggle)
+                    .environmentObject(self.userDefaultsManager)
+                    .environmentObject(self.groupManager)
+            } else if self.currentView == "Friends" {
+                
+            }
         }
     }
 }

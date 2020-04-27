@@ -41,22 +41,15 @@ struct AddGroupView: View {
         self.previousSearchText = ""
         
         for name in selectedFriends {
-            if self.previousSearchText.isEmpty {
-                self.previousSearchText = "\(name), "
-            } else {
-                self.previousSearchText += "\(name), "
-            }
+            self.previousSearchText += "\(name), "
         }
-        print(self.previousSearchText)
     }
     
     var body: some View {
         VStack() {
             HStack {
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        self.addGroupToggle = false
-                    }
+                    self.addGroupToggle = false
                 }) {
                     Text("Cancel")
                 }
@@ -83,13 +76,11 @@ struct AddGroupView: View {
                         )
                     }
                     
-                    withAnimation(.easeOut(duration: 0.3)) {
-                        self.addGroupToggle = false
-                    }
+                    self.addGroupToggle = false
                 }) {
                     Text("Create")
                 }
-            }.padding(.top, 15)
+            }
             .padding(.horizontal, 15)
             
                             
@@ -162,13 +153,13 @@ struct AddGroupView: View {
                         }
                     }
                     
-                }.padding(.horizontal, 10)
+                }
             }
             Spacer()
         }
+        .padding(.top, 20)
+        .padding(.horizontal, 10)
         .background(Color.white)
-        .padding(.top, 100)
-        .frame(alignment: .bottom)
     }
 
 }
