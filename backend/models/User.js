@@ -3,8 +3,14 @@ const mongoose = require('mongoose');
 const Group = require("../models/group");
 
 const UserSchema = mongoose.Schema({
+	username: {
+		type: String,
+		caseSensitive: false,
+		required: true
+	},
 	email: {
 		type: String,
+		caseSensitive: false,
 		required: true
 	},
 	password: {

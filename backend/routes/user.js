@@ -7,9 +7,9 @@ const User = require("../models/user");
 
 router.post('/register', (req, res) => {
 	let errors = []
-	var {name, email, password, password2} = req.body || {}
+	var {username, name, email, password, password2} = req.body || {}
 
-	if (!name || !email || !password || !password2) {
+	if (!username || !name || !email || !password || !password2) {
 		return res.status(400).json({errors: ["Please enter all fields"]});
 	}
 
@@ -29,30 +29,44 @@ router.post('/register', (req, res) => {
 		return res.status(400).json({errors: errors});
 	}
 
-	email = email.toLowerCase()
-
 	// Check for exisiting user
 	User.findOne({ email }).then(user => {
-		if (user) return res.status(400).json( {msg: "User already exists."} );
+		var errors = []
 
-		const newUser = User({
-			name,
-			email,
-			password,
-			friends: [],
-			groups: []
+		if (user) {
+			errors.push("Email already registered.");
+		}
+
+		User.findOne({ username }).then(user2 => {
+			if (user2) {
+				errors.push("Username already taken.");
+			}
+
+			if (errors.length != 0) {
+				return res.status(400).json({"msg": errors})
+			}
+
+			const newUser = User({
+				username,
+				name,
+				email,
+				password,
+				friends: [],
+				groups: []
+			})
+
+			bcrypt.genSalt(10, (err, salt) => {
+			    bcrypt.hash(newUser.password, salt, (err, hash) => {
+				if (err) throw err;
+				newUser.password = hash;
+				        newUser.save().then(user => {
+					        return res.status(201).json({msg: 'Registered', userId: user.id});
+				        })
+					.catch(err => console.log(err));
+			    });
+			});
 		})
 
-		bcrypt.genSalt(10, (err, salt) => {
-		    bcrypt.hash(newUser.password, salt, (err, hash) => {
-			if (err) throw err;
-			newUser.password = hash;
-			    newUser.save().then(user => {
-				    return res.status(201).json({msg: 'Registered', userId: user.id});
-			    })
-				    .catch(err => console.log(err));
-		    });
-		});
 	})
 })
 
@@ -132,15 +146,15 @@ router.post('/friend/remove', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-	var {email, password} = req.body || {}
+	var {username, email, password} = req.body || {}
 
-	if(!email || !password) {
+	if((!email && !username) || !password) {
 		return res.status(400).json({errors: ["Missing fields"]})
 	}
 
-	email = email.toLowerCase()
+	var searchBy = email || username
 
-	User.findOne({email: email}).then(user => {
+	User.findOne({$or: [{'email': searchBy}, {'username': searchBy}]}).then(user => {
 		if(!user) return res.status(400).json({errors: ["Incorrect credentials"]})
 
 		bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
