@@ -59,7 +59,7 @@ class GroupManager : ObservableObject {
                     }
                 }
             } catch {
-                print("caught: \(error)")
+                print("caught in GroupManager.createGroup: \(error)")
             }
         }.resume()
     }

@@ -39,7 +39,7 @@ struct LoginView: View {
                 
                 // Text Fields
                 VStack(alignment: .leading, spacing: 15) {
-                    TextField("Email", text: self.$email)
+                    TextField("Username or Email", text: self.$email)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(20.0)
@@ -74,7 +74,9 @@ struct LoginView: View {
                     {
                        Text("Don't have an account? Sign Up")
                     }
-                }.buttonStyle(PlainButtonStyle())
+                }
+                .padding(.bottom, 15)
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .background(

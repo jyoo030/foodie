@@ -27,9 +27,12 @@ class UserManager : ObservableObject {
             do {
                 guard let data = data else {return}
                 let json = try JSONDecoder().decode(User.self, from: data)
-                                                
+                                 
+                print(json)
+                
                 DispatchQueue.main.async {
-                    self.userDefaultsManager.name = json.name
+                    self.userDefaultsManager.firstName = json.firstName
+                    self.userDefaultsManager.lastName = json.lastName
                     self.userDefaultsManager.email = json.email
                     self.userDefaultsManager.groups = json.groups!
                     self.userDefaultsManager.friends = json.friends!

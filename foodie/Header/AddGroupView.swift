@@ -125,10 +125,10 @@ struct AddGroupView: View {
                     
                     List(self.userDefaultsManager.friends) { friend in
                         Button(action: {
-                            if self.selectedFriends.contains(friend.name) {
-                                self.selectedFriends.remove(at: self.selectedFriends.firstIndex(of: friend.name)!)
+                            if self.selectedFriends.contains(friend.firstName) {
+                                self.selectedFriends.remove(at: self.selectedFriends.firstIndex(of: friend.firstName)!)
                             } else {
-                                self.selectedFriends.append(friend.name)
+                                self.selectedFriends.append(friend.firstName)
                             }
                             
                             self.getSearchText()
@@ -140,11 +140,11 @@ struct AddGroupView: View {
                                     .frame(width:40, height:40)
                                     .cornerRadius(40)
                                  
-                                Text(friend.name).padding(.leading, 10)
+                                Text(friend.firstName).padding(.leading, 10)
                                 
                                 Spacer()
                                 
-                                if self.selectedFriends.contains(friend.name) {
+                                if self.selectedFriends.contains(friend.firstName) {
                                     Image(systemName: "checkmark.circle")
                                 } else {
                                     Image(systemName: "ellipsis")

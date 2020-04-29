@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Group = require("../models/group");
 
 const UserSchema = mongoose.Schema({
-	username: {
+	userName: {
 		type: String,
 		caseSensitive: false,
 		required: true
@@ -17,7 +17,11 @@ const UserSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	name: {
+	firstName: {
+		type: String,
+		required: true
+	},
+	lastName: {
 		type: String,
 		required: true
 	},
@@ -27,7 +31,6 @@ const UserSchema = mongoose.Schema({
 	}],
 	isDeleted: {
 		type: Boolean,
-		required: true,
 		default: false
 	},
 	groups: [{ 

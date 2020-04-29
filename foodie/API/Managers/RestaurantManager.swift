@@ -18,7 +18,6 @@ class RestaurantManager : ObservableObject {
     
     init(userDefaultsManager: UserDefaultsManager) {
         self.userDefaultsManager = userDefaultsManager
-        getRestaurantsByRadius(radius: userDefaultsManager.currentGroup.radius, location: userDefaultsManager.currentGroup.location)
     }
     
     func getRestaurantsByRadius(radius: Int, location: String) {
@@ -34,7 +33,7 @@ class RestaurantManager : ObservableObject {
                     self.restaurants = json.businesses
                 }
             } catch {
-                print("caught: \(error)")
+                print("caught in RestaurantManager.getRestaurantsByRadius: \(error)")
             }
         }.resume()
     }
@@ -51,7 +50,7 @@ class RestaurantManager : ObservableObject {
                     self.restaurantDetails = json
                 }
             } catch {
-                print("caught: \(error)")
+                print("caught in RestaurantManager.getRestaurantsDetails: \(error)")
             }
         }.resume()
     }
@@ -68,7 +67,7 @@ class RestaurantManager : ObservableObject {
                     self.reviews = json.reviews
                 }
             } catch {
-                print("caught: \(error)")
+                print("caught in RestaurantManager.getRestaurantReviews: \(error)")
             }
         }.resume()
     }

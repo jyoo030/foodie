@@ -10,7 +10,8 @@ import Foundation
 
 struct User: Decodable, Encodable, Identifiable {
     var id: String = ""
-    var name: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
     var email: String = ""
     var groups: [GroupModel]?
     var friends: [User]?
@@ -18,7 +19,8 @@ struct User: Decodable, Encodable, Identifiable {
     
     private enum CodingKeys: String, CodingKey{
         case id = "_id"
-        case name = "name"
+        case firstName = "firstName"
+        case lastName = "lastName"
         case email = "email"
         case groups = "groups"
         case friends = "friends"

@@ -23,7 +23,7 @@ struct FriendsView: View {
                     Spacer()
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(friend.name)
+                            Text("\(friend.firstName) \(friend.lastName)")
                         }
                         Spacer()
                         Image(systemName: "ellipsis")

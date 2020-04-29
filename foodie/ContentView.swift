@@ -48,7 +48,7 @@ struct ContentView: View {
                        }
                     }
                     .onAppear(perform: {
-                        if self.userDefaultsManager.name.isEmpty {
+                        if self.userDefaultsManager.email.isEmpty {
                             self.userManager.getUser(id: self.userDefaultsManager.userId)
                         }
                     })

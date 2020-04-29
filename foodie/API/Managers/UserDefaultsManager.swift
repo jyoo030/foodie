@@ -23,8 +23,12 @@ class UserDefaultsManager : ObservableObject {
         }
     }
     
-    @Published var name: String = UserDefaults.standard.string(forKey: "name") ?? "" {
-        didSet { UserDefaults.standard.set(self.name, forKey: "name") }
+    @Published var firstName: String = UserDefaults.standard.string(forKey: "firstName") ?? "" {
+        didSet { UserDefaults.standard.set(self.firstName, forKey: "firstName") }
+    }
+    
+    @Published var lastName: String = UserDefaults.standard.string(forKey: "lastName") ?? "" {
+        didSet { UserDefaults.standard.set(self.lastName, forKey: "lastName") }
     }
     
     @Published var email: String = UserDefaults.standard.string(forKey: "email") ?? "" {
@@ -48,7 +52,7 @@ class UserDefaultsManager : ObservableObject {
     }
     
     func getIdFromName(name: String) -> String {
-        let friend = self.friends.filter{ $0.name.lowercased() == name.lowercased() }.first
+        let friend = self.friends.filter{ ($0.firstName + $0.lastName).lowercased() == name.lowercased() }.first
         return friend == nil ? "" : friend!.id
     }
 }

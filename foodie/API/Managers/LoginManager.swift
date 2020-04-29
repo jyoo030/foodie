@@ -51,15 +51,15 @@ class LoginManager : ObservableObject {
                     }
                 }
             } catch {
-                print("caught: \(error)")
+                print("caught in LoginManager.Login: \(error)")
             }
         }.resume()
     }
     
-    func register(name: String, email: String, password: String, password2: String) {
+    func register(firstName: String, lastName: String, userName: String, email: String, password: String, password2: String) {
         let apiUrl = (UrlConstants.baseUrl + "/user/register")
         guard let url = URL(string: apiUrl) else {return}
-        let body = ["name": name, "email" : email, "password" : password, "password2": password2]
+        let body = ["firstName": firstName, "lastName": lastName, "userName": userName, "email" : email, "password" : password, "password2": password2]
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -88,7 +88,7 @@ class LoginManager : ObservableObject {
                     }
                 }
             } catch {
-                print("caught: \(error)")
+                print("caught in LoginManager.register: \(error)")
             }
         }.resume()
     }

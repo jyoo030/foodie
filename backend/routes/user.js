@@ -7,9 +7,9 @@ const User = require("../models/user");
 
 router.post('/register', (req, res) => {
 	let errors = []
-	var {username, name, email, password, password2} = req.body || {}
+	var {userName, firstName, lastName, email, password, password2} = req.body || {}
 
-	if (!username || !name || !email || !password || !password2) {
+	if (!userName || !firstName || !lastName  || !email || !password || !password2) {
 		return res.status(400).json({errors: ["Please enter all fields"]});
 	}
 
@@ -37,18 +37,19 @@ router.post('/register', (req, res) => {
 			errors.push("Email already registered.");
 		}
 
-		User.findOne({ username }).then(user2 => {
+		User.findOne({ userName }).then(user2 => {
 			if (user2) {
-				errors.push("Username already taken.");
+				errors.push("userName already taken.");
 			}
 
 			if (errors.length != 0) {
-				return res.status(400).json({"msg": errors})
+				return res.status(400).json({"errors": errors})
 			}
 
 			const newUser = User({
-				username,
-				name,
+				userName,
+				firstName,
+				lastName,
 				email,
 				password,
 				friends: [],
@@ -146,15 +147,15 @@ router.post('/friend/remove', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-	var {username, email, password} = req.body || {}
+	var {userName, email, password} = req.body || {}
 
-	if((!email && !username) || !password) {
+	if((!email && !userName) || !password) {
 		return res.status(400).json({errors: ["Missing fields"]})
 	}
 
-	var searchBy = email || username
+	var searchBy = email || userName
 
-	User.findOne({$or: [{'email': searchBy}, {'username': searchBy}]}).then(user => {
+	User.findOne({$or: [{'email': searchBy}, {'userName': searchBy}]}).then(user => {
 		if(!user) return res.status(400).json({errors: ["Incorrect credentials"]})
 
 		bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
