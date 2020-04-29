@@ -19,6 +19,10 @@ class UserManager : ObservableObject {
     init(userDefaultsManager: UserDefaultsManager, restaurantManager: RestaurantManager) {
         self.userDefaultsManager = userDefaultsManager
         self.restaurantManager = restaurantManager
+        
+        if !userDefaultsManager.userId.isEmpty {
+            restaurantManager.getRestaurantsByRadius(radius: userDefaultsManager.currentGroup.radius, location: userDefaultsManager.currentGroup.location)
+        }
     }
     
     func getUser(id: String) {
