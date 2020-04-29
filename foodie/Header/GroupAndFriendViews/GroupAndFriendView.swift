@@ -18,23 +18,8 @@ struct GroupAndFriendView: View {
     var body: some View {
         VStack(spacing: 0) {
             
-            HStack {
-                Spacer()
-                
-                Text(currentView)
-                    .font(.title)
-                
-                Spacer()
-                
-                Button(action: {
-                    self.addToggle.toggle()
-                }) {
-                    Image(systemName: "plus.circle")
-                }
-            }.padding(.horizontal, 15)
-            
             if currentView == "Groups" {
-                GroupsView()
+                GroupsView(addToggle: self.$addToggle)
             } else if currentView == "Friends" {
                 FriendsView()
             }
@@ -69,8 +54,6 @@ struct GroupAndFriendView: View {
                 AddGroupView(addGroupToggle: self.$addToggle)
                     .environmentObject(self.userDefaultsManager)
                     .environmentObject(self.groupManager)
-            } else if self.currentView == "Friends" {
-                
             }
         }
     }

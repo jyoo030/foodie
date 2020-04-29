@@ -10,28 +10,46 @@ import SwiftUI
 
 struct GroupsView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @Binding var addToggle: Bool
     
     var body: some View {
-        ScrollView {
-            ForEach(self.userDefaultsManager.groups) { group in
-                HStack {
-                    Image("chicken")
-                        .resizable()
-                        .frame(width:60, height:60)
-                        .cornerRadius(40)
-                        
-                    Spacer()
+        VStack {
+            HStack {
+                Spacer()
+                
+                Text("Groups")
+                    .font(.title)
+                
+                Spacer()
+                
+                Button(action: {
+                    self.addToggle.toggle()
+                }) {
+                    Image(systemName: "plus.circle")
+                }
+            }.padding(.horizontal, 15)
+            
+            ScrollView {
+                ForEach(self.userDefaultsManager.groups) { group in
                     HStack {
-                        VStack(alignment: .leading) {
-                            Text(group.name)
-                            Text(group.location)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
+                        Image("chicken")
+                            .resizable()
+                            .frame(width:60, height:60)
+                            .cornerRadius(40)
+                            
                         Spacer()
-                        Image(systemName: "ellipsis")
-                    }.padding(.leading, 5)
-                }.padding(.horizontal, 20)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(group.name)
+                                Text(group.location)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
+                            Image(systemName: "ellipsis")
+                        }.padding(.leading, 5)
+                    }.padding(.horizontal, 20)
+                }
             }
         }
     }

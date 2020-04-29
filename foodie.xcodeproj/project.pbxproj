@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		10060849243558CC00025804 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10060848243558CC00025804 /* PagingView.swift */; };
 		1010C30B242453BA001650AA /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1010C30A242453BA001650AA /* FooterView.swift */; };
+		101F0F79245921AF00FB64EF /* AddGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101F0F78245921AF00FB64EF /* AddGroupView.swift */; };
 		102763D82436626300413A48 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D72436626300413A48 /* ReviewView.swift */; };
 		102763DA2436B29B00413A48 /* RestaurantInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102763D92436B29B00413A48 /* RestaurantInfoView.swift */; };
 		102B842C24495F06007DFA67 /* RestaurantManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B842B24495F06007DFA67 /* RestaurantManager.swift */; };
@@ -35,7 +36,6 @@
 		10CA786B2447ACA10003D37B /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA78612447ACA10003D37B /* Restaurant.swift */; };
 		10CAD1BB242C07AF000FF2E7 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CAD1BA242C07AF000FF2E7 /* CardStackView.swift */; };
 		10DBC7652447AE54007C67C2 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7642447AE54007C67C2 /* ActivityIndicator.swift */; };
-		10DBC7672447BA68007C67C2 /* AddGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7662447BA68007C67C2 /* AddGroupView.swift */; };
 		10DBC7692447D0F3007C67C2 /* GroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7682447D0F3007C67C2 /* GroupManager.swift */; };
 		10E12463244AB94900EF6F92 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E12462244AB94900EF6F92 /* FriendsView.swift */; };
 		10E12465244AB9C900EF6F92 /* GroupAndFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */; };
@@ -54,6 +54,7 @@
 /* Begin PBXFileReference section */
 		10060848243558CC00025804 /* PagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
 		1010C30A242453BA001650AA /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		101F0F78245921AF00FB64EF /* AddGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupView.swift; sourceTree = "<group>"; };
 		102763D72436626300413A48 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		102763D92436B29B00413A48 /* RestaurantInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoView.swift; sourceTree = "<group>"; };
 		102B842B24495F06007DFA67 /* RestaurantManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantManager.swift; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		10CA78612447ACA10003D37B /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		10CAD1BA242C07AF000FF2E7 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		10DBC7642447AE54007C67C2 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		10DBC7662447BA68007C67C2 /* AddGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupView.swift; sourceTree = "<group>"; };
 		10DBC7682447D0F3007C67C2 /* GroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManager.swift; sourceTree = "<group>"; };
 		10E12462244AB94900EF6F92 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAndFriendView.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 			children = (
 				10E12461244AB91A00EF6F92 /* GroupAndFriendViews */,
 				10A3E0C4242446B600EC42F1 /* HeaderView.swift */,
-				10DBC7662447BA68007C67C2 /* AddGroupView.swift */,
+				101F0F78245921AF00FB64EF /* AddGroupView.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -216,9 +216,9 @@
 		10E12461244AB91A00EF6F92 /* GroupAndFriendViews */ = {
 			isa = PBXGroup;
 			children = (
+				10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */,
 				A889DB1D2447AEF6005FEC36 /* GroupsView.swift */,
 				10E12462244AB94900EF6F92 /* FriendsView.swift */,
-				10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */,
 			);
 			path = GroupAndFriendViews;
 			sourceTree = "<group>";
@@ -347,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				101F0F79245921AF00FB64EF /* AddGroupView.swift in Sources */,
 				102763D82436626300413A48 /* ReviewView.swift in Sources */,
 				10CA78672447ACA10003D37B /* GroupModel.swift in Sources */,
 				102763DA2436B29B00413A48 /* RestaurantInfoView.swift in Sources */,
@@ -358,7 +359,6 @@
 				10CA78692447ACA10003D37B /* User.swift in Sources */,
 				10CA78632447ACA10003D37B /* UserManager.swift in Sources */,
 				10CAD1BB242C07AF000FF2E7 /* CardStackView.swift in Sources */,
-				10DBC7672447BA68007C67C2 /* AddGroupView.swift in Sources */,
 				A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */,
 				10F240F2243A553C00879145 /* ButtonSwipeVariables.swift in Sources */,
 				10CA78622447ACA10003D37B /* ApiUrlConstants.swift in Sources */,

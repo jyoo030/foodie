@@ -10,26 +10,70 @@ import SwiftUI
 
 struct FriendsView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var userManager: UserManager
+    @State private var searchText = ""
+    @State private var showCancelButton: Bool = false
     
     var body: some View {
-        ScrollView {
-            ForEach(self.userDefaultsManager.friends) { friend in
+        VStack {
+            // Header
+            HStack {
+                Spacer()
+                
+                Text("Friends")
+                    .font(.title)
+                
+                Spacer()
+            }.padding(.horizontal, 15)
+            
+            // Search Bar
+            VStack {
+                // Search view
                 HStack {
-                    Image("chicken")
-                        .resizable()
-                        .frame(width:60, height:60)
-                        .cornerRadius(40)
-                        
-                    Spacer()
                     HStack {
-                        VStack(alignment: .leading) {
-                            Text("\(friend.firstName) \(friend.lastName)")
+                        Image(systemName: "magnifyingglass")
+
+                        TextField("search", text: $searchText, onEditingChanged: { isEditing in
+                            self.showCancelButton = true
+                        }, onCommit: {
+                            self.userManager.searchUsers(searchText: self.searchText)
+                        }).foregroundColor(.primary)
+
+                        Button(action: {
+                            self.searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                         }
-                        Spacer()
-                        Image(systemName: "ellipsis")
-                    }.padding(.leading, 5)
-                }.padding(.horizontal, 20)
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                    .foregroundColor(.secondary)
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10.0)
+
+
+                }
+                .padding(.horizontal)
+
+                List {
+                    Section(header: Text("Friends")) {
+                        // Filtered list of names
+                        ForEach(self.userDefaultsManager.friends.filter{($0.firstName + " " + $0.lastName).hasPrefix(searchText) || searchText == ""} ) { friend in
+                            Text("\(friend.firstName)  \(friend.lastName)")
+                        }
+                    }
+                    
+                    Section(header: Text("Other users")) {
+                        ForEach(self.userManager.searchResults) { friend in
+                            VStack {
+                                Text("\(friend.firstName)  \(friend.lastName)")
+                                Text(friend.userName)
+                                    .font(.subheadline)
+                                    .accentColor(.gray)
+                            }
+                        }
+                    }
+                }.listStyle(GroupedListStyle())
             }
-        }
+        }.padding(.horizontal, 10)
     }
 }

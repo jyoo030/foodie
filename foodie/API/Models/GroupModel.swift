@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GroupModel: Decodable, Encodable, Identifiable {
+struct GroupModel: Decodable, Encodable, Identifiable, Hashable {
     var id: String = ""
     var name: String = ""
     var users: [User] = []
@@ -26,7 +26,7 @@ struct GroupModel: Decodable, Encodable, Identifiable {
     }
 }
 
-struct PopulatedGroupModel: Decodable, Encodable, Identifiable {
+struct PopulatedGroupModel: Decodable, Encodable, Identifiable, Hashable {
     var id: String = ""
     var name: String = ""
     var users: [String] = []
