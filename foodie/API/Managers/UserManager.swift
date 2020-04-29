@@ -14,6 +14,7 @@ class UserManager : ObservableObject {
     @ObservedObject var userDefaultsManager: UserDefaultsManager
     @ObservedObject var restaurantManager: RestaurantManager
     @Published var errors: [String] = []
+    @Published var searchResults: [User] = []
     
     init(userDefaultsManager: UserDefaultsManager, restaurantManager: RestaurantManager) {
         self.userDefaultsManager = userDefaultsManager
@@ -27,9 +28,7 @@ class UserManager : ObservableObject {
             do {
                 guard let data = data else {return}
                 let json = try JSONDecoder().decode(User.self, from: data)
-                                 
-                print(json)
-                
+                                                 
                 DispatchQueue.main.async {
                     self.userDefaultsManager.firstName = json.firstName
                     self.userDefaultsManager.lastName = json.lastName
@@ -42,7 +41,30 @@ class UserManager : ObservableObject {
                     }
                 }
             } catch {
-                print("caught in UserManager: \(error)")
+                print("caught in UserManager.getUser: \(error)")
+            }
+        }.resume()
+    }
+    
+    func searchUsers(searchText: String) {
+        if searchText.isEmpty {
+            self.searchResults = []
+            return
+        }
+        
+        let apiUrl = (UrlConstants.baseUrl + "/user/search?searchText=" + searchText.replacingOccurrences(of: " ", with: "%20"))
+        guard let url = URL(string: apiUrl) else {return}
+        URLSession.shared.dataTask(with: url) { (data, resp, err) in
+            do {
+                guard let data = data else {return}
+                let json = try JSONDecoder().decode([User].self, from: data)
+                                                 
+                DispatchQueue.main.async {
+                    // Filter current account before setting
+                    self.searchResults = json.filter({$0.id != self.userDefaultsManager.userId})
+                }
+            } catch {
+                print("caught in UserManager.searchUsers: \(error)")
             }
         }.resume()
     }
