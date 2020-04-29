@@ -189,4 +189,22 @@ router.get('/id/:id', (req, res) => {
 	})
 })
 
+router.get('/search', (req, res) => {
+	const searchText = req.query.searchText
+	if (!searchText) return res.status(400).json({'errors': 'Missing parameter'})
+
+	User.aggregate([
+		{$project: {
+			newField:{$concat:["$firstName", " ", "$lastName", " ", "$userName"]},
+			firstName: "$firstName",
+			lastName: "$lastName",
+			userName: "$userName",
+			email: "$email"
+		}},
+		{$match:{newField:new RegExp(searchText, 'i')}}
+	]).then(users => {
+		return res.status(200).json({'users': users})
+	});
+})
+
 module.exports = router;
