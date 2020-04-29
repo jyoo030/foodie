@@ -203,7 +203,7 @@ router.get('/search', (req, res) => {
 		}},
 		{$match:{newField:new RegExp(searchText, 'i')}}
 	]).then(users => {
-		return res.status(200).json({'users': users})
+		return res.status(200).json(users)
 	});
 })
 
