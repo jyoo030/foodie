@@ -16,16 +16,6 @@ struct FriendsView: View {
     
     var body: some View {
         VStack {
-            // Header
-            HStack {
-                Spacer()
-                
-                Text("Friends")
-                    .font(.title)
-                
-                Spacer()
-            }.padding(.horizontal, 15)
-            
             // Search Bar
             VStack {
                 // Search view
@@ -56,24 +46,41 @@ struct FriendsView: View {
 
                 List {
                     Section(header: Text("Friends")) {
-                        // Filtered list of names
                         ForEach(self.userDefaultsManager.friends.filter{($0.firstName + " " + $0.lastName).hasPrefix(searchText) || searchText == ""} ) { friend in
                             Text("\(friend.firstName)  \(friend.lastName)")
                         }
                     }
                     
-                    Section(header: Text("Other users")) {
+                    Section(header: Text("Other Users")) {
                         ForEach(self.userManager.searchResults) { friend in
-                            VStack {
-                                Text("\(friend.firstName)  \(friend.lastName)")
-                                Text(friend.userName)
-                                    .font(.subheadline)
-                                    .accentColor(.gray)
+                            NavigationLink(destination: UserProfileView()) {
+                                HStack {
+                                    Image("chicken")
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .cornerRadius(30)
+                                        .padding(.horizontal, 10)
+                                        .scaledToFill()
+                                
+                                    VStack(alignment: .leading) {
+                                        Text("\(friend.firstName)  \(friend.lastName)")
+                                        Text("@\(friend.userName)")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    }
+                                    Spacer()
+                                }
                             }
                         }
                     }
                 }.listStyle(GroupedListStyle())
             }
-        }.padding(.horizontal, 10)
+        }
+        .padding(.horizontal, 10)
+        .navigationBarTitle("Friends", displayMode: .inline)
+            // Hacky solution i'm not proud of -jae
+            // needed this to remove + button from friendsView
+        .navigationBarItems(trailing: Text(""))
     }
 }

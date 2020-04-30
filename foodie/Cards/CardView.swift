@@ -36,51 +36,61 @@ struct CardView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing:0) {
-                ZStack(alignment: self.swipeVar.status == .yum ? .topLeading : .topTrailing) {
-                    KFImage(URL(string: self.restaurant.image_url)!)
-                    .resizable()
-                        .aspectRatio(contentMode: .fill)
-                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.5)
-                    
-                    if self.restaurantManager.isLastCard(index: self.index) {
-                        if self.swipeVar.status == .yum {
-                            YummyView()
-                        }  else if self.swipeVar.status == .nah {
-                            NahView()
+            ZStack {
+                KFImage(URL(string: self.restaurant.image_url)!)
+                .resizable()
+                    .aspectRatio(contentMode: .fill)
+                .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 0.75)
+
+                VStack {
+                    HStack {
+                        if self.restaurantManager.isLastCard(index: self.index) {
+                            if self.swipeVar.status == .yum {
+                                YummyView()
+                            }
+                            Spacer()
+                            if self.swipeVar.status == .nah {
+                                NahView()
+                            }
                         }
                     }
-                }
 
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(self.restaurant.name)
-                            .font(.system(size: geometry.size.width * 0.058))
-                            .bold()
-                        
-                        Spacer()
-
-                        Text(self.restaurant.price ?? "")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-                    }
-                    
-                    HStack {
-                        RatingView(rating: Float(self.restaurant.rating))
-                        
-                        Spacer()
-
-                        Text(String(self.restaurant.review_count) + " Reviews")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-                    }
                     Spacer()
                 }
-                .padding(.horizontal)
-                .padding(.top, geometry.size.height * 0.02)
-                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.13)
-                .background(Color.white)
+                
+                VStack {
+                    Spacer()
+
+
+                    VStack {
+                        HStack {
+                            Text(self.restaurant.name)
+                                .font(.system(size: geometry.size.width * 0.058))
+                                .foregroundColor(.white)
+                                .bold()
+                            
+                            Spacer()
+
+                            Text(self.restaurant.price ?? "")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                        }
+                        
+                        HStack {
+                            RatingView(rating: Float(self.restaurant.rating))
+                            
+                            Spacer()
+
+                            Text(String(self.restaurant.review_count) + " Reviews")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .frame(width: geometry.size.width * 0.95)
+                }.padding()
             }
+            .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 0.75)
             .cornerRadius(20)
             .padding(.horizontal, 20)
                 .shadow(radius:7)
@@ -114,9 +124,3 @@ struct CardView: View {
         }
     }
 }
-
-//struct CardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CardView()
-//    }
-//}

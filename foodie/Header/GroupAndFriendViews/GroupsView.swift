@@ -14,21 +14,6 @@ struct GroupsView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                
-                Text("Groups")
-                    .font(.title)
-                
-                Spacer()
-                
-                Button(action: {
-                    self.addToggle.toggle()
-                }) {
-                    Image(systemName: "plus.circle")
-                }
-            }.padding(.horizontal, 15)
-            
             ScrollView {
                 ForEach(self.userDefaultsManager.groups) { group in
                     HStack {
@@ -52,5 +37,14 @@ struct GroupsView: View {
                 }
             }
         }
+        .navigationBarTitle("Groups", displayMode: .inline)
+        .navigationBarItems(trailing:
+            Button(action: {
+                self.addToggle.toggle()
+            }) {
+                Image(systemName: "plus.circle")
+                    .colorInvert()
+            }
+        )
     }
 }

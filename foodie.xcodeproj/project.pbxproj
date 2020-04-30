@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10009BAF245A05CA001820DE /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10009BAE245A05C9001820DE /* UserProfileView.swift */; };
 		10060849243558CC00025804 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10060848243558CC00025804 /* PagingView.swift */; };
 		1010C30B242453BA001650AA /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1010C30A242453BA001650AA /* FooterView.swift */; };
 		101F0F79245921AF00FB64EF /* AddGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101F0F78245921AF00FB64EF /* AddGroupView.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10009BAE245A05C9001820DE /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		10060848243558CC00025804 /* PagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
 		1010C30A242453BA001650AA /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		101F0F78245921AF00FB64EF /* AddGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupView.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */,
 				A889DB1D2447AEF6005FEC36 /* GroupsView.swift */,
 				10E12462244AB94900EF6F92 /* FriendsView.swift */,
+				10009BAE245A05C9001820DE /* UserProfileView.swift */,
 			);
 			path = GroupAndFriendViews;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				10CA78672447ACA10003D37B /* GroupModel.swift in Sources */,
 				102763DA2436B29B00413A48 /* RestaurantInfoView.swift in Sources */,
 				10A3E0C32424156B00EC42F1 /* BottomCard.swift in Sources */,
+				10009BAF245A05CA001820DE /* UserProfileView.swift in Sources */,
 				109823C92432CEA80069615D /* MapView.swift in Sources */,
 				107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */,
 				10CA78652447ACA10003D37B /* LoginManager.swift in Sources */,

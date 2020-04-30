@@ -48,7 +48,7 @@ struct GroupAndFriendView: View {
                 }
 
                 Spacer()
-            }.padding(.vertical, 20)
+            }.padding(.vertical, 10)
         }.sheet(isPresented: $addToggle) {
             if self.currentView == "Groups" {
                 AddGroupView(addGroupToggle: self.$addToggle)

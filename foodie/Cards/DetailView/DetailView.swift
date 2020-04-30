@@ -10,6 +10,17 @@ import SwiftUI
 import MapKit
 import KingfisherSwiftUI
 
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
+}
+
 struct DetailView: View {
     @EnvironmentObject var restaurantManager: RestaurantManager
     @State var index = 0
@@ -105,6 +116,10 @@ struct DetailView: View {
                 }
             }
         }
+        .padding(.top, 40)
+        .edgesIgnoringSafeArea(.top)
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

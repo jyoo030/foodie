@@ -30,7 +30,7 @@ struct CardStackView: View {
     @ObservedObject var swipeVar: SwipeVar
     
     var body: some View {
-        ZStack{
+        ZStack {
             GeometryReader { geometry in
                 ForEach(self.restaurantManager.restaurants.enumeratedArray(), id: \.element.id) { index, item in
                     Group {

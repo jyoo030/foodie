@@ -15,38 +15,71 @@ struct ContentView: View {
     @ObservedObject var swipeVar = SwipeVar()
     @State var addGroupToggle = false
     
+    // Remove tint from NavigationBar
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        
+        appearance.largeTitleTextAttributes = [
+            .font : UIFont.systemFont(ofSize: 20),
+            NSAttributedString.Key.foregroundColor : UIColor.black
+        ]
+        
+        appearance.titleTextAttributes = [
+            .font : UIFont.systemFont(ofSize: 20),
+            NSAttributedString.Key.foregroundColor : UIColor.black
+        ]
+        
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().standardAppearance = appearance
+        
+        UINavigationBar.appearance().tintColor = .white
+    }
+    
     var body: some View {
         NavigationView {
             if !self.userDefaultsManager.userId.isEmpty {
                 GeometryReader { g in
-                    VStack {
-                           GeometryReader { geometry in
-                               ZStack {
-                                HeaderView(addGroupToggle: self.$addGroupToggle)
-                                    .offset(y: -geometry.size.height*0.44)
-                                                           
-                                BottomCard()
-                                    .offset(y: -geometry.size.height*0.044)
-                                   
-                                CardStackView(swipeVar: self.swipeVar)
-                                    .offset(y: -geometry.size.height*0.03)
-                                                                 
-                               Spacer()
-                           
-                               HStack {
-                                DislikeButtonView(swipeVar: self.swipeVar)
-                                   Spacer()
-                                LikeButtonView(swipeVar: self.swipeVar)
-                               }.offset(y:geometry.size.height*0.35)
-                           }
-                            
-                            VStack {
-                                Spacer()
-                                FooterView()
-                            }.padding(.bottom, 40)
-                            
-                       }
+                    ZStack {
+                        BottomCard()
+                            .offset(y: -g.size.height*0.044)
+
+                        CardStackView(swipeVar: self.swipeVar)
+                            .offset(y: -g.size.height*0.015)
                     }
+
+                        VStack {
+                            Spacer()
+
+                            HStack {
+                                 DislikeButtonView(swipeVar: self.swipeVar)
+                                 Spacer()
+                                 LikeButtonView(swipeVar: self.swipeVar)
+                            }.padding(.horizontal, 50)
+                        }
+                            
+                    .navigationBarItems(leading:
+                        NavigationLink(destination: GroupAndFriendView()) {
+                        Image(systemName: "person.3.fill").renderingMode(.original)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: g.size.width*0.11, height: g.size.width*0.11)
+                            .colorInvert()
+                            .colorMultiply(.gray)
+                    }, trailing:
+                        Button(action: {
+                                self.addGroupToggle = true
+                        }) {
+                            Image(systemName: "plus.circle.fill").renderingMode(.original)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: g.size.width*0.08, height: g.size.width*0.08)
+                                .colorInvert()
+                                .colorMultiply(.gray)
+
+                        }
+                    )
+                    .navigationBarTitle(Text(self.userDefaultsManager.currentGroup.name), displayMode: .inline)
                     .onAppear(perform: {
                         if self.userDefaultsManager.email.isEmpty {
                             self.userManager.getUser(id: self.userDefaultsManager.userId)
@@ -63,7 +96,6 @@ struct ContentView: View {
                 LoginView()
             }
         }
-        .edgesIgnoringSafeArea(.top)
     }
 }
     
