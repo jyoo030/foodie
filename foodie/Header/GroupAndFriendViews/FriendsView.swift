@@ -53,7 +53,7 @@ struct FriendsView: View {
                     
                     Section(header: Text("Other Users")) {
                         ForEach(self.userManager.searchResults) { friend in
-                            NavigationLink(destination: UserProfileView()) {
+                            NavigationLink(destination: UserProfileView(user: friend)) {
                                 HStack {
                                     Image("chicken")
                                         .renderingMode(.original)

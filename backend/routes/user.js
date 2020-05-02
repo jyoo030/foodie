@@ -199,7 +199,8 @@ router.get('/search', (req, res) => {
 			firstName: "$firstName",
 			lastName: "$lastName",
 			userName: "$userName",
-			email: "$email"
+			email: "$email",
+			friends: "$friends"
 		}},
 		{$match:{newField:new RegExp(searchText, 'i')}}
 	]).then(users => {
