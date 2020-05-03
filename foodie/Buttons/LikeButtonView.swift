@@ -16,20 +16,22 @@ struct LikeButtonView: View {
     var body: some View {
         Button(
           action: {
-            self.swipeVar.status = .yum
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                withAnimation(Animation.easeOut(duration: 0.15)) {
-                    self.swipeVar.degree = 10
-                    self.swipeVar.toggle = 500
+            if !self.restaurantManager.restaurants.isEmpty {
+                self.swipeVar.status = .yum
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    withAnimation(Animation.easeOut(duration: 0.15)) {
+                        self.swipeVar.degree = 10
+                        self.swipeVar.toggle = 500
+                    }
                 }
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.swipeVar.degree = 0
-                self.swipeVar.toggle = 0
-                self.swipeVar.status = .none
-                self.restaurantManager.onRemoveCard( restaurant: self.restaurantManager.restaurants.last!)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.swipeVar.degree = 0
+                    self.swipeVar.toggle = 0
+                    self.swipeVar.status = .none
+                    self.restaurantManager.onRemoveCard( restaurant: self.restaurantManager.restaurants.last!)
+                }
             }
           },
           label: { Image("like_button").renderingMode(.original)
