@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var loginManager: LoginManager
+    @ObservedObject private var keyboardSlider = KeyboardSlider()
     @State private var email = ""
     @State private var password = ""
       
@@ -51,6 +52,9 @@ struct LoginView: View {
                         .cornerRadius(20.0)
                         .shadow(radius: 10.0, x: 20, y: 10)
                 }.padding([.leading, .trailing], 27.5)
+                 .padding(.bottom, self.keyboardSlider.currentHeight)
+                 .animation(.easeOut(duration: 0.16))
+
                 
                 // Sign in button
                 Button(action: {
