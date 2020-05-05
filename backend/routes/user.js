@@ -103,14 +103,12 @@ router.post('/friend/add', (req, res) => {
 			user.updateOne({ "$push": {"friends": friendId } }, {new: true},
 			(err, raw) => {
 				if (err) return res.status(400).json({msg: err});
-			}
-		);	
+			});	
 
 			User.findByIdAndUpdate(friendId, { "$push": {"friends": userId } }, {new: true},
 				(err, raw) => {
 					if (err) return res.status(400).json({msg: err});
-				}
-			);	
+				});	
 		}
 		return res.status(200).json({msg: 'Added a friend!'})
 	})
@@ -142,6 +140,7 @@ router.post('/friend/remove', (req, res) => {
 				}
 			);	
 		}
+
 		return res.status(200).json({msg: 'Removed a friend'})
 	})
 })
