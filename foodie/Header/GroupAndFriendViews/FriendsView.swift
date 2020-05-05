@@ -69,7 +69,8 @@ struct FriendsView: View {
                     }
                     
                     Section(header: Text("Friends")) {
-                        ForEach(self.userDefaultsManager.friends.filter{($0.firstName + " " + $0.lastName).hasPrefix(searchText) || searchText == ""} ) { friend in
+                        ForEach(self.userDefaultsManager.friends.filter{($0.firstName + " " + $0.lastName + " " + $0.userName).contains(searchText) ||
+                            searchText == ""}) { friend in
                             HStack {
                                 Image("chicken")
                                     .renderingMode(.original)
@@ -91,7 +92,7 @@ struct FriendsView: View {
                     }
                     
                     Section(header: Text("Other Users")) {
-                        ForEach(self.userManager.searchResults) { friend in
+                        ForEach(self.userManager.searchResults.filter{!self.userDefaultsManager.friends.contains($0)}) { friend in
                             NavigationLink(destination: UserProfileView(user: friend)) {
                                 HStack {
                                     Image("chicken")
