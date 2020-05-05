@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FriendsView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var notificationManager: NotificationManager
     @EnvironmentObject var userManager: UserManager
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
@@ -45,9 +46,47 @@ struct FriendsView: View {
                 .padding(.horizontal)
 
                 List {
+                    Section(header: Text("Friend Requests")) {
+                        ForEach(self.notificationManager.recieved.filter{$0.reciever == self.userDefaultsManager.userId}, id: \.self) {request in
+                            HStack {
+                                Text("\(request.sender.firstName) \(request.sender.lastName)")
+
+                                Spacer()
+                                
+                                Button(action: {
+                                    self.notificationManager.respond(notificationId: request.id, response: true)
+                                }) {
+                                    Image(systemName: "checkmark.circle")
+                                }.buttonStyle(BorderlessButtonStyle())
+
+                                Button(action: {
+                                    self.notificationManager.respond(notificationId: request.id, response: false)
+                                }) {
+                                    Image(systemName: "x.circle")
+                                }.buttonStyle(BorderlessButtonStyle())
+                            }
+                        }
+                    }
+                    
                     Section(header: Text("Friends")) {
                         ForEach(self.userDefaultsManager.friends.filter{($0.firstName + " " + $0.lastName).hasPrefix(searchText) || searchText == ""} ) { friend in
-                            Text("\(friend.firstName)  \(friend.lastName)")
+                            HStack {
+                                Image("chicken")
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .cornerRadius(30)
+                                    .padding(.horizontal, 10)
+                                    .scaledToFill()
+                            
+                                VStack(alignment: .leading) {
+                                    Text("\(friend.firstName)  \(friend.lastName)")
+                                    Text("@\(friend.userName)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
+                            }
                         }
                     }
                     
