@@ -202,10 +202,16 @@ router.get('/search', (req, res) => {
 			email: "$email",
 			friends: "$friends"
 		}},
-		{$match:{newField:new RegExp(searchText, 'i')}}
-	]).then(users => {
-		return res.status(200).json(users)
-	});
+        {$match:{newField:new RegExp(searchText, 'i')}}
+	]);
+
+    foundUsers = await User.populate(foundUsers, 
+        { 
+            path: 'friends', 
+            select: '-groups -friends -password -currentGroup'
+        });
+
+	return res.status(200).json(foundUsers)
 })
 
 module.exports = router;
