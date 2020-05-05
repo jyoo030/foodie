@@ -8,13 +8,39 @@
 
 import SwiftUI
 
+enum FriendStatus{
+    case addFriend, pending, friends
+}
+
 struct UserProfileView: View {
     @EnvironmentObject var socket: Socket
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var notificationManager: NotificationManager
     private var user: User
     
     init(user: User) {
         self.user = user
+    }
+    
+    func getFriendStatus() -> FriendStatus {
+        if notificationManager.sent.contains(where: { notification in notification.reciever == user.id }) {
+            return .pending
+        } else if userDefaultsManager.friends.contains(user) {
+            return .friends
+        } else {
+            return .addFriend
+        }
+    }
+    
+    func getButtonText() -> String {
+        switch self.getFriendStatus() {
+            case .addFriend:
+                return "Add Friend"
+            case .friends:
+                return "Friends"
+            case .pending:
+                return "Pending"
+        }
     }
     
     var body: some View {
@@ -38,14 +64,25 @@ struct UserProfileView: View {
                     Spacer()
                     
                     Button(action: {
-                        self.socket.addFriend(userId: self.user.id)
+                        switch self.getFriendStatus() {
+                            case FriendStatus.addFriend:
+                                self.socket.addFriend(userId: self.user.id)
+                                self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+                                break
+                            case FriendStatus.friends:
+                                // Delete friend
+                                break
+                            case FriendStatus.pending:
+                                self.notificationManager.respond(notificationId: self.notificationManager.sent.first(where: { $0.reciever == self.user.id })!.id, response: false)
+                                break
+                        }
                     }) {
                         HStack {
                             Image(systemName: "person.badge.plus.fill")
                                 .resizable()
                                 .frame(width: 15, height: 15)
                                 .scaledToFit()
-                            Text("Add Friend")
+                            Text(self.getButtonText())
                                 .font(.caption)
                         }
                         .padding(10)
