@@ -11,6 +11,7 @@ import SwiftUI
 struct GroupAndFriendView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var groupManager: GroupManager
+    @EnvironmentObject var notificationManager: NotificationManager
     
     @State var currentView = "Groups"
     @State var addToggle = false
@@ -45,6 +46,8 @@ struct GroupAndFriendView: View {
                         .resizable()
                         .frame(width: 35, height: 30)
                         .scaledToFit()
+                        .colorInvert()
+                        .colorMultiply(self.notificationManager.recieved.filter{$0.message == "friend_request"}.count == 0 ? .gray : .red)
                 }
 
                 Spacer()
