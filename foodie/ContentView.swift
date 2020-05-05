@@ -12,10 +12,12 @@ struct ContentView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var groupManager: GroupManager
+    @EnvironmentObject var notificationManager: NotificationManager
     @ObservedObject var swipeVar = SwipeVar()
     @State var addGroupToggle = false
     
     // Remove tint from NavigationBar
+    // TODO move to some delegate
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
@@ -65,7 +67,7 @@ struct ContentView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: g.size.width*0.11, height: g.size.width*0.11)
                             .colorInvert()
-                            .colorMultiply(.gray)
+                            .colorMultiply(self.notificationManager.recieved.filter{$0.message == "friend_request"}.count == 0 ? .gray : .red)
                     }, trailing:
                         Button(action: {
                                 self.addGroupToggle = true
@@ -81,6 +83,8 @@ struct ContentView: View {
                     )
                     .navigationBarTitle(Text(self.userDefaultsManager.currentGroup.name), displayMode: .inline)
                     .onAppear(perform: {
+                        self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+
                         if self.userDefaultsManager.email.isEmpty {
                             self.userManager.getUser(id: self.userDefaultsManager.userId)
                         }

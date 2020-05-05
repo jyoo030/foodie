@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct UserProfileView: View {
+    @EnvironmentObject var socket: Socket
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     private var user: User
     
     init(user: User) {
@@ -36,7 +38,7 @@ struct UserProfileView: View {
                     Spacer()
                     
                     Button(action: {
-                        // Add friend
+                        self.socket.addFriend(userId: self.user.id)
                     }) {
                         HStack {
                             Image(systemName: "person.badge.plus.fill")

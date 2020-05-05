@@ -13,10 +13,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var userDefaultsManager = UserDefaultsManager()
+    lazy var socket = Socket(userDefaultsManager: userDefaultsManager)
     lazy var restaurantManager = RestaurantManager(userDefaultsManager: userDefaultsManager)
     lazy var loginManager = LoginManager(userDefaultsManager: userDefaultsManager)
     lazy var userManager = UserManager(userDefaultsManager: userDefaultsManager, restaurantManager: restaurantManager)
     lazy var groupManager = GroupManager(userManager: userManager)
+    lazy var notificationsManager = NotificationManager(userManager: userManager, userDefaultsManager: userDefaultsManager)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -30,6 +32,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(loginManager)
             .environmentObject(userManager)
             .environmentObject(groupManager)
+            .environmentObject(socket)
+            .environmentObject(notificationsManager)
+
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
