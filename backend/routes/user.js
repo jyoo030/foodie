@@ -189,11 +189,11 @@ router.get('/id/:id', (req, res) => {
 	})
 })
 
-router.get('/search', (req, res) => {
+router.get('/search', async (req, res) => {
 	const searchText = req.query.searchText
 	if (!searchText) return res.status(400).json({'errors': 'Missing parameter'})
 
-	User.aggregate([
+	var foundUsers = await User.aggregate([
 		{$project: {
 			newField:{$concat:["$firstName", " ", "$lastName", " ", "$userName"]},
 			firstName: "$firstName",
