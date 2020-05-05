@@ -67,7 +67,10 @@ class NotificationManager : ObservableObject {
                                  return
                              }
                             
+                            // Update Friends
                             self.userManager.getUser(id: self.userDefaultsManager.userId)
+                            // Update Notifications
+                            self.getNotifications(userId: self.userDefaultsManager.userId)
                             
                             self.errors = []
                          }
