@@ -20,7 +20,7 @@ class UserManager : ObservableObject {
         self.userDefaultsManager = userDefaultsManager
         self.restaurantManager = restaurantManager
         
-        if !userDefaultsManager.userId.isEmpty {
+        if !userDefaultsManager.userId.isEmpty && !userDefaultsManager.currentGroup.id.isEmpty {
             restaurantManager.getRestaurantsByRadius(radius: userDefaultsManager.currentGroup.radius, location: userDefaultsManager.currentGroup.location)
         }
     }
