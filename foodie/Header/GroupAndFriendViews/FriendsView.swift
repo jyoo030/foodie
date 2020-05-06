@@ -46,28 +46,30 @@ struct FriendsView: View {
                 .padding(.horizontal)
 
                 List {
-                    Section(header: Text("Friend Requests")) {
-                        ForEach(self.notificationManager.recieved.filter{$0.reciever == self.userDefaultsManager.userId}, id: \.self) {request in
-                            HStack {
-                                Text("\(request.sender.firstName) \(request.sender.lastName)")
+                    if self.notificationManager.recieved.count > 0 {
+                        Section(header: Text("Friend Requests")) {
+                            ForEach(self.notificationManager.recieved.filter{$0.reciever == self.userDefaultsManager.userId}, id: \.self) {request in
+                                HStack {
+                                    Text("\(request.sender.firstName) \(request.sender.lastName)")
 
-                                Spacer()
-                                
-                                Button(action: {
-                                    self.notificationManager.respond(notificationId: request.id, response: true)
-                                }) {
-                                    Image(systemName: "checkmark.circle")
-                                }.buttonStyle(BorderlessButtonStyle())
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        self.notificationManager.respond(notificationId: request.id, response: true)
+                                    }) {
+                                        Image(systemName: "checkmark.circle")
+                                    }.buttonStyle(BorderlessButtonStyle())
 
-                                Button(action: {
-                                    self.notificationManager.respond(notificationId: request.id, response: false)
-                                }) {
-                                    Image(systemName: "x.circle")
-                                }.buttonStyle(BorderlessButtonStyle())
+                                    Button(action: {
+                                        self.notificationManager.respond(notificationId: request.id, response: false)
+                                    }) {
+                                        Image(systemName: "x.circle")
+                                    }.buttonStyle(BorderlessButtonStyle())
+                                }
                             }
                         }
                     }
-                    
+                
                     Section(header: Text("Friends")) {
                         ForEach(self.userDefaultsManager.friends.filter{($0.firstName + " " + $0.lastName + " " + $0.userName).contains(searchText) ||
                             searchText == ""}) { friend in
@@ -91,25 +93,27 @@ struct FriendsView: View {
                         }
                     }
                     
-                    Section(header: Text("Other Users")) {
-                        ForEach(self.userManager.searchResults.filter{!self.userDefaultsManager.friends.contains($0)}) { friend in
-                            NavigationLink(destination: UserProfileView(user: friend)) {
-                                HStack {
-                                    Image("chicken")
-                                        .renderingMode(.original)
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .cornerRadius(30)
-                                        .padding(.horizontal, 10)
-                                        .scaledToFill()
-                                
-                                    VStack(alignment: .leading) {
-                                        Text("\(friend.firstName)  \(friend.lastName)")
-                                        Text("@\(friend.userName)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
+                    if self.userManager.searchResults.count > 0 {
+                        Section(header: Text("Other Users")) {
+                            ForEach(self.userManager.searchResults.filter{!self.userDefaultsManager.friends.contains($0)}) { friend in
+                                NavigationLink(destination: UserProfileView(user: friend)) {
+                                    HStack {
+                                        Image("chicken")
+                                            .renderingMode(.original)
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
+                                            .cornerRadius(30)
+                                            .padding(.horizontal, 10)
+                                            .scaledToFill()
+                                    
+                                        VStack(alignment: .leading) {
+                                            Text("\(friend.firstName)  \(friend.lastName)")
+                                            Text("@\(friend.userName)")
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                        }
+                                        Spacer()
                                     }
-                                    Spacer()
                                 }
                             }
                         }
