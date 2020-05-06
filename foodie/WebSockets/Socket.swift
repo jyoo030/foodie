@@ -22,8 +22,6 @@ class Socket: ObservableObject {
             print("friend request recieved")
             notificationManager.getNotifications(userId: userDefaultsManager.userId)
         }
-        
-        self.establishConnection()
     }
      
     func getSid() -> String {

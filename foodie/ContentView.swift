@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var socket: Socket
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var groupManager: GroupManager
@@ -83,10 +84,13 @@ struct ContentView: View {
                     )
                     .navigationBarTitle(Text(self.userDefaultsManager.currentGroup.name), displayMode: .inline)
                     .onAppear(perform: {
+                        self.socket.establishConnection()
                         self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
-
+                        
                         if self.userDefaultsManager.email.isEmpty {
                             self.userManager.getUser(id: self.userDefaultsManager.userId)
+                         
+
                         }
                     })
                 }
