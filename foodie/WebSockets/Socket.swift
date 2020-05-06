@@ -7,9 +7,12 @@ let socket = manager.defaultSocket
 
 class Socket: ObservableObject {
     @ObservedObject var userDefaultsManager: UserDefaultsManager
+    @ObservedObject var notificationManager: NotificationManager
         
-    init(userDefaultsManager: UserDefaultsManager) {
+    init(userDefaultsManager: UserDefaultsManager, notificationManager: NotificationManager) {
         self.userDefaultsManager = userDefaultsManager
+        self.notificationManager = notificationManager
+        
         socket.on(clientEvent: .connect) {data, ack in
             print("connect")
             socket.emit("user_online", ["userId": userDefaultsManager.userId, "socketId": socket.sid])
@@ -17,6 +20,7 @@ class Socket: ObservableObject {
         
         socket.on("friend_request") {data, ack in
             print("friend request recieved")
+            notificationManager.getNotifications(userId: userDefaultsManager.userId)
         }
         
         self.establishConnection()

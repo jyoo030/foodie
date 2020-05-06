@@ -54,7 +54,7 @@ io.on('connect', socket => {
 
         // Check user is online
         if (Object.keys(io.sockets.sockets).includes(data.to)) {
-            io.to(data.to).emit('test', 'test')
+            io.to(currentSockets[data.to]).emit('friend_request')
         }
 
         // Send Push Notification
