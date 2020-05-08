@@ -36,50 +36,13 @@ struct RegisterView: View {
                 
                 // Text Fields
                 VStack(alignment: .leading, spacing: 25) {
-                    TextField("First Name", text: self.$firstName)
-                        .textContentType(.name)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
-                    
-                    TextField("Last Name", text: self.$lastName)
-                        .textContentType(.name)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
-                    
-                    TextField("Username", text: self.$userName)
-                        .textContentType(.username)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
-                    
-                    TextField("Email", text: self.$email)
-                        .textContentType(.emailAddress)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
-                    
-                    SecureField("Password", text: self.$password)
-                        .textContentType(.password)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
-                    
-                    SecureField("Confirm Password", text: self.$password2)
-                        .textContentType(.password)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
-
-                }.padding([.leading, .trailing], 27.5)
-                 .padding(.bottom, self.keyboardSlider.currentHeight)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 0, autoComplete: .yes, text: self.$firstName, placeholder: "First Name", password: false)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 1, autoComplete: .yes, text: self.$lastName, placeholder: "Last Name", password: false)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 2, autoComplete: .no, text: self.$userName, placeholder: "User Name", password: false)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 3, autoComplete: .no, text: self.$email, placeholder: "Email", password: false)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 4, autoComplete: .no, text: self.$password, placeholder: "Password", password: true)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .done, tag: 5, autoComplete: .no, text: self.$password2, placeholder: "Confirm Password", password: true)
+                }.padding(EdgeInsets(top: 8, leading: 27.5, bottom: self.keyboardSlider.currentHeight, trailing: 27.5))
                  .animation(.easeOut(duration: 0.16))
                 
                 // Sign in button
