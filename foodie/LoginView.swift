@@ -40,17 +40,8 @@ struct LoginView: View {
                 
                 // Text Fields
                 VStack(alignment: .leading, spacing: 15) {
-                    TextField("Username or Email", text: self.$email)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
-                    
-                    SecureField("Password", text: self.$password)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 10.0, x: 20, y: 10)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 0, autoComplete: .yes, text: self.$email, placeholder: "Username or Email", password: false)
+                    LoginRegisterTextField(keyboardType: .default, returnVal: .done, tag: 1, autoComplete: .yes, text: self.$password, placeholder: "Password", password: true)
                 }.padding([.leading, .trailing], 27.5)
                  .padding(.bottom, self.keyboardSlider.currentHeight)
                  .animation(.easeOut(duration: 0.16))
