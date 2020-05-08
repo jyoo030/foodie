@@ -62,7 +62,7 @@ struct ContentView: View {
                         }
                             
                     .navigationBarItems(leading:
-                        NavigationLink(destination: GroupAndFriendView()) {
+                        NavigationLink(destination: PeopleView()) {
                         Image(systemName: "person.3.fill").renderingMode(.original)
                             .resizable()
                             .aspectRatio(contentMode: .fit)

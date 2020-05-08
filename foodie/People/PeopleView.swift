@@ -8,20 +8,24 @@
 
 import SwiftUI
 
-struct GroupAndFriendView: View {
+enum PeopleEnum {
+    case groups, friends, profile
+}
+
+struct PeopleView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var groupManager: GroupManager
     @EnvironmentObject var notificationManager: NotificationManager
     
-    @State var currentView = "Groups"
+    @State var currentView: PeopleEnum = .groups
     @State var addToggle = false
     
     var body: some View {
         VStack(spacing: 0) {
             
-            if currentView == "Groups" {
+            if currentView == PeopleEnum.groups {
                 GroupsView(addToggle: self.$addToggle)
-            } else if currentView == "Friends" {
+            } else if currentView == PeopleEnum.friends {
                 FriendsView()
             }
             
@@ -29,9 +33,9 @@ struct GroupAndFriendView: View {
                 Spacer()
                 
                 Button(action: {
-                    self.currentView = "Groups"
+                    self.currentView = PeopleEnum.groups
                 }) {
-                    Image(systemName: currentView == "Groups" ? "person.3.fill" : "person.3")
+                    Image(systemName: currentView == PeopleEnum.groups ? "person.3.fill" : "person.3")
                         .resizable()
                         .frame(width: 35, height: 30)
                         .scaledToFit()
@@ -40,9 +44,9 @@ struct GroupAndFriendView: View {
                 Spacer()
                 
                 Button(action: {
-                    self.currentView = "Friends"
+                    self.currentView = PeopleEnum.friends
                 }) {
-                    Image(systemName: currentView == "Friends" ? "person.2.fill" : "person.2")
+                    Image(systemName: currentView == PeopleEnum.friends ? "person.2.fill" : "person.2")
                         .resizable()
                         .frame(width: 35, height: 30)
                         .scaledToFit()
@@ -53,17 +57,11 @@ struct GroupAndFriendView: View {
                 Spacer()
             }.padding(.vertical, 10)
         }.sheet(isPresented: $addToggle) {
-            if self.currentView == "Groups" {
+            if self.currentView == PeopleEnum.groups {
                 AddGroupView(addGroupToggle: self.$addToggle)
                     .environmentObject(self.userDefaultsManager)
                     .environmentObject(self.groupManager)
             }
         }
-    }
-}
-
-struct GroupAndFriendView_Previews: PreviewProvider {
-    static var previews: some View {
-        GroupAndFriendView()
     }
 }
