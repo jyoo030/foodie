@@ -31,6 +31,10 @@ class UserDefaultsManager : ObservableObject {
         didSet { UserDefaults.standard.set(self.lastName, forKey: "lastName") }
     }
     
+    @Published var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "" {
+        didSet { UserDefaults.standard.set(self.userName, forKey: "userName") }
+    }
+    
     @Published var email: String = UserDefaults.standard.string(forKey: "email") ?? "" {
         didSet { UserDefaults.standard.set(self.email, forKey: "email") }
     }
@@ -54,5 +58,16 @@ class UserDefaultsManager : ObservableObject {
     func getIdFromName(name: String) -> String {
         let friend = self.friends.filter{ ($0.firstName + $0.lastName).lowercased() == name.lowercased() }.first
         return friend == nil ? "" : friend!.id
+    }
+    
+    func resetUserDefaults() {
+        self.userId = ""
+        self.currentGroup = PopulatedGroupModel()
+        self.firstName = ""
+        self.lastName = ""
+        self.userName = ""
+        self.email = ""
+        self.groups = []
+        self.friends = []
     }
 }

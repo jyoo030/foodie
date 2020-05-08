@@ -102,6 +102,7 @@ struct ContentView: View {
                 }
             } else {
                 LoginView()
+                .navigationBarHidden(true)
             }
         }
     }

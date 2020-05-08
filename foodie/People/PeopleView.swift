@@ -27,6 +27,8 @@ struct PeopleView: View {
                 GroupsView(addToggle: self.$addToggle)
             } else if currentView == PeopleEnum.friends {
                 FriendsView()
+            } else if currentView == PeopleEnum.profile {
+                CurrentUserProfileView()
             }
             
             HStack {
@@ -50,10 +52,20 @@ struct PeopleView: View {
                         .resizable()
                         .frame(width: 35, height: 30)
                         .scaledToFit()
-                        .colorInvert()
-                        .colorMultiply(self.notificationManager.recieved.filter{$0.message == "friend_request"}.count == 0 ? .gray : .red)
+                        .colorMultiply(self.notificationManager.recieved.filter{$0.message == "friend_request"}.count == 0 ? .white : .red)
                 }
 
+                Spacer()
+                
+                Button(action: {
+                    self.currentView = PeopleEnum.profile
+                }) {
+                    Image(systemName: currentView == PeopleEnum.profile ? "person.fill" : "person")
+                        .resizable()
+                        .frame(width: 35, height: 30)
+                        .scaledToFit()
+                }
+                
                 Spacer()
             }.padding(.vertical, 10)
         }.sheet(isPresented: $addToggle) {

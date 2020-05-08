@@ -36,6 +36,7 @@ class UserManager : ObservableObject {
                 DispatchQueue.main.async {
                     self.userDefaultsManager.firstName = json.firstName
                     self.userDefaultsManager.lastName = json.lastName
+                    self.userDefaultsManager.userName = json.userName
                     self.userDefaultsManager.email = json.email
                     self.userDefaultsManager.groups = json.groups!
                     self.userDefaultsManager.friends = json.friends!

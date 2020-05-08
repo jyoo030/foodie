@@ -25,7 +25,6 @@
 		109823C92432CEA80069615D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109823C82432CEA80069615D /* MapView.swift */; };
 		10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0BF24240B7100EC42F1 /* CardView.swift */; };
 		10A3E0C32424156B00EC42F1 /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0C22424156B00EC42F1 /* BottomCard.swift */; };
-		10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A3E0C4242446B600EC42F1 /* HeaderView.swift */; };
 		10B2CA48243079FF0073A94F /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B2CA47243079FF0073A94F /* RatingView.swift */; };
 		10C74BCE242AB1D700D050CA /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C74BCD242AB1D700D050CA /* DetailView.swift */; };
 		10CA78622447ACA10003D37B /* ApiUrlConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA78562447ACA10003D37B /* ApiUrlConstants.swift */; };
@@ -41,12 +40,13 @@
 		10DBC7652447AE54007C67C2 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7642447AE54007C67C2 /* ActivityIndicator.swift */; };
 		10DBC7692447D0F3007C67C2 /* GroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DBC7682447D0F3007C67C2 /* GroupManager.swift */; };
 		10E12463244AB94900EF6F92 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E12462244AB94900EF6F92 /* FriendsView.swift */; };
-		10E12465244AB9C900EF6F92 /* GroupAndFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */; };
+		10E12465244AB9C900EF6F92 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E12464244AB9C900EF6F92 /* PeopleView.swift */; };
 		10EC2112245FB00800DA2487 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EC2111245FB00800DA2487 /* NotificationManager.swift */; };
 		10EC2114245FB19000DA2487 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EC2113245FB19000DA2487 /* NotificationModel.swift */; };
 		10F1659E2431645D007D65BD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 10F1659D2431645D007D65BD /* Kingfisher */; };
 		10F165A02431645D007D65BD /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 10F1659F2431645D007D65BD /* KingfisherSwiftUI */; };
 		10F240F2243A553C00879145 /* ButtonSwipeVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F240F1243A553C00879145 /* ButtonSwipeVariables.swift */; };
+		10FB5F4A24651F8500A8D0D5 /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FB5F4924651F8500A8D0D5 /* CurrentUserProfileView.swift */; };
 		A889DB1E2447AEF6005FEC36 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A889DB1D2447AEF6005FEC36 /* GroupsView.swift */; };
 		A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78C24201EFC00537227 /* AppDelegate.swift */; };
 		A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78E24201EFC00537227 /* SceneDelegate.swift */; };
@@ -75,7 +75,6 @@
 		109823C82432CEA80069615D /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		10A3E0BF24240B7100EC42F1 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		10A3E0C22424156B00EC42F1 /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
-		10A3E0C4242446B600EC42F1 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		10B2CA47243079FF0073A94F /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		10C74BCD242AB1D700D050CA /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		10CA78562447ACA10003D37B /* ApiUrlConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiUrlConstants.swift; sourceTree = "<group>"; };
@@ -91,10 +90,11 @@
 		10DBC7642447AE54007C67C2 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		10DBC7682447D0F3007C67C2 /* GroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManager.swift; sourceTree = "<group>"; };
 		10E12462244AB94900EF6F92 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
-		10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAndFriendView.swift; sourceTree = "<group>"; };
+		10E12464244AB9C900EF6F92 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		10EC2111245FB00800DA2487 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		10EC2113245FB19000DA2487 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		10F240F1243A553C00879145 /* ButtonSwipeVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSwipeVariables.swift; sourceTree = "<group>"; };
+		10FB5F4924651F8500A8D0D5 /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
 		A889DB1D2447AEF6005FEC36 /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		A8ADC78924201EFC00537227 /* foodie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8ADC78C24201EFC00537227 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,16 +121,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1010C308242453A2001650AA /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				10E12461244AB91A00EF6F92 /* GroupAndFriendViews */,
-				10A3E0C4242446B600EC42F1 /* HeaderView.swift */,
-				101F0F78245921AF00FB64EF /* AddGroupView.swift */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
 		1010C309242453AE001650AA /* Footer */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,15 +225,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		10E12461244AB91A00EF6F92 /* GroupAndFriendViews */ = {
+		10E12461244AB91A00EF6F92 /* People */ = {
 			isa = PBXGroup;
 			children = (
-				10E12464244AB9C900EF6F92 /* GroupAndFriendView.swift */,
+				10E12464244AB9C900EF6F92 /* PeopleView.swift */,
+				101F0F78245921AF00FB64EF /* AddGroupView.swift */,
 				A889DB1D2447AEF6005FEC36 /* GroupsView.swift */,
 				10E12462244AB94900EF6F92 /* FriendsView.swift */,
 				10009BAE245A05C9001820DE /* UserProfileView.swift */,
+				10FB5F4924651F8500A8D0D5 /* CurrentUserProfileView.swift */,
 			);
-			path = GroupAndFriendViews;
+			path = People;
 			sourceTree = "<group>";
 		};
 		A8ADC78024201EFC00537227 = {
@@ -269,7 +261,7 @@
 				A8E17E88245FC2E800A0DCC3 /* Utility */,
 				10CA78552447ACA10003D37B /* API */,
 				1010C309242453AE001650AA /* Footer */,
-				1010C308242453A2001650AA /* Header */,
+				10E12461244AB91A00EF6F92 /* People */,
 				10A3E0C12424121800EC42F1 /* Cards */,
 				107F16BB242403BC004EB675 /* Buttons */,
 				A8ADC78C24201EFC00537227 /* AppDelegate.swift */,
@@ -399,6 +391,7 @@
 				10F240F2243A553C00879145 /* ButtonSwipeVariables.swift in Sources */,
 				10CA78622447ACA10003D37B /* ApiUrlConstants.swift in Sources */,
 				10CA78642447ACA10003D37B /* UserDefaultsManager.swift in Sources */,
+				10FB5F4A24651F8500A8D0D5 /* CurrentUserProfileView.swift in Sources */,
 				10C74BCE242AB1D700D050CA /* DetailView.swift in Sources */,
 				10DBC7652447AE54007C67C2 /* ActivityIndicator.swift in Sources */,
 				106E435524416B0800C31FA0 /* LoginView.swift in Sources */,
@@ -413,7 +406,7 @@
 				10CA786A2447ACA10003D37B /* Response.swift in Sources */,
 				10EC2114245FB19000DA2487 /* NotificationModel.swift in Sources */,
 				A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */,
-				10E12465244AB9C900EF6F92 /* GroupAndFriendView.swift in Sources */,
+				10E12465244AB9C900EF6F92 /* PeopleView.swift in Sources */,
 				A8ADC79124201EFC00537227 /* ContentView.swift in Sources */,
 				1039CF9F24399919004D42C0 /* NahView.swift in Sources */,
 				1039CF9D243998FC004D42C0 /* YummyView.swift in Sources */,
@@ -421,7 +414,6 @@
 				10A3E0C024240B7100EC42F1 /* CardView.swift in Sources */,
 				107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */,
 				10CA78682447ACA10003D37B /* Reviews.swift in Sources */,
-				10A3E0C5242446B600EC42F1 /* HeaderView.swift in Sources */,
 				102B842C24495F06007DFA67 /* RestaurantManager.swift in Sources */,
 				10E12463244AB94900EF6F92 /* FriendsView.swift in Sources */,
 			);
