@@ -31,13 +31,21 @@ struct CustomTextField: UIViewRepresentable {
         tmpView.textAlignment       = textAlignment ?? .left
         tmpView.tag                 = tag
         tmpView.backgroundColor     = .white
-        tmpView.layer.cornerRadius  = 20.0
+        tmpView.layer.cornerRadius  = 10.0
         tmpView.layer.shadowOpacity = 0.5
         tmpView.layer.shadowColor   = UIColor.black.cgColor
         tmpView.layer.shadowRadius  = 20.0
         tmpView.layer.shadowOffset  = CGSize(width: 20, height: 10)
         tmpView.isSecureTextEntry   = password
         tmpView.returnKeyType       = returnVal
+        tmpView.font = UIFont.systemFont(ofSize: 25)
+
+        // Inner Text Padding
+        let leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 2.0))
+        tmpView.leftView = leftView
+        tmpView.leftViewMode = .always
+        
+        
         return tmpView
     }
 
@@ -74,5 +82,5 @@ struct CustomTextField: UIViewRepresentable {
             return true
         }
     }
-
 }
+
