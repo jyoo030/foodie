@@ -9,52 +9,60 @@
 import SwiftUI
 import UIKit
 
-struct LoginRegisterTextField: UIViewRepresentable {
-    let keyboardType: UIKeyboardType
-    let returnVal: UIReturnKeyType
+struct CustomTextField: UIViewRepresentable {
+    var placeholder:String?
+    var keyboardType:UIKeyboardType?
+    var textAlignment:NSTextAlignment?
     let tag: Int
-    let autoComplete: UITextAutocorrectionType
-    @Binding var text: String
-    let placeholder: String
+    let returnVal: UIReturnKeyType
     let password: Bool
-    let padding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-    
-    func makeUIView(context: Context) -> UITextField {
-        let textField = UITextField(frame: .zero)
-        textField.keyboardType = self.keyboardType
-        textField.returnKeyType = self.returnVal
-        textField.tag = self.tag
-        textField.delegate = context.coordinator
-        textField.autocorrectionType = self.autoComplete
-        textField.placeholder = self.placeholder
-        textField.backgroundColor = .white
-        textField.layer.cornerRadius = 20.0
-        textField.layer.shadowOpacity = 0.5
-        textField.layer.shadowColor = UIColor.black.cgColor
-        textField.layer.shadowRadius = 20.0
-        textField.layer.shadowOffset = CGSize(width: 20, height: 10)
-        textField.isSecureTextEntry = password
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
 
-        return textField
-    }
-
-    func updateUIView(_ uiView: UITextField, context: Context) {
-    }
+    @Binding var text: String
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(text: $text)
     }
 
-    class Coordinator: NSObject, UITextFieldDelegate {
-        var parent: LoginRegisterTextField
+    func makeUIView(context: UIViewRepresentableContext<CustomTextField>) -> UITextField {
+        let tmpView                 = UITextField()
+        tmpView.delegate            = context.coordinator as UITextFieldDelegate
+        tmpView.placeholder         = placeholder
+        tmpView.keyboardType        = keyboardType ?? .default
+        tmpView.textAlignment       = textAlignment ?? .left
+        tmpView.tag                 = tag
+        tmpView.backgroundColor     = .white
+        tmpView.layer.cornerRadius  = 20.0
+        tmpView.layer.shadowOpacity = 0.5
+        tmpView.layer.shadowColor   = UIColor.black.cgColor
+        tmpView.layer.shadowRadius  = 20.0
+        tmpView.layer.shadowOffset  = CGSize(width: 20, height: 10)
+        tmpView.isSecureTextEntry   = password
+        tmpView.returnKeyType       = returnVal
+        return tmpView
+    }
 
-        init(_ textField: LoginRegisterTextField) {
-            self.parent = textField
+    func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<CustomTextField>) {
+        uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        uiView.text = text
+    }
+
+    class Coordinator : NSObject, UITextFieldDelegate {
+        @Binding var text: String
+
+        init(text: Binding<String>) {
+            self._text = text
         }
-
+        
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            if let currentValue            = textField.text as NSString? {
+                let proposedValue          = currentValue.replacingCharacters(in: range, with: string)
+                text                       = proposedValue
+            }
+            return true
+        }
+        
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            print("here")
             let nextTag = textField.tag + 1
 
             if let nextResponder = textField.superview?.superview?.viewWithTag(nextTag) {
@@ -66,6 +74,5 @@ struct LoginRegisterTextField: UIViewRepresentable {
             return true
         }
     }
+
 }
-
-

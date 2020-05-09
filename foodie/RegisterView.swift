@@ -36,16 +36,16 @@ struct RegisterView: View {
                 
                 // Text Fields
                 VStack(alignment: .leading, spacing: 25) {
-                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 0, autoComplete: .yes, text: self.$firstName, placeholder: "First Name", password: false)
-                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 1, autoComplete: .yes, text: self.$lastName, placeholder: "Last Name", password: false)
-                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 2, autoComplete: .no, text: self.$userName, placeholder: "User Name", password: false)
-                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 3, autoComplete: .no, text: self.$email, placeholder: "Email", password: false)
-                    LoginRegisterTextField(keyboardType: .default, returnVal: .next, tag: 4, autoComplete: .no, text: self.$password, placeholder: "Password", password: true)
-                    LoginRegisterTextField(keyboardType: .default, returnVal: .done, tag: 5, autoComplete: .no, text: self.$password2, placeholder: "Confirm Password", password: true)
+                    CustomTextField(placeholder: "First Name",       tag: 0, returnVal: .next, password: false, text: self.$firstName)
+                    CustomTextField(placeholder: "Last Name",        tag: 1, returnVal: .next, password: false, text: self.$lastName)
+                    CustomTextField(placeholder: "Username",         tag: 2, returnVal: .next, password: false, text: self.$userName)
+                    CustomTextField(placeholder: "Email",            tag: 3, returnVal: .next, password: false, text: self.$email)
+                    CustomTextField(placeholder: "Password",         tag: 4, returnVal: .next, password: true,  text: self.$password)
+                    CustomTextField(placeholder: "Confirm Password", tag: 5, returnVal: .done, password: true, text: self.$password2)
                 }.padding(EdgeInsets(top: 8, leading: 27.5, bottom: self.keyboardSlider.currentHeight, trailing: 27.5))
                  .animation(.easeOut(duration: 0.16))
                 
-                // Sign in button
+                // Sign up button
                 Button(action: {
                     self.loginManager.register(
                         firstName: self.firstName,
