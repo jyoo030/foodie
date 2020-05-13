@@ -18,6 +18,7 @@
 		1039CF9F24399919004D42C0 /* NahView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1039CF9E24399919004D42C0 /* NahView.swift */; };
 		10504AAF245D4B52009B52D4 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 10504AAE245D4B52009B52D4 /* SocketIO */; };
 		10504AB2245D4E4D009B52D4 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10504AB1245D4E4D009B52D4 /* Socket.swift */; };
+		105A3E162467A0E400DBE06D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105A3E152467A0E400DBE06D /* SearchBar.swift */; };
 		106E435524416B0800C31FA0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E435424416B0800C31FA0 /* LoginView.swift */; };
 		106E43572441715200C31FA0 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E43562441715200C31FA0 /* RegisterView.swift */; };
 		107F16B8242402AF004EB675 /* LikeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107F16B7242402AF004EB675 /* LikeButtonView.swift */; };
@@ -46,8 +47,8 @@
 		10F1659E2431645D007D65BD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 10F1659D2431645D007D65BD /* Kingfisher */; };
 		10F165A02431645D007D65BD /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 10F1659F2431645D007D65BD /* KingfisherSwiftUI */; };
 		10F240F2243A553C00879145 /* ButtonSwipeVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F240F1243A553C00879145 /* ButtonSwipeVariables.swift */; };
-		A86890D12464CFC4008C44AF /* LoginRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86890D02464CFC4008C44AF /* LoginRegisterTextField.swift */; };
 		10FB5F4A24651F8500A8D0D5 /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FB5F4924651F8500A8D0D5 /* CurrentUserProfileView.swift */; };
+		A86890D12464CFC4008C44AF /* LoginRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86890D02464CFC4008C44AF /* LoginRegisterTextField.swift */; };
 		A889DB1E2447AEF6005FEC36 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A889DB1D2447AEF6005FEC36 /* GroupsView.swift */; };
 		A8ADC78D24201EFC00537227 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78C24201EFC00537227 /* AppDelegate.swift */; };
 		A8ADC78F24201EFC00537227 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8ADC78E24201EFC00537227 /* SceneDelegate.swift */; };
@@ -69,6 +70,7 @@
 		1039CF9C243998FC004D42C0 /* YummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YummyView.swift; sourceTree = "<group>"; };
 		1039CF9E24399919004D42C0 /* NahView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NahView.swift; sourceTree = "<group>"; };
 		10504AB1245D4E4D009B52D4 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
+		105A3E152467A0E400DBE06D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		106E435424416B0800C31FA0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		106E43562441715200C31FA0 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		107F16B7242402AF004EB675 /* LikeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonView.swift; sourceTree = "<group>"; };
@@ -95,8 +97,8 @@
 		10EC2111245FB00800DA2487 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		10EC2113245FB19000DA2487 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		10F240F1243A553C00879145 /* ButtonSwipeVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSwipeVariables.swift; sourceTree = "<group>"; };
-		A86890D02464CFC4008C44AF /* LoginRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterTextField.swift; sourceTree = "<group>"; };
 		10FB5F4924651F8500A8D0D5 /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
+		A86890D02464CFC4008C44AF /* LoginRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterTextField.swift; sourceTree = "<group>"; };
 		A889DB1D2447AEF6005FEC36 /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		A8ADC78924201EFC00537227 /* foodie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8ADC78C24201EFC00537227 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			children = (
 				A8E17E8B245FC31800A0DCC3 /* KeyboardSlider.swift */,
 				A86890D02464CFC4008C44AF /* LoginRegisterTextField.swift */,
+				105A3E152467A0E400DBE06D /* SearchBar.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				109823C92432CEA80069615D /* MapView.swift in Sources */,
 				107F16BA24240368004EB675 /* DislikeButtonView.swift in Sources */,
 				10CA78652447ACA10003D37B /* LoginManager.swift in Sources */,
+				105A3E162467A0E400DBE06D /* SearchBar.swift in Sources */,
 				10B2CA48243079FF0073A94F /* RatingView.swift in Sources */,
 				10CA78692447ACA10003D37B /* User.swift in Sources */,
 				10CA78632447ACA10003D37B /* UserManager.swift in Sources */,

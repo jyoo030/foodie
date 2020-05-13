@@ -37,7 +37,7 @@ struct CustomTextField: UIViewRepresentable {
         tmpView.layer.shadowRadius  = 20.0
         tmpView.layer.shadowOffset  = CGSize(width: 20, height: 10)
         tmpView.isSecureTextEntry   = password
-        tmpView.returnKeyType       = returnVal
+        tmpView.returnKeyType       = returnVal 
         tmpView.font = UIFont.systemFont(ofSize: 25)
 
         // Inner Text Padding
