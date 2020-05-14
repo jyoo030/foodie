@@ -55,11 +55,6 @@ class UserDefaultsManager : ObservableObject {
         }
     }
     
-    func getIdFromName(name: String) -> String {
-        let friend = self.friends.filter{ ($0.firstName + $0.lastName).lowercased() == name.lowercased() }.first
-        return friend == nil ? "" : friend!.id
-    }
-    
     func resetUserDefaults() {
         self.userId = ""
         self.currentGroup = PopulatedGroupModel()

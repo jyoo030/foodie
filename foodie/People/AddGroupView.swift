@@ -15,27 +15,12 @@ struct AddGroupView: View {
     @State private var friends: String = ""
     @State private var location: String = ""
     @State private var mileRadius: Float = 5
-    @State private var nameError: String = ""
     
     @State private var selectedFriends: [User] = []
     @State var searchText: String = ""
     @State var highlightedFriend: User?
 
     @Binding var addGroupToggle: Bool
-
-    func parseFriends() -> [String:String] {
-        let friendsArray: [String] = self.friends.components(separatedBy: ", ")
-        var friendsIdDict: [String:String] = [:]
-        for friendName in friendsArray {
-            let friendId = self.userDefaultsManager.getIdFromName(name: friendName)
-            if friendId == "" {
-                self.nameError = friendName
-            } else {
-                friendsIdDict[friendName] = friendId
-            }
-        }
-        return friendsIdDict
-    }
     
     func getFilteredFriendsList(searchText: String) -> [User] {
         if searchText.isEmpty {
@@ -57,24 +42,20 @@ struct AddGroupView: View {
                 Spacer()
                 
                 Button(action: {
-                    let friendIdDict = self.parseFriends()
+                    var users = [self.userDefaultsManager.userId]
                     
-                    if self.nameError.isEmpty {
-                        var users = [self.userDefaultsManager.userId]
-                        
-                        for (_,item) in friendIdDict {
-                            users.append(item)
-                        }
-                        
-                        self.groupManager.createGroup(
-                            name: self.groupName,
-                            users: users,
-                            admins: [self.userDefaultsManager.userId],
-                            location: self.location,
-                            radius: Int(self.mileRadius * 1600),
-                            createdBy: self.userDefaultsManager.userId
-                        )
+                    for (friend) in self.selectedFriends {
+                        users.append(friend.id)
                     }
+                    
+                    self.groupManager.createGroup(
+                        name: self.groupName,
+                        users: users,
+                        admins: [self.userDefaultsManager.userId],
+                        location: self.location,
+                        radius: Int(self.mileRadius * 1600),
+                        createdBy: self.userDefaultsManager.userId
+                    )
                     
                     self.addGroupToggle = false
                 }) {
@@ -85,7 +66,6 @@ struct AddGroupView: View {
             
                             
             VStack(alignment: .center) {
-                
                 Image(systemName: "camera.fill")
                 .resizable()
                 .scaledToFit()
