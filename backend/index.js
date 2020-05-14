@@ -28,6 +28,7 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 app.use(bodyParser.json());
+
 // Routes
 app.use('/restaurant', require('./routes/restaurant'));
 app.use('/user', require('./routes/user'));
@@ -58,7 +59,6 @@ io.on('connect', socket => {
         }
 
         // Send Push Notification
-        // Store in NotificationSchema
 
         var newNotification = Notification({
             "sender": data.from,
