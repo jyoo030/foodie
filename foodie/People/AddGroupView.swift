@@ -120,16 +120,18 @@ struct AddGroupView: View {
                         
                         SearchBar(placeholder: "Search", isEnabled: $isEnabled, text: $searchText, onBackspace: {
                             if self.selectedFriends.count > 0 {
-                                if self.highlightedFriend == nil {
+                                if self.highlightedFriend == nil && self.searchText.count == 0 {
                                     self.highlightedFriend = self.selectedFriends.last!
                                     self.isEnabled = false
-                                } else {
+                                }
+                                else if self.highlightedFriend != nil {
                                     self.selectedFriends.removeAll(where: { $0.id == self.highlightedFriend!.id })
                                     self.highlightedFriend = nil
                                     self.isEnabled = true
                                 }
                             }
                         })
+                        .disableAutocorrection(true)
                         .frame(height: 35)
                     }.foregroundColor(.primary)
                     .background(Color(.secondarySystemBackground))

@@ -47,7 +47,7 @@ struct Hour: Decodable, Hashable {
 }
 
 struct Location: Decodable {
-    var address1: String = ""
+    var address1: String? = ""
     var address2: String? = ""
     var address3: String? = ""
     var city: String = ""
