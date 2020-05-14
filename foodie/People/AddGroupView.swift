@@ -118,7 +118,7 @@ struct AddGroupView: View {
                             }
                         }
                         
-                        SearchBar(placeholder: "Search", isEnabled: $isEnabled, text: $searchText, onEmptyBackspace: {
+                        SearchBar(placeholder: "Search", isEnabled: $isEnabled, text: $searchText, onBackspace: {
                             if self.selectedFriends.count > 0 {
                                 if self.highlightedFriend == nil {
                                     self.highlightedFriend = self.selectedFriends.last!

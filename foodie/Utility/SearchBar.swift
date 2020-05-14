@@ -10,12 +10,12 @@ import SwiftUI
 import UIKit
 
 class EmptyDeleteTextField: UITextField {
-    var onEmptyBackspace: (()->Void)?
+    var onBackspace: (()->Void)?
     
-    convenience init(onEmptyBackspace: (()->Void)?) {
+    convenience init(onBackspace: (()->Void)?) {
         self.init(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
         // some initialisation for init with no arguments
-        self.onEmptyBackspace = onEmptyBackspace
+        self.onBackspace = onBackspace
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,9 +27,7 @@ class EmptyDeleteTextField: UITextField {
     
     override func deleteBackward() {
         super.deleteBackward()
-        if self.text?.count == 0 {
-            onEmptyBackspace?()
-        }
+        onBackspace?()
     }
 }
 
@@ -41,14 +39,14 @@ struct SearchBar: UIViewRepresentable {
     @Binding var isEnabled: Bool
     @Binding var text: String
     
-    var onEmptyBackspace: (()->Void)?
+    var onBackspace: (()->Void)?
 
     func makeCoordinator() -> Coordinator {
         Coordinator(text: $text, isEnabled: $isEnabled)
     }
 
     func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> EmptyDeleteTextField {
-        let tmpView                 = EmptyDeleteTextField(onEmptyBackspace: onEmptyBackspace)
+        let tmpView                 = EmptyDeleteTextField(onBackspace: onBackspace)
         tmpView.delegate            = context.coordinator as UITextFieldDelegate
         tmpView.placeholder         = placeholder
         tmpView.keyboardType        = keyboardType ?? .default
