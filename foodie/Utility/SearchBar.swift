@@ -34,15 +34,17 @@ class EmptyDeleteTextField: UITextField {
 }
 
 struct SearchBar: UIViewRepresentable {
-    var placeholder:String?
-    var keyboardType:UIKeyboardType?
-    var textAlignment:NSTextAlignment?
-
+    var placeholder: String?
+    var keyboardType: UIKeyboardType?
+    var textAlignment: NSTextAlignment?
+    
+    @Binding var isEnabled: Bool
     @Binding var text: String
+    
     var onEmptyBackspace: (()->Void)?
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(text: $text)
+        Coordinator(text: $text, isEnabled: $isEnabled)
     }
 
     func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> EmptyDeleteTextField {
@@ -53,29 +55,34 @@ struct SearchBar: UIViewRepresentable {
         tmpView.textAlignment       = textAlignment ?? .left
         tmpView.text                = text
         
-        // Inner Text Padding
-        let leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 2.0))
-        tmpView.leftView = leftView
-        tmpView.leftViewMode = .always
-        
         return tmpView
     }
 
     func updateUIView(_ uiView: EmptyDeleteTextField, context: UIViewRepresentableContext<SearchBar>) {
         uiView.text = text
+        if !isEnabled {
+            uiView.tintColor = UIColor.clear
+        }
     }
 
     class Coordinator : NSObject, UITextFieldDelegate {
         @Binding var text: String
+        @Binding var isEnabled: Bool
 
-        init(text: Binding<String>) {
+        init(text: Binding<String>, isEnabled: Binding<Bool>) {
             self._text = text
+            self._isEnabled = isEnabled
         }
         
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            if !isEnabled {
+                return false
+            }
             if let currentValue            = textField.text as NSString? {
                 let proposedValue          = currentValue.replacingCharacters(in: range, with: string)
-                text                       = proposedValue
+                DispatchQueue.main.async {
+                    self.text                       = proposedValue
+                }
             }
             return true
         }

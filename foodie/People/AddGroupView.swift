@@ -19,6 +19,7 @@ struct AddGroupView: View {
     @State private var selectedFriends: [User] = []
     @State var searchText: String = ""
     @State var highlightedFriend: User?
+    @State var isEnabled: Bool = true
 
     @Binding var addGroupToggle: Bool
     
@@ -100,8 +101,10 @@ struct AddGroupView: View {
                             Button(action: {
                                 if self.highlightedFriend == friend {
                                     self.highlightedFriend = nil
+                                    self.isEnabled = true
                                 } else {
                                     self.highlightedFriend = friend
+                                    self.isEnabled = false
                                 }
                             }) {
                                 if(self.highlightedFriend == friend) {
@@ -115,21 +118,22 @@ struct AddGroupView: View {
                             }
                         }
                         
-                        SearchBar(placeholder: "Search", text: $searchText, onEmptyBackspace: {
+                        SearchBar(placeholder: "Search", isEnabled: $isEnabled, text: $searchText, onEmptyBackspace: {
                             if self.selectedFriends.count > 0 {
                                 if self.highlightedFriend == nil {
                                     self.highlightedFriend = self.selectedFriends.last!
+                                    self.isEnabled = false
                                 } else {
                                     self.selectedFriends.removeAll(where: { $0.id == self.highlightedFriend!.id })
                                     self.highlightedFriend = nil
+                                    self.isEnabled = true
                                 }
                             }
                         })
                         .frame(height: 35)
-                        .foregroundColor(.primary)
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(10.0)
-                    }
+                    }.foregroundColor(.primary)
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10.0)
                     
                     
                     List(getFilteredFriendsList(searchText: self.searchText)) { friend in
