@@ -36,7 +36,9 @@ class Socket: ObservableObject {
         socket.disconnect()
     }
     
-    func addFriend(userId: String) {
-        socket.emit("friend_request", ["from": userDefaultsManager.userId, "to": userId])
+    func addFriend(userId: String, onComplete: (()->Void)?) {
+        socket.emitWithAck("friend_request", ["from": userDefaultsManager.userId, "to": userId]).timingOut(after: 0) { data in
+            onComplete?()
+        }
     }
 }

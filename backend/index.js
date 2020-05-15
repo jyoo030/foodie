@@ -49,11 +49,11 @@ io.on('connect', socket => {
         console.log(JSON.stringify(currentSockets))
     })
 
-    socket.on("friend_request", (data) => {
+    socket.on("friend_request", (data, ackFn) => {
         console.log("friend_request")
 
         // Check user is online
-        if (Object.keys(io.sockets.sockets).includes(data.to)) {
+        if (Object.keys(currentSockets).includes(data.to)) {
             io.to(currentSockets[data.to]).emit('friend_request')
         }
 
@@ -66,7 +66,10 @@ io.on('connect', socket => {
             "message": "friend_request"
         })
 
-        newNotification.save();
+        newNotification.save().then((notification, err) => {
+            if (err) console.log(err);
+            ackFn();
+        });
     })
 });
 

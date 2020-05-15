@@ -66,8 +66,9 @@ struct UserProfileView: View {
                     Button(action: {
                         switch self.getFriendStatus() {
                             case FriendStatus.addFriend:
-                                self.socket.addFriend(userId: self.user.id)
-                                self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+                                self.socket.addFriend(userId: self.user.id, onComplete: {
+                                    self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+                                })
                                 break
                             case FriendStatus.friends:
                                 // Delete friend

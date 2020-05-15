@@ -119,7 +119,7 @@ struct AddGroupView: View {
                         }
                         
                         SearchBar(placeholder: "Search", isEnabled: $isEnabled, text: $searchText, onBackspace: {
-                            if self.selectedFriends.count > 0 {
+                            if self.selectedFriends.count > 0 { 
                                 if self.highlightedFriend == nil && self.searchText.count == 0 {
                                     self.highlightedFriend = self.selectedFriends.last!
                                     self.isEnabled = false
@@ -142,6 +142,7 @@ struct AddGroupView: View {
                         Button(action: {
                             if self.selectedFriends.contains(friend) {
                                 self.selectedFriends.removeAll(where: { $0.id == friend.id })
+                                self.highlightedFriend = nil
                             } else {
                                 self.selectedFriends.append(friend)
                             }
