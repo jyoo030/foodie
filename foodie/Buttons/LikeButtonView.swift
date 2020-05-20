@@ -11,6 +11,7 @@ import SwiftUI
 
 struct LikeButtonView: View {
     @EnvironmentObject var restaurantManager: RestaurantManager
+    @EnvironmentObject var socket: Socket
     @ObservedObject var swipeVar: SwipeVar = SwipeVar()
 
     var body: some View {
@@ -30,6 +31,7 @@ struct LikeButtonView: View {
                     self.swipeVar.degree = 0
                     self.swipeVar.toggle = 0
                     self.swipeVar.status = .none
+                    self.socket.like(restaurantId: self.restaurantManager.restaurants.last!.id)
                     self.restaurantManager.onRemoveCard( restaurant: self.restaurantManager.restaurants.last!)
                 }
             }

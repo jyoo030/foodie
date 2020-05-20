@@ -113,15 +113,15 @@ struct CardView: View {
                     
                  }
                  .onEnded { value in
-                    if abs(self.getGesturePercentage(geometry, from: value)) > self.thresholdPercentage {
-                        if self.swipeVar.status == .yum {
-                            self.socket.like(restaurantId: self.restaurant.id)
-                        }
-                        
+                    if self.getGesturePercentage(geometry, from: value) <= -self.thresholdPercentage {
                         self.swipeVar.status = .none
                         self.onRemove(self.restaurant)
-                    }
-                    else {
+                        self.socket.like(restaurantId: self.restaurant.id)
+                    } else if self.getGesturePercentage(geometry, from: value) >= self.thresholdPercentage {
+                        self.swipeVar.status = .none
+                        self.onRemove(self.restaurant)
+                        self.socket.like(restaurantId: self.restaurant.id)
+                    } else {
                         self.translation = .zero
                     }
                 }
