@@ -14,6 +14,7 @@ const socketio = require('socket.io');
 var currentSockets = {}
 const Notification = require("./models/notification");
 const User = require("./models/user");
+const Group = require("./models/group");
 
 mongoose
     .connect(
@@ -174,6 +175,26 @@ io.on('connect', socket => {
 
         ackFn();
     });
+
+    socket.on("like", async(data, ackFn) => {
+        let userId = data.userId
+        let restaurantId = data.restaurantId
+        let groupId = data.groupId
+
+        let group = await Group.findById(groupId);
+
+        if (group.likes.has(restaurantId)) {
+            if (!group.likes.get(restaurantId).includes(userId)) {
+                group.likes.get(restaurantId).push(userId);
+                group.markModified('likes');
+                group.save();
+            }
+        } else {
+            group.likes.set(restaurantId, [userId]);
+            group.markModified('likes');
+            group.save();
+        }
+    })
 
 });
 

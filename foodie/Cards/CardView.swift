@@ -20,6 +20,7 @@ struct CardView: View {
     var index: Int
     @State private var translation: CGSize = .zero
     @ObservedObject var swipeVar: SwipeVar
+    @EnvironmentObject var socket: Socket
 
     @EnvironmentObject var restaurantManager: RestaurantManager
     
@@ -113,6 +114,10 @@ struct CardView: View {
                  }
                  .onEnded { value in
                     if abs(self.getGesturePercentage(geometry, from: value)) > self.thresholdPercentage {
+                        if self.swipeVar.status == .yum {
+                            self.socket.like(restaurantId: self.restaurant.id)
+                        }
+                        
                         self.swipeVar.status = .none
                         self.onRemove(self.restaurant)
                     }

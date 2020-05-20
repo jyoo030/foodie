@@ -60,6 +60,7 @@ class Socket: ObservableObject {
         socket.disconnect()
     }
     
+    // Friends
     func addFriend(userId: String, onComplete: ((_ notification: NotificationModel)->Void)?) {
         socket.emitWithAck("friend_request", ["from": userDefaultsManager.userId, "to": userId]).timingOut(after: 0) { data in
             let dictionary = data[0] as! NSDictionary
@@ -86,5 +87,13 @@ class Socket: ObservableObject {
             // Type cast the __NSDictionaryM to NotificationModel and pass it to onComplete
             onComplete()
         }
+    }
+    
+    // Groups
+    func like(restaurantId: String) {
+        socket.emit("like",
+                   ["userId": userDefaultsManager.userId,
+                    "restaurantId": restaurantId,
+                    "groupId": userDefaultsManager.currentGroup.id])
     }
 }
