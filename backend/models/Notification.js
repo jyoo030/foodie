@@ -7,7 +7,8 @@ const NotificationSchema = mongoose.Schema({
 		required: true
     },
     reciever: {
-        type: String,
+		type: mongoose.Schema.Types.ObjectId,
+		ref:'User',
         required: true
     },
     message: {

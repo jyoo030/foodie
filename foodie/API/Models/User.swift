@@ -33,6 +33,25 @@ struct User: Hashable, Decodable, Encodable, Identifiable {
     var friends: [User]?
     var currentGroup: PopulatedGroupModel?
     
+    init() {
+        self.id = ""
+        self.userName = ""
+        self.firstName = ""
+        self.lastName = ""
+        self.email = ""
+        self.groups = []
+        self.friends = []
+    }
+        
+    init(dictionary: NSDictionary) {
+        self.id = dictionary["_id"] as! String
+        self.userName = dictionary["userName"] as! String
+        self.firstName = dictionary["firstName"] as! String
+        self.lastName = dictionary["lastName"] as! String
+        self.email = dictionary["email"] as! String
+        self.friends = dictionary["friends"] as? [User]
+    }
+    
     private enum CodingKeys: String, CodingKey{
         case id = "_id"
         case userName = "userName"

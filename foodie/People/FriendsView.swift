@@ -12,6 +12,7 @@ struct FriendsView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var notificationManager: NotificationManager
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var socket: Socket
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
     
@@ -48,20 +49,25 @@ struct FriendsView: View {
                 List {
                     if self.notificationManager.recieved.count > 0 {
                         Section(header: Text("Friend Requests")) {
-                            ForEach(self.notificationManager.recieved.filter{$0.reciever == self.userDefaultsManager.userId}, id: \.self) {request in
+                            ForEach(self.notificationManager.recieved.filter{$0.reciever.id == self.userDefaultsManager.userId}, id: \.self) {request in
                                 HStack {
                                     Text("\(request.sender.firstName) \(request.sender.lastName)")
 
                                     Spacer()
                                     
                                     Button(action: {
-                                        self.notificationManager.respond(notificationId: request.id, response: true)
+                                        self.socket.friendRequestResponse(notificationId: request.id, accept: true) { notification in
+                                            self.userDefaultsManager.friends.append(notification.sender)
+                                            self.notificationManager.recieved.removeAll{$0.id == notification.id}
+                                        }
                                     }) {
                                         Image(systemName: "checkmark.circle")
                                     }.buttonStyle(BorderlessButtonStyle())
 
                                     Button(action: {
-                                        self.notificationManager.respond(notificationId: request.id, response: false)
+                                        self.socket.friendRequestResponse(notificationId: request.id, accept: false) { notification in
+                                            self.notificationManager.recieved.removeAll{$0.id == notification.id}
+                                        }
                                     }) {
                                         Image(systemName: "x.circle")
                                     }.buttonStyle(BorderlessButtonStyle())
@@ -73,22 +79,24 @@ struct FriendsView: View {
                     Section(header: Text("Friends")) {
                         ForEach(self.userDefaultsManager.friends.filter{($0.firstName + " " + $0.lastName + " " + $0.userName).contains(searchText) ||
                             searchText == ""}) { friend in
-                            HStack {
-                                Image("chicken")
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .cornerRadius(30)
-                                    .padding(.horizontal, 10)
-                                    .scaledToFill()
-                            
-                                VStack(alignment: .leading) {
-                                    Text("\(friend.firstName)  \(friend.lastName)")
-                                    Text("@\(friend.userName)")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
+                            NavigationLink(destination: UserProfileView(user: friend)) {
+                                HStack {
+                                    Image("chicken")
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .cornerRadius(30)
+                                        .padding(.horizontal, 10)
+                                        .scaledToFill()
+                                
+                                    VStack(alignment: .leading) {
+                                        Text("\(friend.firstName)  \(friend.lastName)")
+                                        Text("@\(friend.userName)")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
                             }
                         }
                     }

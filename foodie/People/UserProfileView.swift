@@ -23,10 +23,11 @@ struct UserProfileView: View {
     }
     
     func getFriendStatus() -> FriendStatus {
-        if notificationManager.sent.contains(where: { notification in notification.reciever == user.id }) {
-            return .pending
-        } else if userDefaultsManager.friends.contains(user) {
+        if userDefaultsManager.friends.contains(user) {
             return .friends
+        }
+        else if notificationManager.sent.contains(where: { notification in notification.reciever.id == user.id }) {
+            return .pending
         } else {
             return .addFriend
         }
@@ -66,15 +67,20 @@ struct UserProfileView: View {
                     Button(action: {
                         switch self.getFriendStatus() {
                             case FriendStatus.addFriend:
-                                self.socket.addFriend(userId: self.user.id, onComplete: {
-                                    self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+                                self.socket.addFriend(userId: self.user.id, onComplete: { notification in
+                                    self.notificationManager.sent.append(notification)
                                 })
                                 break
                             case FriendStatus.friends:
-                                // Delete friend
+                                self.socket.deleteFriend(currentUserId: self.userDefaultsManager.userId, friendId: self.user.id) {
+                                    self.userDefaultsManager.friends.removeAll{$0.id == self.user.id}
+                                }
                                 break
                             case FriendStatus.pending:
-                                self.notificationManager.respond(notificationId: self.notificationManager.sent.first(where: { $0.reciever == self.user.id })!.id, response: false)
+                                let notificationId = self.notificationManager.sent.first(where: { $0.reciever.id == self.user.id })!.id
+                                    self.socket.cancelRequest(notificationId: notificationId) { notification in
+                                   self.notificationManager.sent.removeAll{$0.id == notification.id}
+                                }
                                 break
                         }
                     }) {

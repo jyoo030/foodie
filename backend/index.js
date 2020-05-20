@@ -13,6 +13,7 @@ const socketio = require('socket.io');
 
 var currentSockets = {}
 const Notification = require("./models/notification");
+const User = require("./models/user");
 
 mongoose
     .connect(
@@ -49,16 +50,12 @@ io.on('connect', socket => {
         console.log(JSON.stringify(currentSockets))
     })
 
-    socket.on("friend_request", (data, ackFn) => {
+    socket.on("friend_request", async (data, ackFn) => {
         console.log("friend_request")
-
-        // Check user is online
-        if (Object.keys(currentSockets).includes(data.to)) {
-            io.to(currentSockets[data.to]).emit('friend_request')
-        }
 
         // Send Push Notification
         // Store in NotificationSchema
+
 
         var newNotification = Notification({
             "sender": data.from,
@@ -66,11 +63,118 @@ io.on('connect', socket => {
             "message": "friend_request"
         })
 
-        newNotification.save().then((notification, err) => {
-            if (err) console.log(err);
-            ackFn();
-        });
+        let notification = await newNotification.save();
+        await notification
+            .populate({
+                path: 'sender', 
+                select: '-groups -password -currentGroup',
+                populate: { 
+                    path: 'friends',
+                    select: '-groups -password -currentGroup'}
+            })
+            .populate({
+                path: 'reciever', 
+                select: '-groups -password -currentGroup',
+                populate: { 
+                    path: 'friends',
+                    select: '-groups -password -currentGroup'}
+            })
+            .execPopulate();
+
+        // Check user is online
+        if (Object.keys(currentSockets).includes(data.to)) {
+            // Send notification to reciever
+            io.to(currentSockets[data.to]).emit('friend_request', notification)
+        }
+
+        // Send notification to Sender
+        ackFn(notification);
     })
+
+    // pass in id of notification
+    // pass in accept: Bool
+    socket.on("friend_request_response", async (data, ackFn) => {
+        let notification =  await Notification.findById(data.id)
+            .populate({
+                path: 'sender', 
+                select: '-groups -password -currentGroup',
+                populate: { 
+                    path: 'friends',
+                    select: '-groups -password -currentGroup'}
+            })
+            .populate({
+                path: 'reciever', 
+                select: '-groups -password -currentGroup',
+                populate: { 
+                    path: 'friends',
+                    select: '-groups -password -currentGroup'}
+            });
+
+        let senderId = String(notification.sender.id)
+
+        if (data.accept) {
+            let user = await User.findById(senderId)
+
+            await user.updateOne({ "$push": {"friends": notification.reciever } }, {new: true});
+
+            await User.findByIdAndUpdate(notification.reciever.id, { "$push": {"friends": notification.sender} }, {new: true});	
+        }
+
+        // delete notification
+        await Notification.findByIdAndRemove(notification.id);
+
+        // Check user is online
+        if (Object.keys(currentSockets).includes(senderId)) {
+            io.to(currentSockets[senderId]).emit('friend_request_response', notification, data.accept)
+        }
+
+        ackFn(notification);
+    });
+
+     socket.on("cancel_friend_request", async (data, ackFn) => {
+        let notification =  await Notification.findById(data.id)
+            .populate({
+                path: 'sender', 
+                select: '-groups -password -currentGroup',
+                populate: { 
+                    path: 'friends',
+                    select: '-groups -friends -password -currentGroup'}
+            })
+            .populate({
+                path: 'reciever', 
+                select: '-groups -password -currentGroup',
+                populate: { 
+                    path: 'friends',
+                    select: '-groups -friends -password -currentGroup'}
+            });
+
+        var recieverId = String(notification.reciever)
+
+        // delete notification
+        await Notification.findByIdAndRemove(notification.id);
+
+        if (Object.keys(currentSockets).includes(recieverId)) {
+            io.to(currentSockets[recieverId]).emit('cancel_friend_request', notification)
+        }
+
+        ackFn(notification);
+    });
+
+    socket.on("delete_friend", async(data, ackFn) => {
+        let currentUserId = data.currentUserId
+        let friendId = data.friendId
+
+        await User.findByIdAndUpdate(currentUserId, { "$pull": {"friends": friendId} });	
+        await User.findByIdAndUpdate(friendId, { "$pull": {"friends": currentUserId} });	
+
+
+        if (Object.keys(currentSockets).includes(friendId)) {
+            io.to(currentSockets[friendId]).emit('delete_friend', currentUserId);
+        }
+
+        ackFn();
+    });
+
 });
 
 server.listen(port, () => console.log(`foodieAPI listening on port ${port}!`));

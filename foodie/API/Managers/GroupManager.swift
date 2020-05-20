@@ -45,8 +45,6 @@ class GroupManager : ObservableObject {
                 guard let data = data else {return}
                 let json = try JSONDecoder().decode(Response.self, from: data)
                 
-                print(json)
-                                                
                 DispatchQueue.main.async {
                     if let httpResponse = resp as? HTTPURLResponse{
                         if httpResponse.statusCode == 400 {

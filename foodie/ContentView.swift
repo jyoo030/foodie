@@ -86,12 +86,7 @@ struct ContentView: View {
                     .onAppear(perform: {
                         self.socket.establishConnection()
                         self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
-                        
-                        if self.userDefaultsManager.email.isEmpty {
-                            self.userManager.getUser(id: self.userDefaultsManager.userId)
-                         
-
-                        }
+                        self.userManager.getUser(id: self.userDefaultsManager.userId)
                     })
                 }
                 .edgesIgnoringSafeArea(.top)

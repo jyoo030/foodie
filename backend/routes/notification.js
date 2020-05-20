@@ -11,6 +11,9 @@ router.get('/id/:id', (req, res) => {
 		.populate({
 			path: 'sender', 
 			select: '-groups -friends -password -currentGroup'})
+		.populate({
+			path: 'reciever', 
+			select: '-groups -friends -password -currentGroup'})
         .then(notifications => {
         return res.status(200).json(notifications);
     })

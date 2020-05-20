@@ -172,7 +172,11 @@ router.get('/id/:id', (req, res) => {
 	User.findById(id)
 		.populate({
 			path: 'friends', 
-			select: '-groups -friends -password -currentGroup'})
+            select: '-groups -password -currentGroup',
+			populate: { 
+				path: 'friends',
+				select: '-groups -friends -password -currentGroup'}
+        })
 		.populate({
 		 	path: 'groups',
 			populate: { 

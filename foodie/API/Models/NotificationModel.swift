@@ -11,8 +11,15 @@ import Foundation
 struct NotificationModel: Decodable, Encodable, Hashable {
     var id: String = ""
     var sender: User = User()
-    var reciever: String = ""
+    var reciever: User = User()
     var message: String = ""
+    
+    init(dictionary: NSDictionary) {
+           self.id = dictionary["_id"] as! String
+           self.sender = User(dictionary: dictionary["sender"] as! NSDictionary)
+           self.reciever = User(dictionary: dictionary["reciever"] as! NSDictionary)
+           self.message = dictionary["message"] as! String
+    }
     
     private enum CodingKeys: String, CodingKey{
         case id = "_id"
