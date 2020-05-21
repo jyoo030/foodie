@@ -9,5 +9,5 @@
 import Foundation
 
 struct UrlConstants {
-    static let baseUrl = "http://localhost:3000"
+    static let baseUrl = "https://joftware-foodie.herokuapp.com"
 }
