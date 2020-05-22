@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var socket: Socket
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -19,6 +20,7 @@ struct CurrentUserProfileView: View {
                     Spacer()
                     Button(action: {
                         self.userDefaultsManager.resetUserDefaults()
+                        self.socket.closeConnection()
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("Log Out")
