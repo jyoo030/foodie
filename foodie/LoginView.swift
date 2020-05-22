@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var socket: Socket
     @EnvironmentObject var loginManager: LoginManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var userManager: UserManager
@@ -56,6 +57,7 @@ struct LoginView: View {
                 Button(action: {
                     self.loginManager.login(email: self.email, password: self.password, onComplete: { success, userId in
                         if success {
+                            self.socket.establishConnection()
                             self.userManager.getUser(id: userId!, onComplete: {
                                 self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
 
