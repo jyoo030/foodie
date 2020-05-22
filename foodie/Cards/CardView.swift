@@ -15,7 +15,7 @@ enum yumOrNah: Int {
 
 struct CardView: View {
     private var restaurant: Restaurant
-    var thresholdPercentage: CGFloat = 0.45
+    var thresholdPercentage: CGFloat = 0.3
     var index: Int
     @State private var translation: CGSize = .zero
     @Binding var isDisabled: Bool
@@ -128,7 +128,7 @@ struct CardView: View {
                                 self.swipeVar.status = .none
                             }
                             
-                            // Delay between gestures
+                            // Delay between swipes
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 self.isDisabled = false
                             }
