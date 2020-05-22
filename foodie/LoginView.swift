@@ -57,8 +57,8 @@ struct LoginView: View {
                 Button(action: {
                     self.loginManager.login(email: self.email, password: self.password, onComplete: { success, userId in
                         if success {
-                            self.socket.establishConnection()
                             self.userManager.getUser(id: userId!, onComplete: {
+                                self.socket.establishConnection()
                                 self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
 
                                 if !self.userDefaultsManager.currentGroup.id.isEmpty {

@@ -28,9 +28,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView().onAppear(perform: {
             if !self.userDefaultsManager.userId.isEmpty {
-                self.socket.establishConnection()
                 self.userManager.getUser(id: self.userDefaultsManager.userId, onComplete: {
                     self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+                    self.socket.establishConnection()
 
                     if !self.userDefaultsManager.currentGroup.id.isEmpty {
                         self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location)
