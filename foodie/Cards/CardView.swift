@@ -14,21 +14,21 @@ enum yumOrNah: Int {
 }
 
 struct CardView: View {
-    private var onRemove: (_ Restaurant: Restaurant) -> Void
     private var restaurant: Restaurant
-    var thresholdPercentage: CGFloat = 0.3
+    var thresholdPercentage: CGFloat = 0.45
     var index: Int
     @State private var translation: CGSize = .zero
+    @Binding var isDisabled: Bool
     @ObservedObject var swipeVar: SwipeVar
     @EnvironmentObject var socket: Socket
 
     @EnvironmentObject var restaurantManager: RestaurantManager
     
-    init(restaurant: Restaurant, index: Int, swipeVar: SwipeVar, onRemove: @escaping (_ Restaurant: Restaurant) -> Void) {
+    init(restaurant: Restaurant, index: Int, swipeVar: SwipeVar, isDisabled: Binding<Bool>) {
         self.restaurant = restaurant
         self.swipeVar = swipeVar
         self.index = index
-        self.onRemove = onRemove
+        self._isDisabled = isDisabled
     }
     
     private func getGesturePercentage(_ geometry: GeometryProxy, from gesture: DragGesture.Value) -> CGFloat {
@@ -102,26 +102,61 @@ struct CardView: View {
             .gesture(
                  DragGesture()
                  .onChanged { value in
-                     self.translation = value.translation
-                    if (self.getGesturePercentage(geometry, from: value)) >= self.thresholdPercentage {
-                        self.swipeVar.status = .yum
-                    } else if (self.getGesturePercentage(geometry, from: value)) <= -self.thresholdPercentage {
-                        self.swipeVar.status = .nah
-                    } else {
-                        self.swipeVar.status = .none
+                    if !self.isDisabled {
+                         self.translation = value.translation
+                        if (self.getGesturePercentage(geometry, from: value)) >= self.thresholdPercentage {
+                            self.swipeVar.status = .yum
+                        } else if (self.getGesturePercentage(geometry, from: value)) <= -self.thresholdPercentage {
+                            self.swipeVar.status = .nah
+                        } else {
+                            self.swipeVar.status = .none
+                        }
                     }
-                    
                  }
                  .onEnded { value in
-                    if self.getGesturePercentage(geometry, from: value) <= -self.thresholdPercentage {
-                        self.swipeVar.status = .none
-                        self.onRemove(self.restaurant)
-                        self.socket.like(restaurantId: self.restaurant.id)
-                    } else if self.getGesturePercentage(geometry, from: value) >= self.thresholdPercentage {
-                        self.swipeVar.status = .none
-                        self.onRemove(self.restaurant)
-                        self.socket.like(restaurantId: self.restaurant.id)
+                    if self.getGesturePercentage(geometry, from: value) >= self.thresholdPercentage {
+                        if !self.isDisabled {
+                            self.isDisabled = true
+                                               
+                            // Moves card right off screen
+                            self.swipeVar.toggle = 500
+                            
+                            // Delay for card to leave screen before deleting
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.restaurantManager.onRemoveCard(restaurant: self.restaurant)
+                                self.swipeVar.toggle = 0
+                                self.swipeVar.status = .none
+                            }
+                            
+                            // Delay between gestures
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.isDisabled = false
+                            }
+                            
+                            self.socket.like(restaurantId: self.restaurant.id)
+                        }
+                    } else if self.getGesturePercentage(geometry, from: value) <= -self.thresholdPercentage {
+                        if !self.isDisabled {
+                            self.isDisabled = true
+                            // Moves card left off screen
+                            self.swipeVar.toggle = -500
+                            
+                            // Delay for card to leave screen before deleting
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.restaurantManager.onRemoveCard(restaurant: self.restaurant)
+                                self.swipeVar.toggle = 0
+                                self.swipeVar.status = .none
+                            }
+                            
+                            // Delay between swipes
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.isDisabled = false
+                            }
+                            
+                            self.socket.like(restaurantId: self.restaurant.id)
+                        }
                     } else {
+                        self.isDisabled = false
                         self.translation = .zero
                     }
                 }

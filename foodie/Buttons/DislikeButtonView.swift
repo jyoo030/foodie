@@ -12,26 +12,39 @@ struct DislikeButtonView: View {
     @EnvironmentObject var restaurantManager: RestaurantManager
     @EnvironmentObject var socket: Socket
     @ObservedObject var swipeVar: SwipeVar = SwipeVar()
+    @State var isDisabled = false
 
     var body: some View {
         Button(
             action: {
-                if !self.restaurantManager.restaurants.isEmpty {
-                    self.swipeVar.status = .nah
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                        withAnimation(Animation.easeOut(duration: 0.15)) {
-                            self.swipeVar.degree = -10
-                            self.swipeVar.toggle = -500
+                if !self.isDisabled {
+                    self.isDisabled = true
+                    
+                    if !self.restaurantManager.restaurants.isEmpty {
+                        self.swipeVar.status = .yum
+                        
+                        // Initial delay after pressing button
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                            withAnimation(Animation.easeOut(duration: 0.15)) {
+                                self.swipeVar.degree = -10
+                                self.swipeVar.toggle = -500
+                            }
+                        }
+                        
+                        // Delay for card to leave screen
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            self.swipeVar.degree = 0
+                            self.swipeVar.toggle = 0
+                            self.swipeVar.status = .none
+                            
+                            self.socket.like(restaurantId: self.restaurantManager.restaurants.last!.id)
+                            self.restaurantManager.onRemoveCard( restaurant: self.restaurantManager.restaurants.last!)
                         }
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.swipeVar.degree = 0
-                        self.swipeVar.toggle = 0
-                        self.swipeVar.status = .none
-                        self.socket.like(restaurantId: self.restaurantManager.restaurants.last!.id)
-//                        self.restaurantManager.onRemoveCard(restaurant: self.restaurantManager.restaurants.last!)
+                    // Delay for presses between buttons
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.isDisabled = false
                     }
                 }
             },

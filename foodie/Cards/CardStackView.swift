@@ -25,6 +25,7 @@ extension Collection {
 
 struct CardStackView: View {
     var numCards = 2
+    @State var isDisabled = false
     @EnvironmentObject var restaurantManager: RestaurantManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @ObservedObject var swipeVar: SwipeVar
@@ -41,9 +42,7 @@ struct CardStackView: View {
                                     self.restaurantManager.getRestaurantReviews(yelpID: item.id)
                                 }))
                              {
-                                CardView(restaurant: item, index: index, swipeVar: self.swipeVar, onRemove: { restaurant in
-                                    self.restaurantManager.onRemoveCard(restaurant: restaurant)
-                                })
+                                CardView(restaurant: item, index: index, swipeVar: self.swipeVar, isDisabled: self.$isDisabled)
                                     .frame(width: getCardWidth(geometry, index: index, length: self.restaurantManager.restaurants.count))
                                     .offset(x: self.restaurantManager.isLastCard(index: index) ? self.swipeVar.toggle : 0, y: getCardOffset(geometry, index: index, length: self.restaurantManager.restaurants.count))
                                     .animation(.spring())
