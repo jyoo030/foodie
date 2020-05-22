@@ -10,6 +10,10 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var loginManager: LoginManager
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
+    @EnvironmentObject var notificationManager: NotificationManager
     @ObservedObject private var keyboardSlider = KeyboardSlider()
     @State private var email = ""
     @State private var password = ""
@@ -50,7 +54,17 @@ struct LoginView: View {
                 
                 // Sign in button
                 Button(action: {
-                    self.loginManager.login(email: self.email, password: self.password)
+                    self.loginManager.login(email: self.email, password: self.password, onComplete: { success, userId in
+                        if success {
+                            self.userManager.getUser(id: userId!, onComplete: {
+                                self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+
+                                if !self.userDefaultsManager.currentGroup.id.isEmpty {
+                                    self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location)
+                                }
+                            })
+                        }
+                    })
                 }) {
                     Text("Sign In")
                         .font(.headline)

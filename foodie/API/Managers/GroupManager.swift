@@ -11,19 +11,15 @@ import SwiftUI
 import Combine
 
 class GroupManager : ObservableObject {
-    @ObservedObject var userManager: UserManager
     @Published var errors: [String] = []
-    
-    init(userManager: UserManager) {
-        self.userManager = userManager
-    }
     
     func createGroup(name: String,
                      users: [String],
                      admins: [String],
                      location: String,
                      radius: Int,
-                     createdBy: String) {
+                     createdBy: String,
+                     onComplete: ((_ group: GroupModel)->())?) {
         let apiUrl = (UrlConstants.baseUrl + "/group/create/")
         guard let url = URL(string: apiUrl) else {return}
         let body = ["name" : name,
@@ -51,9 +47,9 @@ class GroupManager : ObservableObject {
                             self.errors = json.errors!
                             return
                         }
-                        
+                                                
                         self.errors = []
-                        self.userManager.getUser(id: createdBy)
+                        onComplete?(json.group!)
                     }
                 }
             } catch {

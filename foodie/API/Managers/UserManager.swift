@@ -12,20 +12,14 @@ import Combine
 
 class UserManager : ObservableObject {
     @ObservedObject var userDefaultsManager: UserDefaultsManager
-    @ObservedObject var restaurantManager: RestaurantManager
     @Published var errors: [String] = []
     @Published var searchResults: [User] = []
     
-    init(userDefaultsManager: UserDefaultsManager, restaurantManager: RestaurantManager) {
+    init(userDefaultsManager: UserDefaultsManager) {
         self.userDefaultsManager = userDefaultsManager
-        self.restaurantManager = restaurantManager
-        
-        if !userDefaultsManager.userId.isEmpty && !userDefaultsManager.currentGroup.id.isEmpty {
-            restaurantManager.getRestaurantsByRadius(radius: userDefaultsManager.currentGroup.radius, location: userDefaultsManager.currentGroup.location)
-        }
     }
     
-    func getUser(id: String) {
+    func getUser(id: String, onComplete: (() -> ())?) {
         let apiUrl = (UrlConstants.baseUrl + "/user/id/" + id)
         guard let url = URL(string: apiUrl) else {return}
         URLSession.shared.dataTask(with: url) { (data, resp, err) in
@@ -34,6 +28,7 @@ class UserManager : ObservableObject {
                 let json = try JSONDecoder().decode(User.self, from: data)
                                                  
                 DispatchQueue.main.async {
+                    self.userDefaultsManager.userId = json.id
                     self.userDefaultsManager.firstName = json.firstName
                     self.userDefaultsManager.lastName = json.lastName
                     self.userDefaultsManager.userName = json.userName
@@ -42,7 +37,7 @@ class UserManager : ObservableObject {
                     self.userDefaultsManager.friends = json.friends!
                     if (json.currentGroup != nil) {
                         self.userDefaultsManager.currentGroup = json.currentGroup!
-                        self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location)
+                    onComplete?()
                     }
                 }
             } catch {

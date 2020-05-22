@@ -16,6 +16,8 @@ struct PeopleView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var groupManager: GroupManager
     @EnvironmentObject var notificationManager: NotificationManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
+
     
     @State var currentView: PeopleEnum = .groups
     @State var addToggle = false
@@ -73,6 +75,7 @@ struct PeopleView: View {
                 AddGroupView(addGroupToggle: self.$addToggle)
                     .environmentObject(self.userDefaultsManager)
                     .environmentObject(self.groupManager)
+                    .environmentObject(self.restaurantManager)
             }
         }
     }

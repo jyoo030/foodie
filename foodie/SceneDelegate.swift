@@ -13,20 +13,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var userDefaultsManager = UserDefaultsManager()
-    lazy var restaurantManager = RestaurantManager(userDefaultsManager: userDefaultsManager)
-    lazy var loginManager = LoginManager(userDefaultsManager: userDefaultsManager)
-    lazy var userManager = UserManager(userDefaultsManager: userDefaultsManager, restaurantManager: restaurantManager)
-    lazy var groupManager = GroupManager(userManager: userManager)
-    lazy var notificationManager = NotificationManager(userManager: userManager, userDefaultsManager: userDefaultsManager)
+    var restaurantManager = RestaurantManager()
+    var groupManager = GroupManager()
+    var notificationManager = NotificationManager()
+    var loginManager = LoginManager()
+    lazy var userManager = UserManager(userDefaultsManager: userDefaultsManager)
     lazy var socket = Socket(userDefaultsManager: userDefaultsManager, notificationManager: notificationManager, userManager: userManager)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-
+        
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        let contentView = ContentView().onAppear(perform: {
+            if !self.userDefaultsManager.userId.isEmpty {
+                self.socket.establishConnection()
+                self.userManager.getUser(id: self.userDefaultsManager.userId, onComplete: {
+                    self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
+
+                    if !self.userDefaultsManager.currentGroup.id.isEmpty {
+                        self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location)
+                    }
+                })
+            }
+        })
             .environmentObject(restaurantManager)
             .environmentObject(userDefaultsManager)
             .environmentObject(loginManager)
@@ -34,8 +45,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(groupManager)
             .environmentObject(notificationManager)
             .environmentObject(socket)
-
-
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

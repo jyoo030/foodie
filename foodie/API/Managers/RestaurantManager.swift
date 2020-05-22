@@ -11,14 +11,9 @@ import SwiftUI
 import Combine
 
 class RestaurantManager : ObservableObject {
-    @ObservedObject var userDefaultsManager: UserDefaultsManager
     @Published var restaurants:[Restaurant] = []
     @Published var restaurantDetails:RestaurantDetail = RestaurantDetail()
     @Published var reviews:[Review] = []
-    
-    init(userDefaultsManager: UserDefaultsManager) {
-        self.userDefaultsManager = userDefaultsManager
-    }
     
     func getRestaurantsByRadius(radius: Int, location: String) {
         let apiUrl = ( UrlConstants.baseUrl + "/restaurant/radius/" + String(radius) + "?location=" + location).replacingOccurrences(of: " ", with: "%20")

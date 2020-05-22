@@ -11,16 +11,9 @@ import SwiftUI
 import Combine
 
 class NotificationManager : ObservableObject {
-    @ObservedObject var userManager: UserManager
-    @ObservedObject var userDefaultsManager: UserDefaultsManager
     @Published var recieved: [NotificationModel] = []
     @Published var sent: [NotificationModel] = []
     @Published var errors = []
-    
-    init(userManager: UserManager, userDefaultsManager: UserDefaultsManager) {
-        self.userManager = userManager
-        self.userDefaultsManager = userDefaultsManager
-    }
     
     func getNotifications(userId: String) {
         let apiUrl = ( UrlConstants.baseUrl + "/notification/id/" + userId)
@@ -30,6 +23,8 @@ class NotificationManager : ObservableObject {
             do {
                 guard let data = data else {return}
                 let json = try JSONDecoder().decode([NotificationModel].self, from: data)
+                
+                print(json)
                 
                 DispatchQueue.main.async {
                     self.recieved = json.filter{$0.reciever.id == userId}

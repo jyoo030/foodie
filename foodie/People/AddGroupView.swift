@@ -10,7 +10,9 @@ import SwiftUI
 
 struct AddGroupView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var restaurantManager: RestaurantManager
     @EnvironmentObject var groupManager: GroupManager
+    
     @State private var groupName: String = ""
     @State private var friends: String = ""
     @State private var location: String = ""
@@ -55,9 +57,12 @@ struct AddGroupView: View {
                         admins: [self.userDefaultsManager.userId],
                         location: self.location,
                         radius: Int(self.mileRadius * 1600),
-                        createdBy: self.userDefaultsManager.userId
-                    )
-                    
+                        createdBy: self.userDefaultsManager.userId,
+                        onComplete: { group in
+                            self.userDefaultsManager.groups.append(group)
+                            self.userDefaultsManager.currentGroup = group
+                            self.restaurantManager.getRestaurantsByRadius(radius: group.radius, location: group.location)
+                    })
                     self.addGroupToggle = false
                 }) {
                     Text("Create")

@@ -15,7 +15,6 @@ struct ContentView: View {
     @EnvironmentObject var groupManager: GroupManager
     @EnvironmentObject var notificationManager: NotificationManager
     @ObservedObject var swipeVar = SwipeVar()
-    @State var addGroupToggle = false
     
     // Remove tint from NavigationBar
     // TODO move to some delegate
@@ -51,16 +50,15 @@ struct ContentView: View {
                             .offset(y: -g.size.height*0.015)
                     }
 
-                        VStack {
-                            Spacer()
+                    VStack {
+                        Spacer()
 
-                            HStack {
-                                 DislikeButtonView(swipeVar: self.swipeVar)
-                                 Spacer()
-                                 LikeButtonView(swipeVar: self.swipeVar)
-                            }.padding(.horizontal, 50)
-                        }
-                            
+                        HStack {
+                             DislikeButtonView(swipeVar: self.swipeVar)
+                             Spacer()
+                             LikeButtonView(swipeVar: self.swipeVar)
+                        }.padding(.horizontal, 50)
+                    }
                     .navigationBarItems(leading:
                         NavigationLink(destination: PeopleView()) {
                         Image(systemName: "person.3.fill").renderingMode(.original)
@@ -69,32 +67,21 @@ struct ContentView: View {
                             .frame(width: g.size.width*0.11, height: g.size.width*0.11)
                             .colorInvert()
                             .colorMultiply(self.notificationManager.recieved.filter{$0.message == "friend_request"}.count == 0 ? .gray : .red)
-                    }, trailing:
-                        Button(action: {
-                                self.addGroupToggle = true
-                        }) {
-                            Image(systemName: "plus.circle.fill").renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: g.size.width*0.08, height: g.size.width*0.08)
-                                .colorInvert()
-                                .colorMultiply(.gray)
+                        }, trailing:
+                            Button(action: {
+                                // create message view
+                            }) {
+                                Image(systemName: "message.fill").renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: g.size.width*0.08, height: g.size.width*0.08)
+                                    .colorInvert()
+                                    .colorMultiply(.gray)
 
-                        }
-                    )
+                            })
                     .navigationBarTitle(Text(self.userDefaultsManager.currentGroup.name), displayMode: .inline)
-                    .onAppear(perform: {
-                        self.socket.establishConnection()
-                        self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
-                        self.userManager.getUser(id: self.userDefaultsManager.userId)
-                    })
                 }
                 .edgesIgnoringSafeArea(.top)
-                .sheet(isPresented: self.$addGroupToggle) {
-                    AddGroupView(addGroupToggle: self.$addGroupToggle)
-                        .environmentObject(self.userDefaultsManager)
-                        .environmentObject(self.groupManager)
-                }
             } else {
                 LoginView()
                 .navigationBarHidden(true)

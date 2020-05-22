@@ -15,8 +15,8 @@ class UserDefaultsManager : ObservableObject {
         didSet { UserDefaults.standard.set(self.userId, forKey: "userId") }
     }
     
-    @Published var currentGroup: PopulatedGroupModel = try! JSONDecoder().decode(PopulatedGroupModel.self,
-        from: (UserDefaults.standard.object(forKey: "currentGroup") ?? JSONEncoder().encode(PopulatedGroupModel())) as! Data) {
+    @Published var currentGroup: GroupModel = try! JSONDecoder().decode(GroupModel.self,
+        from: (UserDefaults.standard.object(forKey: "currentGroup") ?? JSONEncoder().encode(GroupModel())) as! Data) {
         didSet {
             let encoded = try? JSONEncoder().encode(self.currentGroup)
             UserDefaults.standard.set(encoded, forKey: "currentGroup")
@@ -57,7 +57,7 @@ class UserDefaultsManager : ObservableObject {
     
     func resetUserDefaults() {
         self.userId = ""
-        self.currentGroup = PopulatedGroupModel()
+        self.currentGroup = GroupModel()
         self.firstName = ""
         self.lastName = ""
         self.userName = ""

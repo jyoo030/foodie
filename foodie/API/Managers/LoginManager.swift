@@ -11,15 +11,10 @@ import SwiftUI
 import Combine
 
 class LoginManager : ObservableObject {
-    @ObservedObject var userDefaultsManager: UserDefaultsManager
     @Published var errors: [String] = []
     @Published var success: Bool = false
     
-    init(userDefaultsManager: UserDefaultsManager) {
-        self.userDefaultsManager = userDefaultsManager
-    }
-    
-    func login(email: String, password: String) {
+    func login(email: String, password: String, onComplete: @escaping (_ success: Bool, _ userId: String?) -> ()) {
         let apiUrl = (UrlConstants.baseUrl + "/user/login")
         guard let url = URL(string: apiUrl) else {return}
         let body = ["email" : email, "password" : password]
@@ -41,13 +36,13 @@ class LoginManager : ObservableObject {
                         if httpResponse.statusCode == 400 {
                             self.success = false
                             self.errors = json.errors!
-                            self.userDefaultsManager.userId = ""
+                            onComplete(self.success, nil)
                             return
                         }
                         
                         self.success = true
                         self.errors = []
-                        self.userDefaultsManager.userId = json.userId!
+                        onComplete(self.success, json.userId)
                     }
                 }
             } catch {
@@ -78,13 +73,11 @@ class LoginManager : ObservableObject {
                         if httpResponse.statusCode == 400 {
                             self.success = false
                             self.errors = json.errors!
-                            self.userDefaultsManager.userId = ""
                             return
                         }
                         
                         self.success = true
                         self.errors = []
-                        self.userDefaultsManager.userId = json.userId!
                     }
                 }
             } catch {

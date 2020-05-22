@@ -31,7 +31,7 @@ struct User: Hashable, Decodable, Encodable, Identifiable {
     var email: String = ""
     var groups: [GroupModel]?
     var friends: [User]?
-    var currentGroup: PopulatedGroupModel?
+    var currentGroup: GroupModel?
     
     init() {
         self.id = ""
