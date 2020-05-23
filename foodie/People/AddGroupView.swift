@@ -11,6 +11,7 @@ import SwiftUI
 struct AddGroupView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var restaurantManager: RestaurantManager
+    @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var groupManager: GroupManager
     
     @State private var groupName: String = ""
@@ -61,7 +62,10 @@ struct AddGroupView: View {
                         onComplete: { group in
                             self.userDefaultsManager.groups.append(group)
                             self.userDefaultsManager.currentGroup = group
-                            self.restaurantManager.getRestaurantsByRadius(radius: group.radius, location: group.location)
+                            self.userManager.updateRestaurantOffet(offset: 0, onComplete: {
+                                self.userDefaultsManager.restaurantOffset = 0
+                            })
+                            self.restaurantManager.getRestaurantsByRadius(radius: group.radius, location: group.location, offset: self.userDefaultsManager.restaurantOffset)
                     })
                     self.addGroupToggle = false
                 }) {

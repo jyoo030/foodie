@@ -39,6 +39,10 @@ class UserDefaultsManager : ObservableObject {
         didSet { UserDefaults.standard.set(self.email, forKey: "email") }
     }
     
+    @Published var restaurantOffset: Int = UserDefaults.standard.integer(forKey: "restaurantOffset") {
+        didSet { UserDefaults.standard.set(self.restaurantOffset, forKey: "restaurantOffset") }
+    }
+    
     @Published var groups: [GroupModel] = try! JSONDecoder().decode([GroupModel].self,
         from: (UserDefaults.standard.object(forKey: "groups") ?? JSONEncoder().encode([GroupModel()])) as! Data) {
         didSet {

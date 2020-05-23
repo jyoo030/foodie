@@ -12,4 +12,5 @@ struct Response: Decodable {
     var errors: [String]?
     var userId: String?
     var group: GroupModel?
+    var offset: Int?
 }

@@ -15,8 +15,15 @@ class RestaurantManager : ObservableObject {
     @Published var restaurantDetails:RestaurantDetail = RestaurantDetail()
     @Published var reviews:[Review] = []
     
-    func getRestaurantsByRadius(radius: Int, location: String) {
-        let apiUrl = ( UrlConstants.baseUrl + "/restaurant/radius/" + String(radius) + "?location=" + location).replacingOccurrences(of: " ", with: "%20")
+    func getRestaurantsByRadius(radius: Int, location: String, offset: Int?) {
+        var apiUrl = UrlConstants.baseUrl
+        apiUrl += "/restaurant/radius/\(String(radius))"
+        apiUrl += "?location=\(location)"
+        if offset != nil {
+            apiUrl += "&offset=\(String(offset!))"
+        }
+        apiUrl = apiUrl.replacingOccurrences(of: " ", with: "%20")
+        
         guard let url = URL(string: apiUrl) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, resp, err) in

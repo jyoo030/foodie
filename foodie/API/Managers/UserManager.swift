@@ -33,6 +33,7 @@ class UserManager : ObservableObject {
                     self.userDefaultsManager.lastName = json.lastName
                     self.userDefaultsManager.userName = json.userName
                     self.userDefaultsManager.email = json.email
+                    self.userDefaultsManager.restaurantOffset = json.restaurantOffset
                     self.userDefaultsManager.groups = json.groups!
                     self.userDefaultsManager.friends = json.friends!
                     if (json.currentGroup != nil) {
@@ -42,6 +43,32 @@ class UserManager : ObservableObject {
                 }
             } catch {
                 print("caught in UserManager.getUser: \(error)")
+            }
+        }.resume()
+    }
+    
+    func updateRestaurantOffet(offset: Int, onComplete: @escaping(() -> ())) {
+        let apiUrl = (UrlConstants.baseUrl + "/user/offset")
+        guard let url = URL(string: apiUrl) else {return}
+        let body = [ "userId" : self.userDefaultsManager.userId,
+                     "offset" : offset ] as [String : Any]
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: body, options: []) else {
+            return
+        }
+        request.httpBody = httpBody
+        
+        URLSession.shared.dataTask(with: request) { (data, resp, err) in
+            do {
+                DispatchQueue.main.async {
+                    if let httpResponse = resp as? HTTPURLResponse{
+                        if httpResponse.statusCode == 200 {
+                            onComplete()
+                        }
+                    }
+                }
             }
         }.resume()
     }

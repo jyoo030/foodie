@@ -62,7 +62,7 @@ struct LoginView: View {
                                 self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
 
                                 if !self.userDefaultsManager.currentGroup.id.isEmpty {
-                                    self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location)
+                                    self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location, offset: self.userDefaultsManager.restaurantOffset)
                                 }
                             })
                         }

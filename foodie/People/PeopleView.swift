@@ -17,6 +17,7 @@ struct PeopleView: View {
     @EnvironmentObject var groupManager: GroupManager
     @EnvironmentObject var notificationManager: NotificationManager
     @EnvironmentObject var restaurantManager: RestaurantManager
+    @EnvironmentObject var userManager: UserManager
 
     
     @State var currentView: PeopleEnum = .groups
@@ -76,6 +77,7 @@ struct PeopleView: View {
                     .environmentObject(self.userDefaultsManager)
                     .environmentObject(self.groupManager)
                     .environmentObject(self.restaurantManager)
+                    .environmentObject(self.userManager)
             }
         }
     }
