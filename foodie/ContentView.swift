@@ -21,20 +21,20 @@ struct ContentView: View {
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
-        
+
         appearance.largeTitleTextAttributes = [
             .font : UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor : UIColor.black
         ]
-        
+
         appearance.titleTextAttributes = [
             .font : UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor : UIColor.black
         ]
-        
+
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().standardAppearance = appearance
-        
+
         UINavigationBar.appearance().tintColor = .white
     }
     
@@ -42,15 +42,14 @@ struct ContentView: View {
         NavigationView {
             if !self.userDefaultsManager.userId.isEmpty {
                 GeometryReader { g in
-                    ZStack {
-                        BottomCard()
-                            .offset(y: -g.size.height*0.044)
-
-                        CardStackView(swipeVar: self.swipeVar)
-                            .offset(y: -g.size.height*0.015)
-                    }
-
                     VStack {
+                        ZStack {
+                            BottomCard()
+
+                            CardStackView(swipeVar: self.swipeVar)
+                        }
+
+                        
                         Spacer()
 
                         HStack {
@@ -81,7 +80,6 @@ struct ContentView: View {
                             })
                     .navigationBarTitle(Text(self.userDefaultsManager.currentGroup.name), displayMode: .inline)
                 }
-                .edgesIgnoringSafeArea(.top)
             } else {
                 LoginView()
                 .navigationBarHidden(true)
