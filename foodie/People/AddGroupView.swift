@@ -7,6 +7,14 @@
 //
 
 import SwiftUI
+import MapKit
+import UIKit
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 struct AddGroupView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
@@ -23,8 +31,13 @@ struct AddGroupView: View {
     @State var searchText: String = ""
     @State var highlightedFriend: User?
     @State var isEnabled: Bool = true
+    
+    @State private var isLocationSearch = false
+    @State private var isLocationSelected = false
 
     @Binding var addGroupToggle: Bool
+    
+    @ObservedObject var locationSearch = LocalSearchCompleterService()
     
     func getFilteredFriendsList(searchText: String) -> [User] {
         if searchText.isEmpty {
@@ -35,7 +48,16 @@ struct AddGroupView: View {
     }
     
     var body: some View {
-        VStack() {
+        // Use this to call map suggestions on location state change
+        let locationBinding = Binding<String>(get: {
+            self.location
+        }, set: {
+            self.location = $0
+            self.locationSearch.autocomplete(search: self.location)
+        })
+
+        
+        return VStack() {
             HStack {
                 Button(action: {
                     self.addGroupToggle = false
@@ -46,28 +68,30 @@ struct AddGroupView: View {
                 Spacer()
                 
                 Button(action: {
-                    var users = [self.userDefaultsManager.userId]
-                    
-                    for (friend) in self.selectedFriends {
-                        users.append(friend.id)
+                    if self.isLocationSelected && !self.groupName.isEmpty {
+                        var users = [self.userDefaultsManager.userId]
+
+                        for (friend) in self.selectedFriends {
+                            users.append(friend.id)
+                        }
+
+                        self.groupManager.createGroup(
+                            name: self.groupName,
+                            users: users,
+                            admins: [self.userDefaultsManager.userId],
+                            location: self.location,
+                            radius: Int(self.mileRadius * 1600),
+                            createdBy: self.userDefaultsManager.userId,
+                            onComplete: { group in
+                                self.userDefaultsManager.groups.append(group)
+                                self.userDefaultsManager.currentGroup = group
+                                self.userManager.updateRestaurantOffet(offset: 0, onComplete: {
+                                    self.userDefaultsManager.restaurantOffset = 0
+                                })
+                                self.restaurantManager.getRestaurantsByRadius(radius: group.radius, location: group.location, offset: self.userDefaultsManager.restaurantOffset)
+                        })
+                        self.addGroupToggle = false
                     }
-                    
-                    self.groupManager.createGroup(
-                        name: self.groupName,
-                        users: users,
-                        admins: [self.userDefaultsManager.userId],
-                        location: self.location,
-                        radius: Int(self.mileRadius * 1600),
-                        createdBy: self.userDefaultsManager.userId,
-                        onComplete: { group in
-                            self.userDefaultsManager.groups.append(group)
-                            self.userDefaultsManager.currentGroup = group
-                            self.userManager.updateRestaurantOffet(offset: 0, onComplete: {
-                                self.userDefaultsManager.restaurantOffset = 0
-                            })
-                            self.restaurantManager.getRestaurantsByRadius(radius: group.radius, location: group.location, offset: self.userDefaultsManager.restaurantOffset)
-                    })
-                    self.addGroupToggle = false
                 }) {
                     Text("Create")
                 }
@@ -93,7 +117,9 @@ struct AddGroupView: View {
                     .font(.headline)
                     .multilineTextAlignment(.center)
 
-                TextField("Location", text: self.$location)
+                TextField("Location", text: locationBinding, onEditingChanged: { (changed) in
+                    self.isLocationSearch.toggle()
+                })
                     .multilineTextAlignment(.center)
 
                 VStack() {
@@ -146,32 +172,43 @@ struct AddGroupView: View {
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(10.0)
                     
-                    
-                    List(getFilteredFriendsList(searchText: self.searchText)) { friend in
-                        Button(action: {
-                            if self.selectedFriends.contains(friend) {
-                                self.selectedFriends.removeAll(where: { $0.id == friend.id })
-                                self.highlightedFriend = nil
-                            } else {
-                                self.selectedFriends.append(friend)
-                            }
-                            self.searchText = ""
-                        }) {
-                            HStack {
-                                Image("chicken")
-                                    .resizable()
-                                    .frame(width:40, height:40)
-                                    .cornerRadius(40)
-                                 
-                                Text("\(friend.firstName) \(friend.lastName)").padding(.leading, 10)
-                                
-                                Spacer()
-                                
+                    if isLocationSearch == false {
+                        List(getFilteredFriendsList(searchText: self.searchText)) { friend in
+                            Button(action: {
                                 if self.selectedFriends.contains(friend) {
-                                    Image(systemName: "checkmark.circle")
+                                    self.selectedFriends.removeAll(where: { $0.id == friend.id })
+                                    self.highlightedFriend = nil
                                 } else {
-                                    Image(systemName: "ellipsis")
+                                    self.selectedFriends.append(friend)
                                 }
+                                self.searchText = ""
+                            }) {
+                                HStack {
+                                    Image("chicken")
+                                        .resizable()
+                                        .frame(width:40, height:40)
+                                        .cornerRadius(40)
+                                     
+                                    Text("\(friend.firstName) \(friend.lastName)").padding(.leading, 10)
+                                    
+                                    Spacer()
+                                    
+                                    if self.selectedFriends.contains(friend) {
+                                        Image(systemName: "checkmark.circle")
+                                    } else {
+                                        Image(systemName: "ellipsis")
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        List(locationSearch.results, id: \.self) { address in
+                            Button(action: {
+                                self.isLocationSelected.toggle()
+                                self.location = address
+                                UIApplication.shared.endEditing()
+                            }) {
+                                Text(address)
                             }
                         }
                     }
