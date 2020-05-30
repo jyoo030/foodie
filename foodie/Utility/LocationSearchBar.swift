@@ -31,7 +31,6 @@ class LocalSearchCompleterService: NSObject, MKLocalSearchCompleterDelegate, Obs
     }
 
     func autocomplete(search: String) {
-        print(search)
         completer.queryFragment = search
     }
 
