@@ -11,6 +11,7 @@ import MapKit
 
 struct RestaurantList: Decodable {
     var businesses: [Restaurant]
+    var total: Int
 }
 
 struct Restaurant: Decodable, Identifiable {

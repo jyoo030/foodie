@@ -13,10 +13,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var userDefaultsManager = UserDefaultsManager()
-    var restaurantManager = RestaurantManager()
     var groupManager = GroupManager()
     var notificationManager = NotificationManager()
     var loginManager = LoginManager()
+    lazy var restaurantManager = RestaurantManager(userDefaultsManager: userDefaultsManager, groupManager: groupManager)
     lazy var userManager = UserManager(userDefaultsManager: userDefaultsManager)
     lazy var socket = Socket(userDefaultsManager: userDefaultsManager, notificationManager: notificationManager, userManager: userManager)
 
@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     self.socket.establishConnection()
  
                     if !self.userDefaultsManager.currentGroup.id.isEmpty {
-                        self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location, offset: self.userDefaultsManager.restaurantOffset)
+                        self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location, offset: self.userDefaultsManager.currentGroup.offsets[self.userDefaultsManager.userId])
                     }
                 })
             }

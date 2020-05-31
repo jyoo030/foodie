@@ -15,6 +15,7 @@ struct GroupModel: Decodable, Encodable, Identifiable, Hashable {
     var likes: [String:[String]] = [:]
     var location: String = ""
     var radius: Int = 2000
+    var offsets: [String:Int] = [:]
     
     private enum CodingKeys: String, CodingKey{
         case id = "_id"
@@ -23,5 +24,6 @@ struct GroupModel: Decodable, Encodable, Identifiable, Hashable {
         case likes = "likes"
         case location = "location"
         case radius = "radius"
+        case offsets = "offsets"
     }
 }

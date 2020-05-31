@@ -19,7 +19,6 @@ struct User: Hashable, Decodable, Encodable, Identifiable {
         hasher.combine(firstName)
         hasher.combine(lastName)
         hasher.combine(email)
-        hasher.combine(restaurantOffset)
         hasher.combine(groups)
         hasher.combine(friends)
         hasher.combine(currentGroup)
@@ -30,7 +29,6 @@ struct User: Hashable, Decodable, Encodable, Identifiable {
     var firstName: String = ""
     var lastName: String = ""
     var email: String = ""
-    var restaurantOffset: Int = 0
     var groups: [GroupModel]?
     var friends: [User]?
     var currentGroup: GroupModel?
@@ -41,7 +39,6 @@ struct User: Hashable, Decodable, Encodable, Identifiable {
         self.firstName = ""
         self.lastName = ""
         self.email = ""
-        self.restaurantOffset = 0
         self.groups = []
         self.friends = []
     }
@@ -52,7 +49,6 @@ struct User: Hashable, Decodable, Encodable, Identifiable {
         self.firstName = dictionary["firstName"] as! String
         self.lastName = dictionary["lastName"] as! String
         self.email = dictionary["email"] as! String
-        self.restaurantOffset = dictionary["restaurantOffset"] as! Int
         self.friends = dictionary["friends"] as? [User]
     }
     
@@ -62,7 +58,6 @@ struct User: Hashable, Decodable, Encodable, Identifiable {
         case firstName = "firstName"
         case lastName = "lastName"
         case email = "email"
-        case restaurantOffset = "restaurantOffset"
         case groups = "groups"
         case friends = "friends"
         case currentGroup = "currentGroup"

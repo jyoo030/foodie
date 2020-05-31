@@ -23,6 +23,7 @@ struct CardView: View {
     @EnvironmentObject var socket: Socket
 
     @EnvironmentObject var restaurantManager: RestaurantManager
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     
     init(restaurant: Restaurant, index: Int, swipeVar: SwipeVar, isDisabled: Binding<Bool>) {
         self.restaurant = restaurant

@@ -85,10 +85,7 @@ struct AddGroupView: View {
                             onComplete: { group in
                                 self.userDefaultsManager.groups.append(group)
                                 self.userDefaultsManager.currentGroup = group
-                                self.userManager.updateRestaurantOffet(offset: 0, onComplete: {
-                                    self.userDefaultsManager.restaurantOffset = 0
-                                })
-                                self.restaurantManager.getRestaurantsByRadius(radius: group.radius, location: group.location, offset: self.userDefaultsManager.restaurantOffset)
+                                self.restaurantManager.getRestaurantsByRadius(radius: group.radius, location: group.location, offset: self.userDefaultsManager.currentGroup.offsets[self.userDefaultsManager.userId])
                         })
                         self.addGroupToggle = false
                     }
