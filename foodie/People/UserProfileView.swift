@@ -79,7 +79,7 @@ struct UserProfileView: View {
                             case FriendStatus.pending:
                                 let notificationId = self.notificationManager.sent.first(where: { $0.reciever.id == self.user.id })!.id
                                     self.socket.cancelRequest(notificationId: notificationId) { notification in
-                                   self.notificationManager.sent.removeAll{$0.id == notification.id}
+                                        self.notificationManager.sent.removeAll{$0.id == notification.id}
                                 }
                                 break
                         }
