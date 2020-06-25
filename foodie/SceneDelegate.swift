@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.userManager.getUser(id: self.userDefaultsManager.userId, onComplete: {
                     self.notificationManager.getNotifications(userId: self.userDefaultsManager.userId)
                     self.socket.establishConnection()
- 
+
                     if !self.userDefaultsManager.currentGroup.id.isEmpty {
                         self.restaurantManager.getRestaurantsByRadius(radius: self.userDefaultsManager.currentGroup.radius, location: self.userDefaultsManager.currentGroup.location, offset: self.userDefaultsManager.currentGroup.offsets[self.userDefaultsManager.userId])
                     }

@@ -17,6 +17,8 @@ class Socket: ObservableObject {
         
         socket.on(clientEvent: .connect) {data, ack in
             socket.emit("user_online", ["userId": userDefaultsManager.userId, "socketId": socket.sid])
+            
+            self.joinRoom()
         }
         
         socket.on("friend_request") {data, ack in
@@ -45,6 +47,20 @@ class Socket: ObservableObject {
         socket.on("delete_friend") { data, ack in
             let friendId = data[0] as! String
             self.userDefaultsManager.friends.removeAll{$0.id == friendId }
+        }
+        
+        socket.on("friend_liked") { data, ack in
+            let friendId = data[0] as! String
+            let restaurantId = data[1] as! String
+            
+            let restaurantLikes = self.userDefaultsManager.currentGroup.likes[restaurantId]
+            if restaurantLikes != nil {
+                if !(self.userDefaultsManager.currentGroup.likes[restaurantId]?.contains(friendId))! {
+                    self.userDefaultsManager.currentGroup.likes[restaurantId]?.append(friendId)
+                }
+            } else {
+                self.userDefaultsManager.currentGroup.likes[restaurantId] = [friendId]
+            }
         }
     }
      
@@ -95,5 +111,15 @@ class Socket: ObservableObject {
                    ["userId": userDefaultsManager.userId,
                     "restaurantId": restaurantId,
                     "groupId": userDefaultsManager.currentGroup.id])
+        
+        socket.emit("join",
+        ["roomId": userDefaultsManager.currentGroup.id])
+    }
+    
+    // Rooms
+    func joinRoom() {
+        socket.emit("join",
+                    ["roomId": userDefaultsManager.currentGroup.id])
     }
 }
+

@@ -46,6 +46,23 @@ struct CardView: View {
                         .aspectRatio(contentMode: .fill)
                     .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 0.98)
 
+                    VStack {
+                        HStack {
+                            Spacer()
+                            ForEach((self.userDefaultsManager.currentGroup.likes[self.restaurant.id]?.filter{$0 != self.userDefaultsManager.userId}) ?? [], id: \.self) { friend in
+                                Image("chicken")
+                                .renderingMode(.original)
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .cornerRadius(30)
+                                .padding(.horizontal, 10)
+                                .scaledToFill()
+                            }
+                            
+                        }
+                        Spacer()
+                    }.padding()
+
 
                     // Yum or Nah
                     VStack {
